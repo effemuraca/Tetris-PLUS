@@ -1,5 +1,5 @@
 # nome_progetto
 ## Legenda
 
-- regolamento (gpt): vari regolamenti creati da ChatGPT per il gioco
-- icons: png vari
+- rules (gpt): various rules set from ChatGPT
+- icons: various png 
