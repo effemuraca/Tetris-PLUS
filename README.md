@@ -2,3 +2,4 @@
 ## Legenda
 
 - regolamento (gpt): vari regolamenti creati da ChatGPT per il gioco
+- icons: png vari
