@@ -1,2 +1,3 @@
-# Icons from flaticon.com
-## Most of them from vectorsmarket15
+Icons from flaticon.com
+
+- Most of them from vectorsmarket15
