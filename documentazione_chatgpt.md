@@ -23,9 +23,11 @@ Gli utenti dovranno compilare un modulo che conterrà le seguenti informazioni r
 - Recapito telefonico o indirizzo email per la conferma della prenotazione.
 - Eventuali richieste speciali o note aggiuntive.
 
-	d. Controllo Disponibilità
-Il sistema effettuerà un controllo in tempo reale per verificare la disponibilità del tavolo e dell'orario selezionati prima di confermare la prenotazione.
-Nel caso in cui il tavolo o l'orario scelto non sia più disponibile, il cliente verrà informato e avrà la possibilità di scegliere un altro orario o una data alternativa.
+      d. Controllo Disponibiltà
+Il sistema effettuerà un controllo in tempo reale per verificare la disponibilità del tavolo e 
+dell'orario selezionati prima di confermare la prenotazione.
+Nel caso in cui il tavolo o l'orario scelto non sia più disponibile, il cliente verrà informato e 
+avrà la possibilità di scegliere un altro orario o una data alternativa.
 
 	e. Conferma via Email
 Dopo aver completato la prenotazione, il sistema invierà automaticamente una email di conferma al cliente.
