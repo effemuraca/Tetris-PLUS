@@ -1,22 +1,22 @@
-Documentazione Completa del Progetto - Sistema di Prenotazione per un Ristorante
+# Documentazione Completa del Progetto - Sistema di Prenotazione per un Ristorante
 
-1. Introduzione
+## 1. Introduzione 
 Il sistema di prenotazione per il ristorante è un'applicazione web che mira a semplificare il processo di prenotazione dei tavoli per i clienti 
 e a ottimizzare la gestione delle prenotazioni per il personale del ristorante. Il sistema consentirà agli utenti di selezionare la data e 
 l'orario desiderati, fornendo le informazioni necessarie per effettuare la prenotazione in modo rapido e intuitivo. Saranno utilizzati i linguaggi 
 di programmazione HTML, CSS, JavaScript, PHP e SQL per implementare tutte le funzionalità richieste.
 
-2. Funzionalità Principali
+## 2. Funzionalità Principali
 	a. Calendario di Prenotazione
 Il calendario di prenotazione mostrerà in modo chiaro le date disponibili per le prenotazioni.
 I giorni già prenotati o i giorni di chiusura del ristorante saranno distintamente segnalati e non selezionabili.
 I clienti potranno selezionare una data disponibile per procedere alla prenotazione del tavolo.
 
-  b. Selezione dell'Orario
+  	b. Selezione dell'Orario
 Dopo aver scelto la data, gli utenti potranno selezionare l'orario desiderato da un elenco di intervalli di tempo prestabiliti.
 Ogni intervallo di tempo avrà una capacità massima di tavoli disponibili per evitare sovraffollamenti.
 	
-	c. Modulo di Prenotazione
+  	c. Modulo di Prenotazione
 Gli utenti dovranno compilare un modulo che conterrà le seguenti informazioni richieste:
 - Nome completo dell'utente.
 - Numero di persone per la prenotazione.
@@ -43,7 +43,7 @@ Il sistema offrirà una funzionalità di ricerca che consentirà agli utenti di 
 	h. Gestione dei Tavoli
 Il sistema permetterà al personale del ristorante di gestire la disponibilità dei tavoli in base al numero di posti e agli orari di apertura.
 
-3. Utilizzo dei Linguaggi
+## 3. Utilizzo dei Linguaggi
 Il progetto sfrutterà i seguenti linguaggi di programmazione:
 
 	a. HTML e CSS
@@ -62,7 +62,7 @@ Sarà responsabile della logica di prenotazione, del controllo di disponibilità
 Sarà utilizzato per creare e gestire un database relazionale che conterrà le informazioni relative alle prenotazioni e agli utenti.
 Le tabelle del database includeranno campi come ID prenotazione, nome del cliente, data, orario, numero di persone, email, note, ecc.
 
-4. Sicurezza
+## 4. Sicurezza
 La sicurezza è un aspetto cruciale del progetto per proteggere le informazioni personali dei clienti e prevenire attacchi informatici. 
 Saranno implementate le seguenti misure di sicurezza:
 - Crittografia dei dati sensibili per proteggerli durante la trasmissione da e verso il server.
