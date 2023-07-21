@@ -127,7 +127,49 @@ Punteggi aggiuntivi: Si possono assegnare punti aggiuntivi per risposte particol
 
 Modalità espansioni: Sono disponibili espansioni con ulteriori domande e categorie tematiche per arricchire il gioco.
 
+
 Conclusioni:
 
 Il Trivial Pursuit è un gioco coinvolgente ed educativo che offre divertimento a giocatori di tutte le età. La nostra implementazione semplificata del gioco utilizzando tecnologie web come HTML, CSS, JavaScript, PHP ed SQL offre un'esperienza di gioco interattiva. Esplorare le diverse categorie di domande aiuta a migliorare la conoscenza generale e stimola la curiosità dei giocatori. Buon divertimento giocando al Trivial Pursuit e sfidando i vostri amici a dimostrare la vostra cultura generale!
+
+Dettagli implementativi del gioco Trivial Pursuit
+
+1. Struttura delle domande:
+
+Nella tabella questions del database, il campo category conterrà il nome della categoria a cui appartiene la domanda (es. storia, geografia, scienza, arte, sport, ecc.).
+Il campo question_text conterrà il testo della domanda.
+I campi correct_answer, wrong_answer1, wrong_answer2 e wrong_answer3 conterranno le diverse risposte possibili alla domanda, inclusa quella corretta.
+2. Implementazione del gioco:
+
+All'inizio del gioco, il giocatore viene reindirizzato alla pagina game.php dove inizierà a rispondere alle domande.
+Utilizzando JavaScript, viene effettuata una chiamata AJAX a includes/get_question.php per ottenere una domanda casuale dal database.
+La domanda e le risposte vengono quindi visualizzate nel layout del gioco, permettendo al giocatore di selezionare una risposta.
+Dopo aver risposto a una domanda, il punteggio viene aggiornato in base alla correttezza della risposta.
+Il gioco continua finché il giocatore ha risposto a un numero prestabilito di domande (es. 10 domande).
+Alla fine delle domande, il punteggio totale ottenuto dal giocatore viene mostrato all'utente.
+3. Shuffle delle risposte:
+
+Per evitare che le risposte vengano sempre mostrate nello stesso ordine, le opzioni vengono "mescolate" in modo casuale utilizzando JavaScript prima di mostrarle al giocatore.
+Ciò rende il gioco più interessante e impegnativo, poiché il giocatore non può fare affidamento sulla posizione fissa delle risposte corrette.
+4. Gestione delle risposte corrette:
+
+Una volta che il giocatore seleziona una risposta, viene effettuato un controllo JavaScript per verificare se la risposta è corretta.
+Se la risposta è corretta, il punteggio del giocatore viene incrementato e il gioco passa alla domanda successiva.
+In caso contrario, il giocatore può avere un'altra possibilità di risposta o il turno passa al prossimo giocatore.
+5. Controllo dei limiti di tempo (opzionale):
+
+Per rendere il gioco più competitivo, è possibile implementare un timer per il giocatore, consentendogli solo un certo periodo di tempo per rispondere a ciascuna domanda.
+Se il timer scade senza che il giocatore abbia risposto, il turno passa automaticamente al prossimo giocatore.
+6. Risultati finali:
+
+Alla fine delle domande, il punteggio totale ottenuto dal giocatore viene mostrato in una finestra di dialogo o in una pagina separata.
+Può essere visualizzato il punteggio totale o la percentuale di risposte corrette sul totale delle domande.
+7. Opzioni avanzate (opzionale):
+
+Per rendere il gioco più complesso e vario, è possibile aggiungere opzioni avanzate, come la possibilità di scegliere diverse modalità di gioco (facile, medio, difficile), la possibilità di giocare in modalità a squadre, l'aggiunta di espansioni con categorie aggiuntive e domande più complesse, e la possibilità di creare account utente per tenere traccia dei punteggi personali e globali.
+8. Responsività:
+
+Si può assicurare che il gioco sia responsivo e adatto a diverse dimensioni di schermo, consentendo a giocatori su dispositivi mobili o desktop di partecipare senza problemi.
+Implementando questi dettagli, il gioco Trivial Pursuit diventa coinvolgente e divertente, con sfide di conoscenza generale e la possibilità di competere con amici e familiari. Ricordarsi di gestire errori e casi eccezionali, ad esempio, se il database non è raggiungibile o se il numero di domande nel database è insufficiente per completare il gioco. Con cura e creatività, è possibile creare un'esperienza di gioco coinvolgente e stimolante per i giocatori.
+
 
