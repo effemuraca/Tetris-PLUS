@@ -1,3 +1,0 @@
-- Regole: https://www.migliorigiochi.eu/giochi/giochi-percorso/trivial-pursuit/
-- Domande e risposte: https://github.com/uberspot/OpenTriviaQA/tree/master
-- Risorse: https://github.com/KillianMeersman/Trivial-Time/tree/master, 
