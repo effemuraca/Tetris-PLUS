@@ -1,8 +1,6 @@
-# Prenotazioni Ristorante
+# Tetris PLUS
 ## Legenda
 
-- documentazione_chatgpt: specifiche del progetto (da ChatGPT)
-- regolamento
-- regolamento_ufficiale
-- documentazione_chatgpt
-- link
+- tetris: specifiche del progetto 
+- documentazione: documentazione da presentare alla discussione
+- risorse: risorse utili alla realizzazione del progetto
