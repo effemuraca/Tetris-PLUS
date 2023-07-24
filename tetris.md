@@ -6,7 +6,7 @@ Questo documento offre una guida completa per gli sviluppatori interessati a imp
 ## Regole del gioco
 La versione modificata del Tetris manterrà le regole di base del gioco originale, ma includerà alcune variazioni e nuove funzionalità. Di seguito sono elencate le regole principali del gioco:
             
-              Scopo del gioco
+### Scopo del gioco
 L'obiettivo del Tetris è di completare righe orizzontali sul campo di gioco, utilizzando blocchi di varie forme, chiamati "tetromini". Una riga viene completata quando non ci sono spazi vuoti tra i blocchi.
 Comandi di gioco: Il giocatore può controllare il movimento e la rotazione dei tetromini utilizzando i seguenti comandi:
 - Freccia sinistra: Muovere il tetromino verso sinistra.
@@ -15,18 +15,18 @@ Comandi di gioco: Il giocatore può controllare il movimento e la rotazione dei 
 - Freccia su: Ruotare il tetromino in senso orario.
 - Barra spaziatrice: Far cadere immediatamente il tetromino fino alla fine del campo di gioco.
 
-          Campo di gioco
+### Campo di gioco
 Il campo di gioco è una griglia rettangolare, di solito 10 colonne per 20 righe, dove i tetromini cadono dall'alto. I tetromini possono muoversi solo lateralmente all'interno del campo di gioco e cadono verticalmente verso il basso.
 Fine del gioco: Il gioco termina quando i tetromini raggiungono la parte superiore del campo di gioco e non possono più cadere.
 
-          Punteggio
+### Punteggio
 I punti vengono assegnati per ogni riga completata. Più righe vengono completate contemporaneamente, più punti si ottengono. Ad esempio, completando una riga si guadagnano 100 punti, completando due righe contemporaneamente si guadagnano 300 punti e così via.
 All’aumentare del punteggio, inoltre, la difficoltà aumenta: la velocità di caduta dei tetromini aumenta e il numero di blocchi speciali negativi cresce.
 
 ## Nuove funzionalità
 Nella versione modificata del Tetris, verranno introdotte nuove funzionalità per rendere il gioco ancora più interessante:
                   
-              Blocchi speciali
+### Blocchi speciali
 Saranno introdotti nuovi tipi di blocchi speciali con abilità uniche. Gli sviluppatori dovranno implementare la logica di ogni blocco speciale, ad esempio:
 - Block Destroyer: Un blocco in grado di distruggere tutti i blocchi nella sua stessa riga.
 - Color Changer: Un blocco in grado di cambiare il colore di tutti i blocchi della stessa forma nel campo di gioco.
@@ -35,9 +35,8 @@ Saranno introdotti nuovi tipi di blocchi speciali con abilità uniche. Gli svilu
 - Time Accelerator: Un blocco che all’impatto con altri tetromini o con il terreno velocizza la normale caduta al terreno dei tetromini
 - Mist Block: Un blocco che all’impatto con altri tetromini o con il terreno nasconde le ultime x file del tabellone, impedendo la visione della parte più bassa.
 - Steel Block: Un tetromino speciale, identificato da un colore grigio metallo, che non può essere eliminato, neanche se si completa la fila in cui è presente
-
   
-      	Nuove modalità:
+  ### Nuove modalità:
 - Modalità multiplayer: Verrà implementata una modalità multiplayer che consentirà ai giocatori di sfidarsi in tempo reale. Gli sviluppatori dovranno gestire la comunicazione tra i giocatori, sincronizzando lo stato del gioco tra i client e il server.
 - Modalità a tempo: Sarà aggiunta una modalità a tempo, dove i giocatori dovranno completare il maggior numero di righe possibile entro un limite di tempo. Gli sviluppatori dovranno implementare il timer e gestire la terminazione del gioco quando il tempo scade.
 - Classifica dei migliori giocatori: Sarà inclusa una classifica dei migliori giocatori per entrambe le modalità di gioco, singolo giocatore e multiplayer. Gli sviluppatori dovranno creare un sistema per salvare i punteggi nel database SQL e recuperarli per mostrare la classifica.
