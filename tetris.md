@@ -39,6 +39,7 @@ Saranno introdotti nuovi tipi di blocchi speciali con abilità uniche. Gli svilu
 ### Nuove modalità:
 - Modalità multiplayer: Verrà implementata una modalità multiplayer che consentirà ai giocatori di sfidarsi in tempo reale. Gli sviluppatori dovranno gestire la comunicazione tra i giocatori, sincronizzando lo stato del gioco tra i client e il server.
 - Modalità a tempo: Sarà aggiunta una modalità a tempo, dove i giocatori dovranno completare il maggior numero di righe possibile entro un limite di tempo. Gli sviluppatori dovranno implementare il timer e gestire la terminazione del gioco quando il tempo scade.
+- Modalità copia: La sfida consiste nel replicare piu possibile dei pattern predefiniti, e si ottengono punti in proporzione a quanto simile il pattern generato è rispetto a quello assegnato.
 - Classifica dei migliori giocatori: Sarà inclusa una classifica dei migliori giocatori per entrambe le modalità di gioco, singolo giocatore e multiplayer. Gli sviluppatori dovranno creare un sistema per salvare i punteggi nel database SQL e recuperarli per mostrare la classifica.
 
 ## Architettura del progetto
