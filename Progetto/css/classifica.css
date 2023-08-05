@@ -1,0 +1,31 @@
+thead td{
+    font-weight: bold;
+    background-color: rgba(238, 130, 238, 0.9);
+}
+
+table{
+    border-collapse: collapse;
+    
+}
+
+td{
+    border: 0.05em solid black;
+    padding: 1em;
+    text-align: center;
+}
+
+tbody tr:nth-child(odd){
+    background-color: rgba(119, 136, 153, 0.9);
+}
+
+tbody tr:nth-child(odd) > td{
+    color: rgb(222, 184, 135);
+}
+
+tbody tr:nth-child(even){
+    background-color: rgba(222, 184, 135, 0.9);
+}
+
+tbody tr:nth-child(even) > td{
+    color: rgb(119, 136, 153);
+}
