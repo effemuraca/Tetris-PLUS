@@ -1,9 +1,18 @@
-li {
-    font-size: 2em;
-    margin: 0.75em;
-    padding: 1em;
+button {
+    color: rgb(245, 245, 245);
+    font-size: 3em;
+    padding: 0.25em;
+    margin: 0.025em;
+    border: 0.05em solid rgb(245, 245, 245);
+    background-color: rgba(124, 17, 224, 0.9);
+    text-align: left;
 }
 
 a {
     color: rgb(245, 245, 245);
+    text-decoration: none;
+}
+
+ul{
+    list-style-type: none ;
 }
