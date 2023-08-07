@@ -22,9 +22,9 @@ a {
 
 ul{
     list-style-type: none ;
+    float: left;
 }
 
 body > img{
-    float: right;
     width: 20em;
 }
