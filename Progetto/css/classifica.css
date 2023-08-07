@@ -1,3 +1,7 @@
+body{
+    font-size: 1.25em;
+}
+
 thead td{
     font-weight: bold;
     background-color: rgba(238, 130, 238, 0.9);
@@ -11,7 +15,7 @@ table{
 
 td{
     border: 0.05em solid black;
-    padding: 1em;
+    padding: 1em 3em 1em 3em;
     text-align: center;
 }
 
