@@ -8,6 +8,13 @@ button {
     text-align: left;
 }
 
+button img {
+    position: relative;
+    width: 1em;
+    height: 1em;
+    top: 0.2em;
+}
+
 a {
     color: rgb(245, 245, 245);
     text-decoration: none;
@@ -15,4 +22,9 @@ a {
 
 ul{
     list-style-type: none ;
+}
+
+body > img{
+    float: right;
+    width: 20em;
 }
