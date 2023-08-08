@@ -20,7 +20,7 @@ a {
     border-bottom-right-radius: 2%;
     float: left;
     font-size: 1.5em;
-    position: absolute;
+    position: fixed;
     left: -9.75em;
     transition: left .6s ease-out;
 }

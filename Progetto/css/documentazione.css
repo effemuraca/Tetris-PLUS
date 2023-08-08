@@ -1,0 +1,15 @@
+body{
+    padding-left: 3em;
+    max-width: 80%;
+    font-size: 1em;
+}
+
+h1{
+    font-size: 2em;
+}
+
+summary{
+    font-size: 1.5em;
+    padding: 0.5em;
+    font-weight: bold;
+}
