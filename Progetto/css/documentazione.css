@@ -1,15 +1,15 @@
 body{
     padding-left: 3em;
     max-width: 80%;
-    font-size: 1em;
+    font-size: 0.8em;
 }
 
 h1{
-    font-size: 2em;
+    font-size: 1.8em;
 }
 
 summary{
-    font-size: 1.5em;
+    font-size: 1.25em;
     padding: 0.5em;
     font-weight: bold;
 }

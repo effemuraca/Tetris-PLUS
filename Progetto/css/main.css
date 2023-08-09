@@ -1,7 +1,7 @@
 body {
+    font-family: 'Inknut Antiqua', serif;
     background-image: url(/Progetto/images/main_pattern.jpg);
     background-size: 100%;
-    font-family: "Roboto", sans-serif;
     color: rgb(245, 245, 245);
 }
 
@@ -15,13 +15,15 @@ a {
 }
 
 .menù{
-    background-color: blue;
+    max-width: 21%;
+    background-color: rgba(0, 0, 255, 0.7);
     border-top-right-radius: 2%;
     border-bottom-right-radius: 2%;
     float: left;
-    font-size: 1.5em;
+    font-size: 1.25em;
     position: fixed;
-    left: -9.75em;
+    left: -11.5em;
+    height: 100%;
     transition: left .6s ease-out;
 }
 
@@ -53,4 +55,12 @@ hr{
     position: relative;
     bottom: 1.5em;
     right: 1.5em;
+}
+
+footer{
+    font-size: 0.5em;
+    max-width: 80%;
+    padding-left: 1em;
+    position: absolute;
+    top: 90%;
 }
