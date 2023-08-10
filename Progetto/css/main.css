@@ -23,7 +23,7 @@ a {
   border-top-right-radius: 2%;
   border-bottom-right-radius: 2%;
   float: left;
-  font-size: 1.25em;
+  font-size: 1.5em;
   position: absolute;
   left: -14.5vw;
   height: 100vh;
@@ -64,5 +64,5 @@ footer {
   max-width: 95%;
   padding-left: 1em;
   position: absolute;
-  top: 95%;
+  top: 92%;
 }
