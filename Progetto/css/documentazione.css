@@ -5,7 +5,8 @@ body{
 }
 
 main {
-    background-color: rgba(124, 17, 224, 0.9);
+    background-color: rgb(124, 17, 224, 0.7);
+    border-radius: 2%;
     height: 100%;
     width: 80%;
 }

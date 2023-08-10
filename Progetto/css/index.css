@@ -24,7 +24,7 @@
     
     button:hover{
         left: -9%;
-        background-color: rgba(224, 17, 189, 0.9);
+        background-color: rgba(9, 151, 173, 0.9);
         transition: left 0.4s ease-out;
     }
 
