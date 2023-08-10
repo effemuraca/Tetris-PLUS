@@ -4,12 +4,24 @@ body{
     font-size: 0.8em;
 }
 
+main {
+    background-color: rgba(124, 17, 224, 0.9);
+    height: 100%;
+    width: 80%;
+}
+
 h1{
     font-size: 1.8em;
+    padding-left: 0.5em;
 }
 
 summary{
     font-size: 1.25em;
     padding: 0.5em;
+    padding-left: 1.5em;
     font-weight: bold;
+}
+
+details p {
+    padding-left: 1em;
 }

@@ -1,7 +1,10 @@
 body {
   font-family: "Inknut Antiqua", serif;
   background-image: url(/Progetto/images/main_pattern.jpg);
-  background-size: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
   color: rgb(245, 245, 245);
 }
 
@@ -12,12 +15,11 @@ img {
 a {
   color: rgb(245, 245, 245);
   text-decoration: none;
-  max-width: 90%;
 }
 
 .menù {
   width: 16vw;
-  background-color: rgba(0, 0, 255, 0.7);
+  background-color: rgba(23, 36, 126);
   border-top-right-radius: 2%;
   border-bottom-right-radius: 2%;
   float: left;
@@ -42,8 +44,6 @@ a {
 }
 
 .menù li {
-  font-size: 1.25em;
-  padding-right: 3em;
   padding-top: 1em;
   padding-bottom: 1em;
 }

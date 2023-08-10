@@ -12,7 +12,7 @@
         width: 45%;
         position: relative;
         left: -18%;
-        transition: left 1s ease-out;
+        transition: left 0.4s ease-out;
     }
     
     button img {
@@ -25,20 +25,21 @@
     button:hover{
         left: -9%;
         background-color: rgba(224, 17, 189, 0.9);
-        transition: left 1s ease-out;
+        transition: left 0.4s ease-out;
     }
 
     body > img{
-        width: 20em;
+        max-width: 20%;
         position: absolute;
-        top: 30%;
-        left: 70%;
+        top: 30vh;
+        left: 70vw;
     }
 
     ul {
         list-style-type: none;
         position: relative;
-        top: 9em;
+        top: 20vh;
+        bottom: 20vh;
     }    
 }
 
@@ -73,8 +74,8 @@
     body > img{
         width: 10em;
         position: absolute;
-        left: 32%;
-        bottom: 90%;
+        left: 32vw;
+        bottom: 80vh;
     }
 
     ul {

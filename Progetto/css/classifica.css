@@ -4,7 +4,7 @@ body{
 
 thead td{
     font-weight: bold;
-    background-color: rgba(238, 130, 238, 0.9);
+    background-color: rgba(124, 17, 224, 0.9);
 }
 
 table{
@@ -21,17 +21,9 @@ td{
 }
 
 tbody tr:nth-child(odd){
-    background-color: rgba(119, 136, 153, 0.9);
-}
-
-tbody tr:nth-child(odd) > td{
-    color: rgb(222, 184, 135);
+    background-color: rgba(120, 192, 224, 0.9);
 }
 
 tbody tr:nth-child(even){
-    background-color: rgba(222, 184, 135, 0.9);
-}
-
-tbody tr:nth-child(even) > td{
-    color: rgb(119, 136, 153);
+    background-color: rgba(68, 157, 209, 0.9);
 }
