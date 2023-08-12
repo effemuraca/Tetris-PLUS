@@ -1,7 +1,16 @@
-body{
-    padding-left: 3rem;
-    max-width: 90%;
-    font-size: 1em;
+@media screen and (min-width: 1001px) {
+    body {
+        padding-left: 3rem;
+        max-width: 90%;
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    body {
+        max-width: 100%;
+        font-size: 1rem;
+    }
 }
 
 main {
@@ -11,12 +20,12 @@ main {
     width: 80%;
 }
 
-h1{
+h1 {
     font-size: 2.5rem;
     padding-left: 1rem;
 }
 
-summary{
+summary {
     font-size: 1.5rem;
     padding: 1rem;
     padding-left: 2rem;

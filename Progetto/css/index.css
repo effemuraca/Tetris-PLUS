@@ -1,6 +1,6 @@
 @media screen and (min-width: 1001px) {
     button {
-        font-family: 'Eczar', serif;
+        font-family: "Eczar", serif;
         font-weight: bold;
         color: rgb(245, 245, 245);
         font-size: 3.1vw;
@@ -15,20 +15,20 @@
         text-align: right;
         transition: left 0.4s ease-out;
     }
-    
+
     button img {
         width: 3vw;
         height: 3vw;
         vertical-align: middle;
     }
-    
-    button:hover{
+
+    button:hover {
         left: -10vw;
         background-color: rgba(9, 151, 173, 0.9);
         transition: left 0.4s ease-out;
     }
 
-    body > img{
+    body > img {
         width: 22.5vw;
         position: absolute;
         margin-top: auto;
@@ -36,18 +36,12 @@
         top: 30vh;
         left: 70vw;
     }
-
-    ul {
-        list-style-type: none;
-        position: relative;
-        top: 25vh;
-    } 
 }
 
 @media screen and (max-width: 1000px) {
     button {
         display: block;
-        font-family: 'Eczar', serif;
+        font-family: "Eczar", serif;
         font-weight: bold;
         color: rgb(245, 245, 245);
         font-size: 3rem;
@@ -63,18 +57,18 @@
         margin-right: auto;
         left: -1.5rem;
     }
-    
+
     button img {
         position: relative;
         width: 0rem;
     }
-    
-    button:hover{
+
+    button:hover {
         background-color: rgba(9, 151, 173, 0.9);
         transition: left 0.4s;
     }
 
-    body > img{
+    body > img {
         display: block;
         position: relative;
         margin-left: auto;
@@ -82,13 +76,11 @@
         width: 35vw;
         height: auto;
         bottom: 55vh;
-
     }
-
-    ul {
-        list-style-type: none;
-        position: relative;
-        top: 25vh;
-    } 
 }
 
+ul {
+    list-style-type: none;
+    position: relative;
+    top: 25vh;
+}
