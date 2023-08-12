@@ -53,10 +53,14 @@ a {
   padding-inline-start: 0.3em;
 }
 
-hr {
+.line{
+  width: 100%; 
+  height: 0.08rem;
+  background-color: whitesmoke;
   position: relative;
-  bottom: 1.5em;
-  right: 1.5em;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  display: inline-block;
 }
 
 footer {
