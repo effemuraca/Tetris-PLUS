@@ -3,7 +3,7 @@
         font-family: 'Eczar', serif;
         font-weight: bold;
         color: rgb(245, 245, 245);
-        font-size: 3rem;
+        font-size: 3.1vw;
         padding: 1rem;
         padding-left: 20vw;
         margin: 0.03rem;
@@ -17,10 +17,9 @@
     }
     
     button img {
-        position: relative;
-        width: 3rem;
-        height: 3rem;
-        top: 0.6rem;
+        width: 3vw;
+        height: 3vw;
+        vertical-align: middle;
     }
     
     button:hover{
@@ -50,6 +49,7 @@
         display: block;
         font-family: 'Eczar', serif;
         font-weight: bold;
+        color: rgb(245, 245, 245);
         font-size: 3rem;
         padding: 1.5rem;
         margin: 0.03rem;

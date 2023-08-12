@@ -26,7 +26,7 @@ a {
   border-top-right-radius: 2%;
   border-bottom-right-radius: 2%;
   float: left;
-  font-size: 1.5em;
+  font-size: 1.5vw;
   position: absolute;
   left: -14.5vw;
   height: 100vh;
@@ -40,26 +40,26 @@ a {
 
 .menù img {
   float: right;
-  position: relative;
-  right: 0.2em;
-  top: 0.2em;
-  height: 1em;
+  padding: 0.2rem;
+  height: 1.5rem;
+  width: auto;
 }
 
 .menù li {
-  padding: 1.5em 0em;
+  padding: 2rem 0rem;
 }
 
 .menù ul {
   list-style-type: none;
-  padding-inline-start: 0.3em;
+  padding-inline-start: 0.3rem;
 }
 
 
 footer {
-  font-size: 0.5em;
+  font-size: 0.8rem;
   max-width: 95%;
-  padding-left: 1em;
+  padding-left: 0.6rem;
+  /* da sistemare con flexbox*/
   position: absolute;
   top: 92%;
 }

@@ -1,6 +1,6 @@
 body{
-    padding-left: 3em;
-    max-width: 80%;
+    padding-left: 3rem;
+    max-width: 90%;
     font-size: 1em;
 }
 
@@ -12,18 +12,18 @@ main {
 }
 
 h1{
-    font-size: 2.5em;
-    padding-left: 0.5em;
+    font-size: 2.5rem;
+    padding-left: 1rem;
 }
 
 summary{
-    font-size: 1.25em;
-    padding: 0.5em;
-    padding-left: 1.5em;
+    font-size: 1.5rem;
+    padding: 1rem;
+    padding-left: 2rem;
     font-weight: bold;
 }
 
 details p {
-    padding-left: 1em;
-    padding-right: 0.5em;
+    padding-left: 1rem;
+    padding-right: 0.5rem;
 }
