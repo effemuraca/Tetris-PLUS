@@ -1,4 +1,11 @@
 @media screen and (min-width: 1001px) {
+    body {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
     button {
         font-family: "Eczar", serif;
         font-weight: bold;
@@ -30,37 +37,43 @@
 
     body > img {
         width: 22.5vw;
-        position: absolute;
+     /*   position: absolute;
         margin-top: auto;
         margin-bottom: auto;
         top: 30vh;
-        left: 70vw;
+        left: 70vw;*/
     }
 }
 
 @media screen and (max-width: 1000px) {
+    body {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
     button {
         display: block;
         font-family: "Eczar", serif;
         font-weight: bold;
         color: rgb(245, 245, 245);
-        font-size: 3rem;
+        font-size: 6vw;
         padding: 1.5rem;
         margin: 0.03rem;
         border: 0.1rem solid rgb(245, 245, 245);
         background-color: rgba(23, 36, 126, 0.9);
         text-align: center;
+        width: 80vw;    
         position: relative;
         transition: left 0.4s;
-        width: 80vw;
         margin-left: auto;
         margin-right: auto;
+        top: 10vh;
         left: -1.5rem;
     }
 
     button img {
-        position: relative;
-        width: 0rem;
+        display: none;
     }
 
     button:hover {
@@ -69,10 +82,6 @@
     }
 
     body > img {
-        display: block;
-        position: relative;
-        margin-left: auto;
-        margin-right: auto;
         width: 35vw;
         height: auto;
         bottom: 55vh;
@@ -81,6 +90,7 @@
 
 ul {
     list-style-type: none;
-    position: relative;
-    top: 25vh;
+    height: 50vh;
+    position: flex;
+    top: 30vh; /* da centrare*/
 }
