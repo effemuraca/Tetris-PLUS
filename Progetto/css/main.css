@@ -17,7 +17,7 @@ a {
     text-decoration: none;
     display: block;
     width: 85%;
-    border-bottom: 0.09rem solid whitesmoke;
+    border-bottom: 0.09rem solid rgb(245, 245, 245);
 }
 
 @media screen and (min-width: 1001px) {
@@ -77,7 +77,7 @@ a {
     }
     
     .menù {
-        background-color: rgba(23, 36, 126);
+        background-color: rgba(23, 36, 126, 0.9);
         width: 100vw;
         font-size: 0vw;
         overflow: auto;
@@ -85,6 +85,10 @@ a {
 
     .menù li:hover {
         background-color: rgba(9, 151, 173, 0.9);
+    }
+
+    .menù li.active {
+        background-color: rgba(44, 53, 190, 0.9);
     }
 
     .menù img {
