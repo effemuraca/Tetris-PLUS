@@ -22,6 +22,7 @@ a {
 
 @media screen and (min-width: 1001px) {
     .menù {
+        cursor: pointer;
         width: 16vw;
         background-color: rgba(23, 36, 126);
         border-top-right-radius: 2%;
@@ -81,6 +82,7 @@ a {
         width: 100vw;
         font-size: 0vw;
         overflow: auto;
+        cursor: pointer;
     }
 
     .menù li:hover {

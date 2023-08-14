@@ -20,9 +20,10 @@
         position: relative;
         left: -22vw;
         width: 48vw;
-        height: 14vh;
         text-align: right;
+        vertical-align: middle;
         transition: left 0.4s ease-out;
+        cursor: pointer;
     }
 
     button img {
