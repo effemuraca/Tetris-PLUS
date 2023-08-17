@@ -24,7 +24,7 @@ a {
     .menù {
         cursor: pointer;
         width: 16vw;
-        background-color: rgba(23, 36, 126);
+        background-color: rgb(23, 36, 126);
         border-top-right-radius: 2%;
         border-bottom-right-radius: 2%;
         float: left;
