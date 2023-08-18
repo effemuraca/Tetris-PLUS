@@ -3,6 +3,11 @@ ul {
     padding-inline-start: 0px;
 }
 
+a {
+    color: rgb(245, 245, 245);
+    text-decoration: none;
+}
+
 @media screen and (min-width: 1001px) {
     main {
         height: 90vh;
@@ -16,29 +21,34 @@ ul {
         display: inline;
         font-family: "Eczar", serif;
         color: rgb(245, 245, 245);
-        padding: 1rem 1rem 20rem 1rem;
         margin: 0.03rem;
         border: 0.1rem solid rgb(245, 245, 245);
         background-color: rgba(23, 36, 126, 0.9);
-        text-align: center;
+        text-align:center;
         width: 38vw;
-        cursor: pointer;
+        border-radius: 2%;
     }
 
-    p[class *= "modalità"] {
+    p[class*="modalità"] {
         margin-block-start: 0em;
-        padding-bottom: 1rem;
+        padding: 1rem 0rem 0.5rem;
         border-bottom: 0.5rem solid rgb(245, 245, 245);
         font-size: 3.1vw;
         font-weight: bold;
+        background-color: rgba(9, 151, 173, 0.9);
     }
 
-    p[class *= "partita"] {
+    p[class*="partita"] {
         margin-block-start: 0em;
-        display: inline;
-        font-size: 1.5vw;
+        display: block;
+        font-size: 2.4vw;
+        width: 100%;
     }
 
+    p[class ="nuova_partita"] {
+        padding-bottom: 1rem;
+        border-bottom: 0.1rem solid rgb(245, 245, 245);
+    }
 
     div img {
         width: 3vw;
@@ -56,28 +66,44 @@ ul {
         height: 86vh;
     }
 
-    div p.modalità_scelta {
-        margin-block-start: 0rem;
-        padding-bottom: 0.5vh;
-        border-bottom: 0.5vh solid rgb(245, 245, 245);
-    }
-
     div {
         font-family: "Eczar", serif;
         font-weight: bold;
         color: rgb(245, 245, 245);
         font-size: 6vw;
-        padding: 0.5vh 1vw 20vh 1vw;
-        margin: 0.03rem auto;
+        margin: 0.1rem auto;
         border: 0.1rem solid rgb(245, 245, 245);
         background-color: rgba(23, 36, 126, 0.9);
-        vertical-align: top;
+        vertical-align: middle;
         text-align: center;
         width: 80vw;
         position: relative;
     }
 
+    p[class*="modalità"] {
+        margin-block-start: 0em;
+        padding: 0.5vh;
+        border-bottom: 0.3vh solid rgb(245, 245, 245);
+        font-size: 6vw;
+        font-weight: bold;
+        background-color: rgba(9, 151, 173, 0.9);
+    }
+
+    p[class*="partita"] {
+        margin-block-start: 0em;
+        display: block;
+        font-size: 5vw;
+        width: 100%;
+    }
+
+    p[class ="nuova_partita"] {
+        padding-bottom: 2vh;
+        border-bottom: 0.1rem solid rgb(245, 245, 245);
+    }
+
     div img {
-        display: none;
+        width: 8vw;
+        height: auto;
+        vertical-align: middle;
     }
 }

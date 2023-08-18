@@ -66,7 +66,9 @@
     }
 
     button img {
-        display: none;
+        width: 8vw;
+        height: auto;
+        vertical-align: middle;
     }
 
     button:hover {
