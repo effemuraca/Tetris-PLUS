@@ -1,0 +1,18 @@
+aside {
+    float: left;
+}
+
+div {
+    display: inline-block;
+    border: 0.1rem solid whitesmoke;
+    padding: 2rem;
+    background-color: rgba(23, 36, 126, 0.9);
+}
+
+div img {
+    width: 3rem;
+    height: auto;
+}
+
+div p {
+}

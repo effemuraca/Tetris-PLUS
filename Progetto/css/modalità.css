@@ -15,7 +15,6 @@ button {
     padding: 0rem;
     border-width: 0rem;
     color: rgb(245, 245, 245);
-    
 }
 
 button p {
@@ -24,7 +23,7 @@ button p {
     font-size: 1.25rem;
     padding: 0.75rem;
     z-index: 1;
-    margin-block-start: 0rem;    
+    margin-block-start: 0rem;
 }
 
 button:hover p {
@@ -48,21 +47,20 @@ button:hover p {
         justify-content: center;
     }
 
-    div {
-        display: inline;
+    table {
         font-family: "Eczar", serif;
         color: rgb(245, 245, 245);
         margin: 0.03rem;
-        border: 0.1rem solid rgb(245, 245, 245);
-        background-color: rgba(23, 36, 126, 0.9);
         text-align: center;
-        width: 38vw;
-        border-radius: 2%;
     }
 
-    p[class="selezione"] {
-        border-top-left-radius: 4%;
-        border-top-right-radius: 4%;
+    td {
+        border: 0.1rem solid rgb(245, 245, 245);
+        border-radius: 5vh;
+    }
+    thead td {
+        border-top-left-radius: 5vh;
+        border-top-right-radius: 5vh;
         margin-block-start: 0em;
         padding: 1rem 0rem 0.5rem;
         border-bottom: 0.5rem solid rgb(245, 245, 245);
@@ -71,20 +69,13 @@ button:hover p {
         background-color: rgba(9, 151, 173, 0.9);
     }
 
-    p[class*="partita"] {
-        margin-block-start: 0rem;
-        display: block;
+    tbody td {
+        background-color: rgba(23, 36, 126, 0.9);
         font-size: 2.4vw;
-        width: 100%;
+        padding: 2rem;
     }
 
-    p[class="nuova_partita"],
-    p[class="partita_singleplayer"] {
-        padding-bottom: 1.75rem;
-        border-bottom: 0.1rem solid rgb(245, 245, 245);
-    }
-
-    div img {
+    table img {
         display: block;
         width: 3vw;
         height: auto;
@@ -107,42 +98,39 @@ button:hover p {
         height: 86vh;
     }
 
-    div {
+    table {
         font-family: "Eczar", serif;
-        font-weight: bold;
         color: rgb(245, 245, 245);
         margin: 0.1rem auto;
-        border: 0.1rem solid rgb(245, 245, 245);
-        background-color: rgba(23, 36, 126, 0.9);
         vertical-align: middle;
         text-align: center;
-        width: 80vw;
+
     }
 
-    p[class="selezione"] {
-        margin-block-start: 0rem;
+    td {
+        border: 0.1rem solid rgb(245, 245, 245);
+        border-radius: 3vh;
+    }
+
+    thead td{
+        font-weight: bold;
         padding: 0.5vh;
         border-bottom: 0.3vh solid rgb(245, 245, 245);
         font-size: 7vw;
         background-color: rgba(9, 151, 173, 0.9);
     }
 
-    p[class*="partita"] {
-        margin-block-start: 0em;
-        display: block;
+    tbody td{
         font-size: 6vw;
-        width: 100%;
+        padding: 1.5rem;
+        background-color: rgba(23, 36, 126, 0.9);
     }
 
-    p[class="nuova_partita"],
-    p[class="partita_singleplayer"] {
-        padding-bottom: 2vh;
-        border-bottom: 0.1rem solid rgb(245, 245, 245);
-    }
-
-    div img {
+    td img {
+        display: block;
+        padding: 0.5vh;
         width: auto;
         height: 5vh;
-        vertical-align: middle;
+        margin: 0rem auto;
     }
 }

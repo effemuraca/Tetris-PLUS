@@ -31,32 +31,41 @@
         </button>
     </nav>
     <main>
-        <!-- onclick cambio di colore, una volta cliccato su modalita e tipo si va automaticamente alla schermata corretta-->
-        <div id="modalità_partita">
-            <p class="selezione">
-                Modalità
-            <p class="partita_singleplayer">
-                <img src="images/singleplayer.png" alt="singleplayer">
-                Singleplayer
-            </p>
-            <p class="partita_multiplayer">
-                <img src="images/multiplayer.png" alt="multiplayer">
-                Multiplayer
-            </p>
-        </div>
-        <div id="tipo_partita">
-            <p class="selezione">
-                Tipo partita
-            </p>
-            <p class="nuova_partita">
-                <img src="images/modalità.png" alt="nuova partita">
-                Nuova Partita
-            </p>
-            <p class="partita_salvata">
-                <img src="images/salva.png" alt="partita salvata">
-                Partita Salvata
-            </p>
-        </div>
+        <table>
+            <!-- onclick cambio di colore, una volta cliccato su modalita e tipo si va automaticamente alla schermata corretta-->
+            <thead id="modalità_partita">
+                <tr class="selezione">
+                    <td>
+                        Modalità
+                    </td>
+                    <td>
+                        Tipo partita
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="partita_singleplayer">
+                        <img src="images/singleplayer.png" alt="singleplayer">
+                        Singleplayer
+                    </td>
+                    <td class="partita_salvata">
+                        <img src="images/salva.png" alt="partita salvata">
+                        Partita Salvata
+                    </td>
+                </tr>
+                <tr>
+                    <td class="partita_multiplayer">
+                        <img src="images/multiplayer.png" alt="multiplayer">
+                        Multiplayer
+                    </td>
+                    <td class="nuova_partita">
+                        <img src="images/modalità.png" alt="nuova partita">
+                        Nuova Partita
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </main>
 </body>
 
