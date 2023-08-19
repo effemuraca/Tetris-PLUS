@@ -8,7 +8,38 @@ a {
     text-decoration: none;
 }
 
+button {
+    display: inline;
+    cursor: help;
+    background-color: inherit;
+    padding: 0rem;
+    border-width: 0rem;
+    color: rgb(245, 245, 245);
+    
+}
+
+button p {
+    display: none;
+    border: 0.1rem solid rgb(245, 245, 245);
+    font-size: 1.25rem;
+    padding: 0.75rem;
+    z-index: 1;
+    margin-block-start: 0rem;    
+}
+
+button:hover p {
+    position: fixed;
+    display: block;
+    left: 1vw;
+    background-color: rgba(37, 39, 56, 0.9);
+}
+
 @media screen and (min-width: 1001px) {
+    button p {
+        width: 90vw;
+        border-radius: 3vw;
+    }
+
     main {
         height: 90vh;
         display: flex;
@@ -24,12 +55,14 @@ a {
         margin: 0.03rem;
         border: 0.1rem solid rgb(245, 245, 245);
         background-color: rgba(23, 36, 126, 0.9);
-        text-align:center;
+        text-align: center;
         width: 38vw;
         border-radius: 2%;
     }
 
-    p[class*="modalità"] {
+    p[class="selezione"] {
+        border-top-left-radius: 4%;
+        border-top-right-radius: 4%;
         margin-block-start: 0em;
         padding: 1rem 0rem 0.5rem;
         border-bottom: 0.5rem solid rgb(245, 245, 245);
@@ -39,25 +72,33 @@ a {
     }
 
     p[class*="partita"] {
-        margin-block-start: 0em;
+        margin-block-start: 0rem;
         display: block;
         font-size: 2.4vw;
         width: 100%;
     }
 
-    p[class ="nuova_partita"] {
-        padding-bottom: 1rem;
+    p[class="nuova_partita"],
+    p[class="partita_singleplayer"] {
+        padding-bottom: 1.75rem;
         border-bottom: 0.1rem solid rgb(245, 245, 245);
     }
 
     div img {
+        display: block;
         width: 3vw;
         height: auto;
-        vertical-align: middle;
+        margin: 0rem auto;
     }
 }
 
+/*sui telefoni deve essere possibile vedere le info facendo click sul bottone */
 @media screen and (max-width: 1000px) {
+    button p {
+        width: 87vw;
+        border-radius: 6vw;
+    }
+
     main {
         display: flex;
         flex-direction: column;
@@ -70,40 +111,38 @@ a {
         font-family: "Eczar", serif;
         font-weight: bold;
         color: rgb(245, 245, 245);
-        font-size: 6vw;
         margin: 0.1rem auto;
         border: 0.1rem solid rgb(245, 245, 245);
         background-color: rgba(23, 36, 126, 0.9);
         vertical-align: middle;
         text-align: center;
         width: 80vw;
-        position: relative;
     }
 
-    p[class*="modalità"] {
-        margin-block-start: 0em;
+    p[class="selezione"] {
+        margin-block-start: 0rem;
         padding: 0.5vh;
         border-bottom: 0.3vh solid rgb(245, 245, 245);
-        font-size: 6vw;
-        font-weight: bold;
+        font-size: 7vw;
         background-color: rgba(9, 151, 173, 0.9);
     }
 
     p[class*="partita"] {
         margin-block-start: 0em;
         display: block;
-        font-size: 5vw;
+        font-size: 6vw;
         width: 100%;
     }
 
-    p[class ="nuova_partita"] {
+    p[class="nuova_partita"],
+    p[class="partita_singleplayer"] {
         padding-bottom: 2vh;
         border-bottom: 0.1rem solid rgb(245, 245, 245);
     }
 
     div img {
-        width: 8vw;
-        height: auto;
+        width: auto;
+        height: 5vh;
         vertical-align: middle;
     }
 }
