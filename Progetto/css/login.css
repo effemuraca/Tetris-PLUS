@@ -1,0 +1,45 @@
+main {
+    height: 88vh;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+
+fieldset {
+    background-color: rgba(23, 36, 126, 0.9);
+    border-radius: 1rem;
+    padding: 1rem 5rem 1rem 1rem;
+    padding-bottom: 25px;
+}
+
+legend {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+p {
+    font-size: 1.25rem;
+    margin: 2rem 0rem;
+}
+
+form input {
+    font-size: large;
+    text-align: center;
+    width: 100%;
+    border: 0.01rem solid rgb(245, 245, 245);
+    border-radius: 0.4rem;
+}
+
+input[type="submit"] {
+    display: inline;
+    margin: 1rem 1rem 1rem 2rem;
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+    background-color: rgba(9, 151, 173, 0.9);
+    color: rgb(245, 245, 245);
+}

@@ -13,17 +13,46 @@
         href="https://fonts.googleapis.com/css2?family=Eczar&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/tetris.css" type="text/css">
-    <link rel="stylesheet" href="css/registrati.css" type="text/css">
+    <link rel="stylesheet" href="css/login.css" type="text/css">
 </head>
 
 <body>
-    <nav> 
+    <nav>
         <a href="index.html">
             <img src="images/home.png">
         </a>
     </nav>
-
-
+    <main>
+        <form action="" method="post" autocomplete="on">
+            <fieldset>
+                <legend>
+                    Registrati:
+                </legend>
+                <p class="username">
+                    <label for="username">
+                        Username:
+                    </label>
+                    <br>
+                    <input type="text" id="username" name="username">
+                </p>
+                <p class="mail">
+                    <label for="mail">
+                        Mail:
+                    </label>
+                    <br>
+                    <input type="email" id="mail" name="mail">
+                </p>
+                <p class="password">
+                    <label for="pwd">
+                        Password:
+                    </label>
+                    <br>
+                    <input type="password" id="pwd" name="pwd">
+                </p>
+                <input type="submit" value="Conferma">
+            </fieldset>
+        </form>
+    </main>
 </body>
 
 </html>
