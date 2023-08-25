@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Ferdinando Muraca">
-    <title>Registrati</title>
+    <title>Login</title>
     <link rel="icon" href="images/tetris.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,20 +21,14 @@
         <a href="index.html">
             <img src="images/home.png">
         </a>
+
     </nav>
     <main>
         <form action="" method="post" autocomplete="on">
             <fieldset>
                 <legend>
-                    Registrati:
+                    Recupera account:
                 </legend>
-                <p class="username">
-                    <label for="username">
-                        Username:
-                    </label>
-                    <br>
-                    <input type="text" id="username" name="username" required>
-                </p>
                 <p class="mail">
                     <label for="mail">
                         Mail:
@@ -42,43 +36,23 @@
                     <br>
                     <input type="email" id="mail" name="mail" required>
                 </p>
-                <p class="password">
+                <p class="nuova_password">
                     <label for="pwd">
-                        Password:
+                        Nuova Password:
                     </label>
                     <br>
                     <input type="password" id="pwd" name="pwd" required>
                 </p>
-                <p class="domanda">
-                    <label for="domanda">
-                        Scegli una domanda di sicurezza:
-                    </label>
-                    <select id="domanda">
-                        <option value="nonno materno">
-                            Qual &egrave; il nome del tuo nonno materno?
-                        </option>
-                        <option value="auto">
-                            Qual &egrave; il nome della tua prima auto?
-                        </option>
-                        <option value="scuola">
-                            Qual &egrave; il nome delle tue scuole superiori?
-                        </option>
-                    </select>
-                </p>
-                <p class="risposta">
-                    <label for="risposta">
-                        Risposta:
+                <p class="risposta_account">
+                    <label for="risposta_account">
+                        Inserisci la risposta alla domanda di sicurezza: <!-- da mettere quella giusta con js-->
                     </label>
                     <br>
-                    <input type="text" id="risposta" name="risposta" required>
+                    <input type="text" id="risposta_account" name="risposta_account" required>
                 </p>
                 <input type="submit" value="Conferma">
-                <a href="login.html">
-                    Hai gi&agrave; un account? Accedi
-                </a>
             </fieldset>
         </form>
-
     </main>
 </body>
 
