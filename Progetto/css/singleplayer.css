@@ -1,18 +1,65 @@
-aside {
-    float: left;
+@media screen and (min-width: 1001px) {
+    aside {
+        position: relative;
+        width: 25vw;
+        float: left;
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin: 2rem;
+        font-size: 1.5rem;
+        border: 0.1rem solid rgb(245, 245, 245);
+        padding: 2.5rem;
+        width: 15vw;
+        background-color: rgba(23, 36, 126, 0.9);
+    }
+
+    div p {
+        margin-block-start: 0rem;
+    }
+
+    div img {
+        width: 6rem;
+        height: auto;
+    }   
 }
 
-div {
-    display: inline-block;
-    border: 0.1rem solid whitesmoke;
-    padding: 2rem;
-    background-color: rgba(23, 36, 126, 0.9);
-}
+@media screen and (max-width: 1000px) {
+    aside {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10rem;
+        margin: 3rem;
+    }
 
-div img {
-    width: 3rem;
-    height: auto;
-}
+    div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        font-weight: bold;
+        font-size: 1.5rem;
+        border: 0.1rem solid rgb(245, 245, 245);
+        padding: 1rem;
+        width: 30vw;
+        background-color: rgba(23, 36, 126, 0.9);
+    }
 
-div p {
+    div img {
+        width: 6rem;
+        height: auto;
+    }  
 }
