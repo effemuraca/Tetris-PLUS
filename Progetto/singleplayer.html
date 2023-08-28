@@ -14,9 +14,10 @@
         rel="stylesheet">
     <link rel="stylesheet" href="css/tetris.css" type="text/css">
     <link rel="stylesheet" href="css/singleplayer.css" type="text/css">
+    <script src="js/tetris.js"></script>
 </head>
 
-<body>
+<body onload="createGame()">
     <nav>
         <a href="modalità.html">
             <img src="images/modalità.png">
@@ -26,22 +27,24 @@
         </a>
     </nav>
     <aside>
-        <div class="prossimo_tetronimo">
+        <div id="prossimo_tetronimo">
             <p>
                 Prossimo Tetronimo
             </p>
             <img src="images/logo.png">
         </div>
 
-        <div class="punteggio">
+        <div id="punteggio">
             <p>
                 Punteggio
             </p>
-            xxxxx
         </div>
     </aside>
     <main>
-        <!-- qui ci va messa la roba di gioco -->
-    </main>
+        <table>
 
+        </table>
+    </main>
 </body>
+
+</html>
