@@ -23,7 +23,7 @@
         </a>
     </nav>
     <main>
-        <form action="" method="post" autocomplete="on">
+        <form action="#" method="post" autocomplete="on">
             <fieldset>
                 <legend>
                     Registrati:
@@ -47,7 +47,7 @@
                         Password:
                     </label>
                     <br>
-                    <input type="password" id="pwd" name="pwd" required minlength="3">
+                    <input type="password" id="pwd" name="pwd" required minlength="5">
                 </p>
                 <p class="domanda">
                     <label for="domanda">
@@ -72,7 +72,7 @@
                     <br>
                     <input type="text" id="risposta" name="risposta" required minlength="3">
                 </p>
-                <input type="submit" value="Conferma">
+                <input type="submit" value="Conferma" onclick="TestaPassword()">
                 <a href="login.html">
                     Hai gi&agrave; un account? Accedi
                 </a>

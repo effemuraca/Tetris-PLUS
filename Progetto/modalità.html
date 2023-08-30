@@ -14,6 +14,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="css/tetris.css" type="text/css">
     <link rel="stylesheet" href="css/modalità.css" type="text/css">
+    <script src="js/modalità.js"></script>
+    <script src="js/oggetti.js"></script>
 </head>
 
 <body>
@@ -45,21 +47,21 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="partita_singleplayer">
+                    <td id="partita_singleplayer" onclick="SelezioneModalità(1)">
                         <img src="images/singleplayer.png" alt="singleplayer">
                         Singleplayer
                     </td>
-                    <td class="partita_salvata">
+                    <td id="partita_salvata" onclick="TipoPartita('salvata')">
                         <img src="images/salva.png" alt="partita salvata">
                         Partita Salvata
                     </td>
                 </tr>
                 <tr>
-                    <td class="partita_multiplayer">
+                    <td id="partita_multiplayer" onclick="SelezioneModalità(2)">
                         <img src="images/multiplayer.png" alt="multiplayer">
                         Multiplayer
                     </td>
-                    <td class="nuova_partita">
+                    <td id="nuova_partita" onclick="TipoPartita('nuova')">
                         <img src="images/modalità.png" alt="nuova partita">
                         Nuova Partita
                     </td>

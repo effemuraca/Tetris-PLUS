@@ -8,6 +8,10 @@ body {
     color: rgb(245, 245, 245);
 }
 
+nav {
+    position: fixed;
+}
+
 img {
     max-width: 100%;
 }
