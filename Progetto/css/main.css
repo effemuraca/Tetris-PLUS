@@ -65,7 +65,6 @@ a {
         font-size: 0.8rem;
         max-width: 95%;
         padding-left: 0.6rem;
-        /* da sistemare con flexbox*/
         position: absolute;
         top: 92%;
     }

@@ -34,27 +34,39 @@ function Tetromino(tipo_t, rotazione, x, y) {
     }
 }
 
+function Chiudi(){
+    let da_chiudere = document.getElementById("popupContainer");
+    da_chiudere.style.display = "none";
+}
+
 let questa_partita = new Partita();
 function createGame() {
     let questa_partita = new Partita("default", "singleplayer", "nuova");
 
     // inserimento del punteggio iniziale
-    const node = document.createElement("p");
-    const textnode = document.createTextNode(questa_partita.punteggio);
-    node.appendChild(textnode);
-    document.getElementById("punteggio").appendChild(node);
+    const node_punteggio = document.createElement("p");
+    node_punteggio.style.marginBlockEnd = "0rem";
+    const textnode_punteggio = document.createTextNode("Punteggio: " + questa_partita.punteggio);
+    node_punteggio.appendChild(textnode_punteggio);
+    document.getElementById("punteggio").appendChild(node_punteggio);
+
+     // discriminare le funzioni per pc (mettono un a capo dopo prossimo tet\punteggio e il valore) e quelle telefono che le lasxiano sulla stessa riga
+    const node_tetronimo = document.createElement("p");
+    const textnode_tetronimo = document.createTextNode("Prossimo Tetronimo: " + "L");
+    node_tetronimo.appendChild(textnode_tetronimo);
+    document.getElementById("prossimo_tetronimo").appendChild(node_tetronimo);
 
     // creazione del tabellone di gioco
     let n_row = 20;
     let n_col = 11;
     const main_con = document.getElementsByTagName("main")[0];
     for (let i = 1; i < n_row * n_col; i++) {
-        if (questa_partita.tipo_partita == "nuova") {
+       /* if (questa_partita.tipo_partita == "nuova") {
             questa_partita.stato_tabellone[i] = 0;
         }
         else {
             // copia elemento per elemento lo stato della partita salvata
-        }
+        }*/
         const cella = document.createElement("div");
         main_con.appendChild(cella);
         if (i % 11 == 0) {

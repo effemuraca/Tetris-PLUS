@@ -2,19 +2,16 @@
     #core {
         display: flex;
         align-items: center;
-        justify-content: flex-start;
-        gap: 25vw;
+        justify-content: space-evenly;
     }
 
     aside {
         position: relative;
-        width: 25vw;
         float: left;
-        height: 90vh;
+        height: 98vh;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        justify-content: space-evenly;
     }
 
     aside > div {
@@ -24,57 +21,79 @@
         justify-content: center;
         font-weight: bold;
         text-align: center;
+        vertical-align: middle;
         margin: 2rem;
         font-size: 1.5rem;
         border: 0.1rem solid rgb(245, 245, 245);
-        padding: 2.5rem;
-        width: 15vw;
+        padding: 1rem;
+        width: 20vw;
+        height: 10vh;
         background-color: rgba(23, 36, 126, 0.9);
     }
 
     main > div {
         float: left;
-        width: 2rem;
-        height: 2rem;
+        width: 4.5vh;
+        height: 4.5vh;
         background-color: rgba(23, 36, 126, 0.9);
         border: 0.1vw solid rgba(245, 245, 245, 0.2);
     }
 
     div p {
-        margin-block-start: 0rem;
+        margin-block: 0rem;
     }
 
     div img {
         width: 6rem;
         height: auto;
+        padding: 1rem;
     }
 }
 
 @media screen and (max-width: 1000px) {
-    aside {
+    nav {
+        z-index: 1;
         position: relative;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        gap: 10rem;
-        margin: 3rem;
     }
 
-    div {
+    #core {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+    }
+
+    aside {
         display: flex;
         flex-direction: row;
-        align-items: center;
         justify-content: center;
-        gap: 1rem;
-        font-weight: bold;
-        font-size: 1.5rem;
-        border: 0.1rem solid rgb(245, 245, 245);
-        padding: 1rem;
-        width: 30vw;
+        gap: 2vw;
+        margin: 1rem 0rem;
+    }
+
+    aside > div {
+        text-align: center;
+        vertical-align: middle;
+        font-size: 4vw;
+        width: 50vw;
+        border: 0.1vh solid rgb(245, 245, 245);
+        padding: 1vh;
         background-color: rgba(23, 36, 126, 0.9);
     }
 
+    main > div {
+        float: left;
+        width: 3.5vh;
+        height: 3.5vh;
+        background-color: rgba(23, 36, 126, 0.9);
+        border: 0.1vw solid rgba(245, 245, 245, 0.2);
+    }
+
+    div p {
+        margin-block: 0rem;
+    }
+
     div img {
+        display: none;
         width: 6rem;
         height: auto;
     }
