@@ -19,6 +19,6 @@
 
 
 ## Php
-- sistema la scelta di singleplayer/multiplayer e nuova partita/partita salvata
+- sistema la scelta di singleplayer/multiplayer e nuova partita/partita salvata -> forse si può fare con il webstorage senza php
 - sistema login, registrati e recupera password
 - sistema classifica con i dati veri
