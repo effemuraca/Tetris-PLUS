@@ -13,9 +13,10 @@
 -  
 
 ## Js
-. creare eventi onclick della barra spaziatrice per mettere in pausa il gioco
+- creare eventi onclick della barra spaziatrice per mettere in pausa il gioco
 - modificare funzioni per punteggio e nuovo tetronimo (devono funzionare diversamente per pc e mobile)
 - inserisci validazione login, registrati e recupera password se necessaria
+- modificia js nell'html con gli event handler
 
 
 ## Php
