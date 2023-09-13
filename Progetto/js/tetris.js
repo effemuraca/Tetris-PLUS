@@ -34,7 +34,7 @@ function Tetromino(tipo_t, rotazione, x, y) {
     }
 }
 
-function Chiudi(){
+function Chiudi() {
     let da_chiudere = document.getElementById("popupContainer");
     da_chiudere.style.display = "none";
 }
@@ -50,7 +50,7 @@ function createGame() {
     node_punteggio.appendChild(textnode_punteggio);
     document.getElementById("punteggio").appendChild(node_punteggio);
 
-     // discriminare le funzioni per pc (mettono un a capo dopo prossimo tet\punteggio e il valore) e quelle telefono che le lasxiano sulla stessa riga
+    // discriminare le funzioni per pc (mettono un a capo dopo prossimo tet\punteggio e il valore) e quelle telefono che le lasxiano sulla stessa riga
     const node_tetronimo = document.createElement("p");
     const textnode_tetronimo = document.createTextNode("Prossimo Tetronimo: " + "L");
     node_tetronimo.appendChild(textnode_tetronimo);
@@ -61,13 +61,14 @@ function createGame() {
     let n_col = 11;
     const main_con = document.getElementsByTagName("main")[0];
     for (let i = 1; i < n_row * n_col; i++) {
-       /* if (questa_partita.tipo_partita == "nuova") {
-            questa_partita.stato_tabellone[i] = 0;
-        }
-        else {
-            // copia elemento per elemento lo stato della partita salvata
-        }*/
+        /* if (questa_partita.tipo_partita == "nuova") {
+             questa_partita.stato_tabellone[i] = 0;
+         }
+         else {
+             // copia elemento per elemento lo stato della partita salvata
+         }*/
         const cella = document.createElement("div");
+        cella.className = "elemento_tabella";
         main_con.appendChild(cella);
         if (i % 11 == 0) {
             cella.style.float = "none";

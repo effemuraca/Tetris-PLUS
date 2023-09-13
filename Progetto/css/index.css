@@ -26,7 +26,7 @@
         cursor: pointer;
     }
 
-    button img {
+    button > img {
         width: 3vw;
         height: 3vw;
         vertical-align: middle;
@@ -65,7 +65,7 @@
         position: relative;
     }
 
-    button img {
+    button > img {
         width: 8vw;
         height: auto;
         vertical-align: middle;

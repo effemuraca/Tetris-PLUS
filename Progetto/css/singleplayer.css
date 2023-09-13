@@ -14,7 +14,7 @@
         justify-content: space-evenly;
     }
 
-    aside > div {
+    aside div {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -31,7 +31,7 @@
         background-color: rgba(23, 36, 126, 0.9);
     }
 
-    main > div {
+    .elemento_tabella {
         float: left;
         width: 4.5vh;
         height: 4.5vh;
@@ -70,7 +70,11 @@
         margin: 1rem 0rem;
     }
 
-    aside > div {
+    main {
+        padding: 3rem;
+    }
+
+    aside div {
         text-align: center;
         vertical-align: middle;
         font-size: 4vw;
@@ -80,7 +84,7 @@
         background-color: rgba(23, 36, 126, 0.9);
     }
 
-    main > div {
+    .elemento_tabella {
         float: left;
         width: 3.5vh;
         height: 3.5vh;

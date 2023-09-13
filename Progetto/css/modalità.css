@@ -126,7 +126,7 @@ button:hover p {
         background-color: rgba(23, 36, 126, 0.9);
     }
 
-    td img {
+    td >    img {
         display: block;
         padding: 0.5vh;
         width: auto;
