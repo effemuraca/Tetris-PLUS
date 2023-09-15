@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
 // definizione degli oggetti utili all'implementazione del gioco
-function Partita(nome_utente = "default", modalità = "default", tipo_partita = "default", punteggio_init = 0) {
+function Partita(nome_utente = 'default', modalità = 'default', tipo_partita = 'default', punteggio_init = 0) {
     this.giocatore = nome_utente;
     this.modalità = modalità;
     this.tipo_partita = tipo_partita;

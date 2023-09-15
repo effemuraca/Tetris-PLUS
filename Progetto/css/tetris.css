@@ -30,3 +30,8 @@ nav img {
     border-radius: 40%;
     background-color: rgba(44, 53, 190, 0.9);
 }
+
+button {
+    background-color: transparent;
+    border: 0rem;
+}

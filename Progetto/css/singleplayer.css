@@ -50,6 +50,7 @@
     }
 }
 
+
 @media screen and (max-width: 1000px) {
     nav {
         z-index: 1;
@@ -69,11 +70,7 @@
         gap: 2vw;
         margin: 1rem 0rem;
     }
-
-    main {
-        padding: 3rem;
-    }
-
+    
     aside div {
         text-align: center;
         vertical-align: middle;
@@ -86,8 +83,8 @@
 
     .elemento_tabella {
         float: left;
-        width: 3.5vh;
-        height: 3.5vh;
+        width: 3rem;
+        height: 3rem;
         background-color: rgba(23, 36, 126, 0.9);
         border: 0.1vw solid rgba(245, 245, 245, 0.2);
     }
