@@ -65,23 +65,18 @@ function createGame() {
     // creazione del tabellone di gioco
     const n_row = 20;
     const n_col = 10;
-    const main_con = document.getElementById('tabellone');
-    for (let i = 0; i < n_row * n_col; i++) {
-        /* if (questa_partita.tipo_partita == 'nuova') {
-             questa_partita.stato_tabellone[i] = 0;
-         }
-         else {
-             // copia elemento per elemento lo stato della partita salvata
-         }*/
-        const cella = document.createElement('div');
-        cella.className = 'elemento_tabella';
-        main_con.appendChild(cella);
-        if (i % 11 == 0) {
-            cella.style.float = 'none';
+    const tab = document.getElementById('tabellone');
+    for (let i = 0; i < n_row; i++) {
+        const riga = document.createElement('tr');
+        riga.className = 'riga_tabellone';
+        tab.appendChild(riga);
+
+        for (let j = 0; j < n_col; j++) {
+            const elem = document.createElement('td');
+            elem.className = 'elem_tabellone';
+            riga.appendChild(elem);
         }
     }
-
-
 }
 
 

@@ -29,3 +29,25 @@ tbody tr:nth-child(odd) {
 tbody tr:nth-child(even) {
     background-color: rgba(68, 157, 209, 0.9);
 }
+
+button {
+    color: rgb(245, 245, 245);
+    width: 80%;
+    height: 2rem;
+    border-width: 0.1rem;
+    border-color: rgba(23, 36, 126, 0.9);
+    font-weight: bold;
+
+}
+
+tbody tr:nth-child(odd) button{
+    background-color: rgba(120, 192, 224, 1);
+}
+
+tbody tr:nth-child(even) button{
+    background-color: rgba(68, 157, 209, 1);
+}
+
+td.bottone {
+    padding: 0rem;
+}

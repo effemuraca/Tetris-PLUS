@@ -10,7 +10,6 @@ a {
 
 button {
     display: inline;
-    cursor: help;
     background-color: inherit;
     padding: 0rem;
     border-width: 0rem;
@@ -83,7 +82,6 @@ button:hover p {
     }
 }
 
-/*sui telefoni deve essere possibile vedere le info facendo click sul bottone */
 @media screen and (max-width: 1000px) {
     button p {
         width: 87vw;
@@ -126,7 +124,7 @@ button:hover p {
         background-color: rgba(23, 36, 126, 0.9);
     }
 
-    td >    img {
+    td > img {
         display: block;
         padding: 0.5vh;
         width: auto;
