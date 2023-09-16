@@ -9,7 +9,7 @@ thead td {
 
 table {
     border-collapse: collapse;
-    margin: 0rem auto;
+    margin: 1.5rem auto;
 }
 
 main {
@@ -31,23 +31,26 @@ tbody tr:nth-child(even) {
 }
 
 button {
-    color: rgb(245, 245, 245);
-    width: 80%;
-    height: 2rem;
-    border-width: 0.1rem;
-    border-color: rgba(23, 36, 126, 0.9);
+    width: 60%;
+    height: 1.5rem;
     font-weight: bold;
-
 }
 
-tbody tr:nth-child(odd) button{
-    background-color: rgba(120, 192, 224, 1);
+tbody tr:nth-child(odd) button {
+    color: rgba(120, 192, 224);
 }
 
-tbody tr:nth-child(even) button{
-    background-color: rgba(68, 157, 209, 1);
+tbody tr:nth-child(even) button {
+    color: rgba(68, 157, 209);
 }
 
 td.bottone {
     padding: 0rem;
+}
+
+@media screen and (max-width: 1000px) {
+    nav {
+        z-index: 1;
+        position: relative;
+    }
 }

@@ -35,3 +35,7 @@ nav button {
     background-color: transparent;
     border: 0rem;
 }
+
+nav img:hover {
+    background-color: rgba(9, 151, 173, 0.9);
+}
