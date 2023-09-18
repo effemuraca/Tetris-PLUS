@@ -79,6 +79,12 @@
     div#nome_giocatore1 {
         border-radius: 2rem;
     }
+
+    form#popup {
+        display: none;
+        width: 30vw;
+        font-size: 1.25rem;
+    }
 }
 
 @media screen and (max-width: 1000px) {
@@ -93,6 +99,7 @@
         align-items: center;
         justify-content: space-evenly;
         height: 90vh;
+        width: 100%;
     }
 
     aside {
@@ -175,9 +182,15 @@
     div#nome_giocatore1 {
         display: none;
     }
+
+    form#popup {
+        display: none;
+        width: 60vw;
+        font-size: 1.25rem;
+    }
 }
 
-@media screen and (min-width: 751px) and (max-width: 1000px) {
+@media screen and (min-width: 501px) and (max-width: 1000px) {
     td {
         float: left;
         width: 4.5vmin;
@@ -185,4 +198,27 @@
         background-color: rgba(23, 36, 126, 0.9);
         border: 0.1vw solid rgba(245, 245, 245, 0.2);
     }
+}
+
+div#container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0rem;
+    left: 0rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input#partecipazione_classifica {
+    width: auto;
+}
+
+button#chiudi_popup {
+    font-weight: bold;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    color: rgb(245, 245, 245);
 }

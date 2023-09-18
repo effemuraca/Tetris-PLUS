@@ -13,6 +13,7 @@
         href="https://fonts.googleapis.com/css2?family=Eczar&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/tetris.css" type="text/css">
+    <link rel="stylesheet" href="css/login.css" type="text/css">
     <link rel="stylesheet" href="css/singleplayer.css" type="text/css">
     <script src="js/tetris.js"></script>
 </head>
@@ -25,7 +26,7 @@
             </button>
         </a>
         <a> <!-- pulsante cliccabile per salvare le partite, apre un div che chiede il nome del salvataggio e se è privato o pubblico -->
-            <button>
+            <button onclick="Salva()">
                 <img src="images/salva.png">
             </button>
         </a>
@@ -65,9 +66,43 @@
             </button>
         </div>
     </div>
-
-
-
+    <div id="container">
+        <form action="#" method="post" autocomplete="on" id="popup">
+            <fieldset>
+                <legend>
+                    Salva la partita
+                    <button id="chiudi_popup" onclick="Chiudi()">
+                        X
+                    </button>   
+                </legend>
+                <p class="tipo_salvataggio">
+                    <label for="tipo_salvataggio">
+                        Che tipo di salvataggio vuoi per la partita?
+                        <i>
+                            Le partite pubbliche possono essere giocate da tutti, mentre quelle private solo da te.
+                        </i>
+                    </label>
+                    <br>
+                    <select id="tipo_salvataggio">
+                        <option value="privata">
+                            Partita privata
+                        </option>
+                        <option value="pubblica">
+                            Partita pubblica
+                        </option>
+                    </select>
+                </p>
+                <br>
+                <input type="checkbox" id="partecipazione_classifica" name="partecipazione_classifica"
+                    value="partecipazione_classifica" required>
+                <label for="classfica">
+                    Voglio partecipare alla classifica.
+                </label>
+                <br>
+                <input type="submit" value="Conferma">
+            </fieldset>
+        </form>
+    </div>
 </body>
 
 </html>

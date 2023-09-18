@@ -41,11 +41,23 @@ function Tetromino(tipo_t, rotazione, x, y) {
 }
 
 function Chiudi() {
-    let da_chiudere = document.getElementById('popupContainer');
+    let da_chiudere = document.getElementById('popup');
     da_chiudere.style.display = 'none';
+    let container = document.getElementById('container');
+    container.style.backgroundColor = 'rgba(0, 0, 0, 0)';
 }
 
-let questa_partita = new Partita();
+function Salva() {
+    let da_aprire = document.getElementById('popup');
+    da_aprire.style.display = 'block';
+    let container = document.getElementById('container');
+    container.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+}
+
+document.getElementById('chiudi_popup').addEventListener('click', function (event) {
+    event.preventDefault()
+});
+
 function createGame() {
     let questa_partita = new Partita('default', 'singleplayer', 'nuova');
 

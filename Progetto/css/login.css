@@ -51,3 +51,7 @@ a {
     color: rgb(245, 245, 245);
     text-decoration: underline;
 }
+
+select {
+    font-size: 1rem;
+}
