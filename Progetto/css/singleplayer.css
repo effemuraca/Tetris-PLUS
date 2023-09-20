@@ -183,10 +183,19 @@
         display: none;
     }
 
+    p {
+        font-size: 5vw;
+    }
+
     form#salvataggio {
         display: none;
         width: 60vw;
         font-size: 1.25rem;
+    }
+
+    h1 {
+        font-size: 6.5vw;
+        padding-bottom: 4rem;
     }
 }
 
@@ -221,17 +230,27 @@ button.bottone_x {
     border-radius: 50%;
     background-color: transparent;
     color: rgb(245, 245, 245);
+    float: right;
+}
+
+legend {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
 }
 
 div#regolamento {
     display: none;
     background-color: rgba(23, 36, 126, 0.9);
     border: 0.01rem solid rgb(245, 245, 245);
-    border-radius: 2rem;  
-    padding: 0rem 2rem 0.5rem 1rem;
+    border-radius: 2rem;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
     width: 80vw;
+    max-height: 80vh;
+    overflow: auto;
 }
 
-h1{
-    text-align: center;
+h1 {
+    display: inline-block;
+    margin-block-start: 0rem;
 }

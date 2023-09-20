@@ -47,12 +47,24 @@ function Informazioni(){
 function Chiudi(daChiudere) {
     let da_chiudere = document.getElementById(daChiudere);
     da_chiudere.style.display = 'none';
+    da_chiudere.classList.remove('aperto');
     let container = document.getElementById('container');
     container.style.backgroundColor = 'rgba(0, 0, 0, 0)';
 }
 
 function Apri(daAprire) {
     let da_aprire = document.getElementById(daAprire);
+    let controlla_salva = document.getElementById('salvataggio');
+    let controlla_regole = document.getElementById('regolamento');
+    if (daAprire == 'salvataggio' & controlla_regole.className == 'aperto') {
+            window.alert("Non si può aprire il regolamento finché il popup di salvataggio è aperto"); //magari sistema gli alert in qualche modo
+            return;
+    }
+    else if (daAprire == 'regolamento' & controlla_salva.className == 'aperto') {
+        window.alert("Non si può aprire il popup di salvataggio finché il regolamento è aperto");
+        return;
+    }
+    da_aprire.classList.add('aperto');
     da_aprire.style.display = 'block';
     let container = document.getElementById('container');
     container.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
@@ -68,12 +80,14 @@ function createGame() {
     // inserimento del punteggio iniziale
     const node_punteggio = document.createElement('p');
     node_punteggio.style.marginBlockEnd = '0rem';
+ //   node_punteggio.style.fontSize = '4vw';
     const textnode_punteggio = document.createTextNode('Punteggio: ' + questa_partita.punteggio);
     node_punteggio.appendChild(textnode_punteggio);
     document.getElementById('punteggio').appendChild(node_punteggio);
 
     // discriminare le funzioni per pc (mettono un a capo dopo prossimo tet\punteggio e il valore) e quelle telefono che le lasxiano sulla stessa riga
     const node_tetronimo = document.createElement('p');
+ //   node_tetronimo.style.fontSize = '4vw';
     const textnode_tetronimo = document.createTextNode('Prossimo Tetronimo: ' + 'L');
     node_tetronimo.appendChild(textnode_tetronimo);
     document.getElementById('prossimo_tetronimo').appendChild(node_tetronimo);
