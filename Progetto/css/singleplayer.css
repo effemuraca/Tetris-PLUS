@@ -80,7 +80,7 @@
         border-radius: 2rem;
     }
 
-    form#popup {
+    form#salvataggio {
         display: none;
         width: 30vw;
         font-size: 1.25rem;
@@ -183,7 +183,7 @@
         display: none;
     }
 
-    form#popup {
+    form#salvataggio {
         display: none;
         width: 60vw;
         font-size: 1.25rem;
@@ -215,10 +215,23 @@ input#partecipazione_classifica {
     width: auto;
 }
 
-button#chiudi_popup {
+button.bottone_x {
     font-weight: bold;
     font-size: 1.5rem;
     border-radius: 50%;
     background-color: transparent;
     color: rgb(245, 245, 245);
+}
+
+div#regolamento {
+    display: none;
+    background-color: rgba(23, 36, 126, 0.9);
+    border: 0.01rem solid rgb(245, 245, 245);
+    border-radius: 2rem;  
+    padding: 0rem 2rem 0.5rem 1rem;
+    width: 80vw;
+}
+
+h1{
+    text-align: center;
 }

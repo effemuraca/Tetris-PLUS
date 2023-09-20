@@ -40,15 +40,19 @@ function Tetromino(tipo_t, rotazione, x, y) {
     };
 }
 
-function Chiudi() {
-    let da_chiudere = document.getElementById('popup');
+function Informazioni(){
+
+}
+
+function Chiudi(daChiudere) {
+    let da_chiudere = document.getElementById(daChiudere);
     da_chiudere.style.display = 'none';
     let container = document.getElementById('container');
     container.style.backgroundColor = 'rgba(0, 0, 0, 0)';
 }
 
-function Salva() {
-    let da_aprire = document.getElementById('popup');
+function Apri(daAprire) {
+    let da_aprire = document.getElementById(daAprire);
     da_aprire.style.display = 'block';
     let container = document.getElementById('container');
     container.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';

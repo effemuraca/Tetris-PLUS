@@ -25,11 +25,12 @@
                 <img src="images/modalità.png">
             </button>
         </a>
-        <a> <!-- pulsante cliccabile per salvare le partite, apre un div che chiede il nome del salvataggio e se è privato o pubblico -->
-            <button onclick="Salva()">
-                <img src="images/salva.png">
-            </button>
-        </a>
+        <button onclick="Apri('salvataggio')">
+            <img src="images/salva.png">
+        </button>
+        <button onclick="Apri('regolamento')">
+            <img src="images/info.png" alt="info">
+        </button>
     </nav>
     <div id="core">
         <aside>
@@ -67,13 +68,13 @@
         </div>
     </div>
     <div id="container">
-        <form action="#" method="post" autocomplete="on" id="popup">
+        <form action="#" method="post" autocomplete="on" id="salvataggio">
             <fieldset>
                 <legend>
                     Salva la partita
-                    <button id="chiudi_popup" onclick="Chiudi()">
+                    <button id="chiudi_popup" class="bottone_x" onclick="Chiudi('salvataggio')">
                         X
-                    </button>   
+                    </button>
                 </legend>
                 <p class="tipo_salvataggio">
                     <label for="tipo_salvataggio">
@@ -102,6 +103,17 @@
                 <input type="submit" value="Conferma">
             </fieldset>
         </form>
+        <div id="regolamento">
+            <h1>
+                Regolamento del gioco
+            </h1>
+            <button class="bottone_x" onclick="Chiudi('regolamento')">
+                X
+            </button>
+            <p>
+                Il regolamento è
+            </p>
+        </div>
     </div>
 </body>
 
