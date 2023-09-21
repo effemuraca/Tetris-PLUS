@@ -53,6 +53,11 @@
         padding: 1rem;
     }
 
+    ul img {
+        width: 2rem;
+        height: 2rem;
+        vertical-align: middle;
+    }
     #comandi > button {
         display: none;
     }
@@ -83,6 +88,10 @@
     form#salvataggio {
         display: none;
         width: 30vw;
+        font-size: 1.25rem;
+    }
+
+    li {
         font-size: 1.25rem;
     }
 }
@@ -184,6 +193,10 @@
     }
 
     p {
+        font-size: 5vw;
+    }
+
+    li {
         font-size: 5vw;
     }
 

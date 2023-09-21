@@ -79,9 +79,9 @@
                 <p class="tipo_salvataggio">
                     <label for="tipo_salvataggio">
                         Che tipo di salvataggio vuoi per la partita?
-                        <i>
+                        <strong>
                             Le partite pubbliche possono essere giocate da tutti, mentre quelle private solo da te.
-                        </i>
+                        </strong>
                     </label>
                     <br>
                     <select id="tipo_salvataggio">
@@ -110,9 +110,93 @@
             <button class="bottone_x" onclick="Chiudi('regolamento')">
                 X
             </button>
+            <h2>
+                Scopo del gioco
+            </h2>
             <p>
-                Il regolamento è
+                Lo scopo del gioco è totalizzare il punteggio maggiore possibile, cio è possibile completando righe di
+                tetronimi, ovvero dei "pezzi" che cadono nel tabellone e sono muovibili a destra, sinistra e in basso
+                dal giocatore utilizzando i tasti
+                <strong>
+                    A, S, D
+                </strong>.
+                <br>
+                Inoltre, è possibile ruotare i tetronimi in senso orario o antiorario, rispettivamente con i tasti
+                <strong>
+                    Q, E
+                </strong>
+                e far precipitare immediatamente il pezzo con il tasto
+                <strong>
+                    W
+                </strong>.
             </p>
+            <h2>
+                Novità
+            </h2>
+            <p>
+                Tetris Plus aggiunge ai classici tetronimi anche dei blocchi speciali, ognuno con diverse funzioni e
+                indicati da un blocco quadrato di dimensione 2x2 con sopra un'icona che li distingue.
+                Qui di seguito vengono listati tutti i blocchi speciali e le loro funzioni:
+            </p>
+            <ul>
+                <li>
+                    <strong>
+                        Block Destroyer
+                    </strong>
+                    <img src="images/block_destroyer.png">
+                    : Un blocco in grado di distruggere tutti i blocchi nella sua stessa riga.
+                </li>
+                <li>
+                    <strong>
+                        Dinamite
+                    </strong>
+                    <img src="images/dinamite.png">
+                    : Un blocco che elimina tutti i blocchi presenti fino a tre blocchi di raggio dall'esplosione
+                </li>
+                <li>
+                    <strong>
+                        Time Stopper
+                    </strong>
+                    <img src="images/time_stopper.png">
+                    : Un blocco che allimpatto con altri tetromini o con il terreno interrompe per un tempo stabilito la
+                    naturale caduta dei tetromini, facendo in modo che questa sia legata solo al movimento del giocatore
+                </li>
+                <li>
+                    <strong>
+                        Time Accelerator
+                    </strong>
+                    <img src="images/time_accelerator.png">
+                    : Un blocco che all'impatto con altri tetromini o con il terreno velocizza la normale caduta al
+                    terreno
+                    dei tetromini
+                </li>
+                <li>
+                    <strong>
+                        Mist Block
+                    </strong>
+                    <img src="images/mist_block.png">
+                    : Un blocco che all'impatto con altri tetromini o con il terreno nasconde le ultime x file del
+                    tabellone,
+                    impedendo la visione della parte più bassa.
+                </li>
+                <li>
+                    <strong>
+                        Steel Block
+                    </strong>
+                    <img src="images/steel_block.png">
+                    : Un tetromino speciale, identificato da un colore grigio metallo, che non può essere eliminato,
+                    neanche se
+                    si completa la fila in cui è presente.
+                </li>
+                <li>
+                    <strong>
+                        Steel Breaker
+                    </strong>
+                    <img src="images/steel_breaker.png">
+                    : Se sono presenti blocchi d'acciaio li rimuove tutti, altrimenti diventa un blocco dinamite.
+                </li>
+
+            </ul>
         </div>
     </div>
 </body>
