@@ -4,7 +4,7 @@
 function TestaPassword() {
     const pw = document.getElementById('pwd').value;
     const checkErrore = document.getElementById('errore');
-    if (checkErrore != null) {
+    if (checkErrore !== null) {
         checkErrore.remove();
     }
     const daAppendere = document.getElementsByClassName('password')[0];

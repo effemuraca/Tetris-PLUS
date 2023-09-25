@@ -58,11 +58,11 @@ function Apri(da_aprire) {
     const daAprire = document.getElementById(da_aprire);
     const controllaSalva = document.getElementById('salvataggio_popup');
     const controllaRegole = document.getElementById('regolamento_popup');
-    if (da_aprire == 'salvataggio_popup' & controllaRegole.className == 'aperto') {
+    if (da_aprire === 'salvataggio_popup' & controllaRegole.className === 'aperto') {
         window.alert("Non si può aprire il popup di salvataggio finché il regolamento è aperto"); //magari sistema gli alert in qualche modo
         return;
     }
-    else if (da_aprire == 'regolamento_popup' & controllaSalva.className == 'aperto') {
+    else if (da_aprire === 'regolamento_popup' & controllaSalva.className === 'aperto') {
         window.alert("Non si può aprire il regolamento finché il popup di salvataggio è aperto");
         return;
     }

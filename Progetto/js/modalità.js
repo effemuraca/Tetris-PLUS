@@ -4,11 +4,11 @@
 function SelezioneModalità(numero_giocatori) {
     let selezione;
     let nonSelezione;
-    if (numero_giocatori == 1) {
+    if (numero_giocatori === 1) {
         selezione = document.getElementById('partita_singleplayer');
         nonSelezione = document.getElementById('partita_multiplayer');
     }
-    else if (numero_giocatori == 2) {
+    else if (numero_giocatori === 2) {
         selezione = document.getElementById('partita_multiplayer');
         nonSelezione = document.getElementById('partita_singleplayer');
     }
@@ -22,10 +22,10 @@ function SelezioneModalità(numero_giocatori) {
 function TipoPartita(tipo_partita) {
     let modalità;
     let tipo;
-    if (document.getElementById('partita_singleplayer').className == 'selezionato') {
+    if (document.getElementById('partita_singleplayer').className === 'selezionato') {
         modalità = 'singleplayer';  
     }
-    else if (document.getElementById('partita_multiplayer').className == 'selezionato') {
+    else if (document.getElementById('partita_multiplayer').className === 'selezionato') {
         modalità = 'multiplayer';
     }
     else {
