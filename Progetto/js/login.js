@@ -13,46 +13,30 @@ function TestaPassword() {
 
     if (pw.length < 8) {
         testoP = document.createTextNode('La password deve contenere almeno 8 caratteri');
-        nuovoP.appendChild(testoP);
-        daAppendere.appendChild(nuovoP);
         nuovoP.id = 'errore';
-        return;
     }
-    if (!/[a-z]/.test(pw)) {
+    else if (!/[a-z]/.test(pw)) {
         testoP = document.createTextNode('La password deve contenere almeno una lettera minuscola');
-        nuovoP.appendChild(testoP);
-        daAppendere.appendChild(nuovoP);
         nuovoP.id = 'errore';
-        return;
     }
-    if (!/[A-Z]/.test(pw)) {
+    else if (!/[A-Z]/.test(pw)) {
         testoP = document.createTextNode('La password deve contenere almeno una lettera maiuscola');
-        nuovoP.appendChild(testoP);
-        daAppendere.appendChild(nuovoP);
         nuovoP.id = 'errore';
-        return;
     }
-    if (!/[0-9]/.test(pw)) {
+    else if (!/[0-9]/.test(pw)) {
         testoP = document.createTextNode('La password deve contenere almeno un numero');
-        nuovoP.appendChild(testoP);
-        daAppendere.appendChild(nuovoP);
         nuovoP.id = 'errore';
-        return;
     }
-    if (!/[^a-zA-Z0-9]/.test(pw)) {
+    else if (!/[^a-zA-Z0-9]/.test(pw)) {
         testoP = document.createTextNode('La password deve contenere almeno un carattere speciale');
-        nuovoP.appendChild(testoP);
-        daAppendere.appendChild(nuovoP);
         nuovoP.id = 'errore';
-        return;
     }
     if (/[ ]/.test(pw)) {
         testoP = document.createTextNode('La password non deve contenere spazi');
-        nuovoP.appendChild(testoP);
-        daAppendere.appendChild(nuovoP);
         nuovoP.id = 'errore';
-        return;
     }
+    nuovoP.appendChild(testoP);
+    daAppendere.appendChild(nuovoP);
 }
 
 const testPW = document.getElementById('pwd');
