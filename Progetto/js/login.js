@@ -1,5 +1,6 @@
 'use strict';
 
+// funzione per la validazione del form di login
 function TestaPassword() {
     const pw = document.getElementById('pwd').value;
     const checkErrore = document.getElementById('errore');
