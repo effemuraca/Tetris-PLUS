@@ -43,10 +43,6 @@ input[type="submit"] {
     color: rgb(245, 245, 245);
 }
 
-#errore{
-    display: none;
-}
-
 a {
     color: rgb(245, 245, 245);
     text-decoration: underline;

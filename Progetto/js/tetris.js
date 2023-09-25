@@ -21,6 +21,7 @@ function Tetromino(tipo_t, rotazione, x, y) {
     this.tipo_t = tipo_t;
     this.rotazione = rotazione;
     this.posizione = [x, y];
+
     this.ruotaDx = function () {
 
     };
@@ -38,6 +39,9 @@ function Tetromino(tipo_t, rotazione, x, y) {
 
     this.muoviGiu = function () {
     };
+
+    this.caduta = function () {
+    };
 }
 
 function Informazioni() {
@@ -54,13 +58,13 @@ function Chiudi(daChiudere) {
 
 function Apri(daAprire) {
     let da_aprire = document.getElementById(daAprire);
-    let controlla_salva = document.getElementById('salvataggio');
-    let controlla_regole = document.getElementById('regolamento');
-    if (daAprire == 'salvataggio' & controlla_regole.className == 'aperto') {
+    let controlla_salva = document.getElementById('salvataggio_popup');
+    let controlla_regole = document.getElementById('regolamento_popup');
+    if (daAprire == 'salvataggio_popup' & controlla_regole.className == 'aperto') {
         window.alert("Non si può aprire il popup di salvataggio finché il regolamento è aperto"); //magari sistema gli alert in qualche modo
         return;
     }
-    else if (daAprire == 'regolamento' & controlla_salva.className == 'aperto') {
+    else if (daAprire == 'regolamento_popup' & controlla_salva.className == 'aperto') {
         window.alert("Non si può aprire il regolamento finché il popup di salvataggio è aperto");
         return;
     }
@@ -70,9 +74,9 @@ function Apri(daAprire) {
     container.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
 }
 
-document.getElementById('chiudi_popup').addEventListener('click', function (event) {
-    event.preventDefault()
-});
+function Pausa() {
+
+}
 
 function createGame() {
     let questa_partita = new Partita('default', 'singleplayer', 'nuova');
@@ -85,7 +89,7 @@ function createGame() {
     node_punteggio.appendChild(textnode_punteggio);
     document.getElementById('punteggio').appendChild(node_punteggio);
 
-    // discriminare le funzioni per pc (mettono un a capo dopo prossimo tet\punteggio e il valore) e quelle telefono che le lasxiano sulla stessa riga
+    // discriminare le funzioni per pc (mettono un a capo dopo prossimo tet\punteggio e il valore) e quelle telefono che le lasciano sulla stessa riga
     const node_tetronimo = document.createElement('p');
     //   node_tetronimo.style.fontSize = '4vw';
     const textnode_tetronimo = document.createTextNode('Prossimo Tetronimo: ' + 'L');
@@ -109,5 +113,79 @@ function createGame() {
     }
 }
 
+const salva = document.getElementById('salvataggio');
+salva.addEventListener('click', function () {
+    Apri('salvataggio_popup');
+});
 
+const regole = document.getElementById('regolamento');
+regole.addEventListener('click', function () {
+    Apri('regolamento_popup');
+});
 
+document.getElementById('chiudi_salvataggio').addEventListener('click', function (event) {
+    event.preventDefault()
+});
+
+const chiudiSalva = document.getElementById('chiudi_salvataggio');
+chiudiSalva.addEventListener('click', function () {
+    Chiudi('salvataggio_popup');
+});
+
+const chiudiRegole = document.getElementById('chiudi_regolamento');
+chiudiRegole.addEventListener('click', function () {
+    Chiudi('regolamento_popup');
+});
+
+const pausa = document.getElementById('pausa');
+pausa.addEventListener('click', Pausa);
+
+// creazione eventi per il controllo dei tasti da mobile
+const rotazioneDx = document.getElementById('ruota_dx');
+rotazioneDx.addEventListener('click', function () {
+    // tetromino.ruotaDx();
+});
+
+const rotazioneSx = document.getElementById('ruota_sx');
+rotazioneSx.addEventListener('click', function () {
+    // tetromino.ruotaSx();
+});
+
+const muoviDx = document.getElementById('muovi_dx');
+muoviDx.addEventListener('click', function () {
+    // tetromino.muoviDx();
+});
+
+const muoviSx = document.getElementById('muovi_sx');
+muoviSx.addEventListener('click', function () {
+    // tetromino.muoviSx();
+});
+
+const muoviGiu = document.getElementById('muovi_giu');
+muoviGiu.addEventListener('click', function () {
+    // tetromino.muoviGiu();
+});
+
+// creazione eventi per il controllo dei tasti da pc
+document.addEventListener('keydown', function (event) {
+    switch (event.key) {
+        case 'E':
+            // tetromino.ruotaDx();
+            break;
+        case 'Q':
+            // tetromino.ruotaSx();
+            break;
+        case 'S':
+            // tetromino.muoviGiu();
+            break;
+        case 'A':
+            // tetromino.muoviSx();
+            break;
+        case 'D':
+            // tetromino.muoviDx();
+            break;
+        case 'W':
+            // tetromino.caduta();
+            break;
+    }
+});

@@ -12,25 +12,46 @@ function SelezioneModalità(numero_giocatori) {
         non_selezione = document.getElementById('partita_singleplayer');
     }
     selezione.style.backgroundColor = 'rgba(120, 192, 224, 0.9)';
+    selezione.classList.add('selezionato');
+    non_selezione.classList.remove('selezionato');
     non_selezione.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
 }
 
 function TipoPartita(tipo_partita) {
     let modalità;
     let tipo;
-    if (document.getElementById('partita_singleplayer').style.backgroundColor == 'rgba(120, 192, 224, 0.9)') {
-        modalità = 'singleplayer';
+    if (document.getElementById('partita_singleplayer').className == 'selezionato') {
+        modalità = 'singleplayer';  
     }
-    else if (document.getElementById('partita_multiplayer').style.backgroundColor == 'rgba(120, 192, 224, 0.9)') {
+    else if (document.getElementById('partita_multiplayer').className == 'selezionato') {
         modalità = 'multiplayer';
     }
     else {
-        modalità = false;   
+        modalità = false;
     }
-    
-    if (!modalità){
+
+    if (!modalità) {
         // da sostituire con un p che compare
-        window.prompt('non hai selezionato una modalità');
+        window.alert('non hai selezionato una modalità');
     }
-    
 }
+
+const singleplayer = document.getElementById('partita_singleplayer');
+singleplayer.addEventListener('click', function () {
+    SelezioneModalità(1);
+});
+
+const multiplayer = document.getElementById('partita_multiplayer');
+multiplayer.addEventListener('click', function () {
+    SelezioneModalità(2);
+});
+
+const salvata = document.getElementById('partita_salvata');
+salvata.addEventListener('click', function () {
+    TipoPartita('salvata');
+});
+
+const nuova = document.getElementById('nuova_partita');
+nuova.addEventListener('click', function () {
+    TipoPartita('nuova');
+});  

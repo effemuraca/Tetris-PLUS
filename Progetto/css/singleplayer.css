@@ -85,7 +85,7 @@
         border-radius: 2rem;
     }
 
-    form#salvataggio {
+    form#salvataggio_popup {
         display: none;
         width: 30vw;
         font-size: 1.25rem;
@@ -200,7 +200,7 @@
         font-size: 5vw;
     }
 
-    form#salvataggio {
+    form#salvataggio_popup {
         display: none;
         width: 60vw;
         font-size: 1.25rem;
@@ -252,7 +252,7 @@ legend {
     gap: 0.3rem;
 }
 
-div#regolamento {
+div#regolamento_popup {
     display: none;
     background-color: rgba(23, 36, 126, 0.9);
     border: 0.01rem solid rgb(245, 245, 245);

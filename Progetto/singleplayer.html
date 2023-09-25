@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="css/tetris.css" type="text/css">
     <link rel="stylesheet" href="css/login.css" type="text/css">
     <link rel="stylesheet" href="css/singleplayer.css" type="text/css">
-    <script src="js/tetris.js"></script>
 </head>
 
 <body onload="createGame()">
@@ -25,10 +24,10 @@
                 <img src="images/modalità.png">
             </button>
         </a>
-        <button onclick="Apri('salvataggio')">
+        <button id="salvataggio">
             <img src="images/salva.png">
         </button>
-        <button onclick="Apri('regolamento')">
+        <button id="regolamento">
             <img src="images/info.png" alt="info">
         </button>
     </nav>
@@ -38,7 +37,7 @@
             </div>
             <div id="punteggio">
             </div>
-            <button id="pausa" onclick="Pausa()">
+            <button id="pausa">
                 <img src="images/pause.png">
             </button>
             <div id="nome_giocatore1">
@@ -50,29 +49,29 @@
             </table>
         </main>
         <div id="comandi">
-            <button>
+            <button id="muovi_sx">
                 <img src="images/left-arrow.png">
             </button>
-            <button>
+            <button id="muovi_dx">
                 <img src="images/right-arrow.png">
             </button>
-            <button>
+            <button id="muovi_giu">
                 <img src="images/arrow-down.png">
             </button>
-            <button>
+            <button id="ruota_sx">
                 <img src="images/rotate-left.png">
             </button>
-            <button>
+            <button id="ruota_dx">
                 <img src="images/rotate-right.png">
             </button>
         </div>
     </div>
     <div id="container">
-        <form action="#" method="post" autocomplete="on" id="salvataggio">
+        <form action="#" method="post" autocomplete="on" id="salvataggio_popup">
             <fieldset>
                 <legend>
                     Salva la partita
-                    <button id="chiudi_popup" class="bottone_x" onclick="Chiudi('salvataggio')">
+                    <button id="chiudi_salvataggio" class="bottone_x">
                         X
                     </button>
                 </legend>
@@ -103,11 +102,11 @@
                 <input type="submit" value="Conferma">
             </fieldset>
         </form>
-        <div id="regolamento">
+        <div id="regolamento_popup">
             <h1>
                 Regolamento del gioco
             </h1>
-            <button class="bottone_x" onclick="Chiudi('regolamento')">
+            <button id="chiudi_regolamento" class="bottone_x">
                 X
             </button>
             <h2>
@@ -118,12 +117,12 @@
                 tetronimi, ovvero dei "pezzi" che cadono nel tabellone e sono muovibili a destra, sinistra e in basso
                 dal giocatore utilizzando i tasti
                 <strong>
-                    A, S, D
+                    D, A, S
                 </strong>.
                 <br>
                 Inoltre, è possibile ruotare i tetronimi in senso orario o antiorario, rispettivamente con i tasti
                 <strong>
-                    Q, E
+                    E, Q
                 </strong>
                 e far precipitare immediatamente il pezzo con il tasto
                 <strong>
@@ -199,6 +198,7 @@
             </ul>
         </div>
     </div>
+    <script src="js/tetris.js"></script>
 </body>
 
 </html>
