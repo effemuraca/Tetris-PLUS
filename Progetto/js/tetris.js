@@ -1,48 +1,62 @@
 'use strict';
 
-// definizione degli oggetti utili all'implementazione del gioco
-function Partita(nomeUtente = 'default', modalità = 'default', tipoPartita = 'default', punteggioInit = 0) {
-    this.giocatore = nomeUtente;
-    this.modalità = modalità;
-    this.tipoPartita = tipoPartita;
-    this.punteggio = punteggioInit;
+// definizione delle classi utilizzate nel gioco
+class Partita {
+    constructor(nomeUtente, modalità, tipoPartita = 'nuova', punteggioInit = 0, statoTabellone1 = [], statoTabellone2 = []) {
+        this.giocatore = nomeUtente;
+        this.modalità = modalità;
+        this.tipoPartita = tipoPartita;
+        this.punteggio = punteggioInit;
+        this.tabellone = new Tabellone(statoTabellone1);
+        if (this.modalità === 'multiplayer') {
+            this.tabellone2 = new Tabellone(statoTabellone2);
+        }
+    }
 }
 
-function Tabellone(statoTabellone = []) {
-    this.stato_iniziale = statoTabellone;
-    this.gravità = function () {
+class Tabellone {
+    constructor() {
 
-    };
-    this.riposiziona = function () {
+    }
 
-    };
+    gravità() {
+
+    }
+
+    riposiziona() {
+
+    }
 }
+class Tetromino {
+    constructor(tipoT, rotazione, x, y) {
+        this.tipoT = tipoT;
+        this.rotazione = rotazione;
+        this.posizione = [x, y];
+    }
 
-function Tetromino(tipoT, rotazione, x, y) {
-    this.tipoT = tipoT;
-    this.rotazione = rotazione;
-    this.posizione = [x, y];
+    ruotaDx() {
 
-    this.ruotaDx = function () {
+    }
 
-    };
+    ruotaSx() {
 
-    this.ruotaSx = function () {
+    }
 
-    };
+    muoviDx() {
 
-    this.muoviDx = function () {
+    }
 
-    };
-    this.muoviSx = function () {
+    muoviSx() {
 
-    };
+    }
 
-    this.muoviGiu = function () {
-    };
+    muoviGiu() {
 
-    this.caduta = function () {
-    };
+    }
+
+    caduta() {
+
+    }
 }
 
 // funzioni per la gestione dei popup di salvataggio e regolamento
@@ -72,29 +86,35 @@ function Apri(da_aprire) {
     container.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
 }
 
-// funzione che mette in pausa il gioco
+// funzione che mette in pausa/fa riprendere il gioco ##da sistemare
 function Pausa() {
+    const immaginePausa = document.getElementById('immagine_pausa');
+    const immagineRiprendi = document.getElementById('immagine_riprendi');
+    if (immaginePausa.style.display === 'none') {
+        immaginePausa.style.display = 'block';
+        immagineRiprendi.style.display = 'none';
+    }
+    else {
+        immaginePausa.style.display = 'none';
+        immagineRiprendi.style.display = 'block';
+    }
+}
 
+const tetromino = ['I', 'T', 'O', 'L', 'J', 'S', 'Z'];
+
+// funzione che restituisce un tetromino casuale
+function getTetromino() {
+    let indiceTetromino = tetromino[Math.floor(Math.random() * tetromino.length)];
+    return tetromino[indiceTetromino];
 }
 
 // funzione che inizializza una nuova partita prendendo, se la partita è salvata, i dati dal database
 function createGame() {
-    const questaPartita = new Partita('default', 'singleplayer', 'nuova');
+    const partitaGiocatore1 = new Partita('admin', 'singleplayer');
 
-    // inserimento del punteggio iniziale
-    const nodePunteggio = document.createElement('p');
-    nodePunteggio.style.marginBlockEnd = '0rem';
-    //   nodePunteggio.style.fontSize = '4vw';
-    const textnodePunteggio = document.createTextNode('Punteggio: ' + questaPartita.punteggio);
-    nodePunteggio.appendChild(textnodePunteggio);
-    document.getElementById('punteggio').appendChild(nodePunteggio);
-
-    // discriminare le funzioni per pc (mettono un a capo dopo prossimo tet\punteggio e il valore) e quelle telefono che le lasciano sulla stessa riga
-    const nodeTetronimo = document.createElement('p');
-    //   nodeTetronimo.style.fontSize = '4vw';
-    const textnodeTetronimo = document.createTextNode('Prossimo Tetronimo: ' + 'L');
-    nodeTetronimo.appendChild(textnodeTetronimo);
-    document.getElementById('prossimo_tetronimo').appendChild(nodeTetronimo);
+    if (partitaGiocatore1.tipoPartita === 'salvata') {
+        // prendi i dati dal db e sostituisci i valori default di partitaGiocatore1 e partitaGiocatore2
+    }
 
     // creazione del tabellone di gioco
     const nRow = 20;
@@ -106,10 +126,29 @@ function createGame() {
         tab.appendChild(riga);
 
         for (let j = 0; j < nCol; j++) {
-            const elem = document.createElement('td');
-            elem.className = 'elem_tabellone';
-            riga.appendChild(elem);
+            const elementoTabellone = document.createElement('td');
+            elementoTabellone.className = 'elem_tabellone';
+            riga.appendChild(elementoTabellone);
         }
+    }
+    // inserimento del punteggio iniziale
+    const nodePunteggio = document.createElement('p');
+    nodePunteggio.style.marginBlockEnd = '0rem';
+    nodePunteggio.style.fontSize = '4vw';
+    const textnodePunteggio = document.createTextNode(partitaGiocatore1.punteggio);
+    nodePunteggio.appendChild(textnodePunteggio);
+    document.getElementById('punteggio').appendChild(nodePunteggio);
+
+    // inserimento del nome utente
+    const nodeUtente = document.createElement('p');
+    const textnodeUtente = document.createTextNode(partitaGiocatore1.giocatore);
+    nodeUtente.appendChild(textnodeUtente);
+    document.getElementById('nome_giocatore1').appendChild(nodeUtente);
+
+    if (partitaGiocatore1.modalità === 'multiplayer') {
+        // i dati sul tipo di partita del secondo giocatore non sono rilevanti, se era salvata per il giocatore 1, lo sarà anche per il giocatore 2
+        const partitaGiocatore2 = new Partita('admin', 'multiplayer', 'secondoGiocatore');
+
     }
 }
 

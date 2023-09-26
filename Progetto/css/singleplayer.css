@@ -150,6 +150,7 @@
 
     div p {
         margin-block: 0rem;
+        display: inline;
     }
 
     div#comandi {
@@ -268,4 +269,12 @@ div#regolamento_popup {
 h1 {
     display: inline-block;
     margin-block-start: 0rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+img#immagine_riprendi {
+    display: none;
 }

@@ -35,7 +35,7 @@ button:hover p {
 @media screen and (min-width: 1001px) {
     button p {
         width: 90vw;
-        border-radius: 3vw;
+        border-radius: 3rem;
     }
 
     main {
@@ -85,7 +85,7 @@ button:hover p {
 @media screen and (max-width: 1000px) {
     button p {
         width: 87vw;
-        border-radius: 6vw;
+        border-radius: 3rem;
     }
 
     main {
