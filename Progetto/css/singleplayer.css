@@ -33,6 +33,7 @@
     table {
         border-collapse: collapse;
         border-spacing: 0rem;
+        border: solid 0.1rem rgb(245, 245, 245);
     }
 
     td {
@@ -136,6 +137,7 @@
     table {
         border-collapse: collapse;
         border-spacing: 0rem;
+        border: solid 0.1rem rgb(245, 245, 245);
     }
 
     td {
