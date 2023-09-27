@@ -1,23 +1,32 @@
 'use strict';
 
+// definizione delle costanti utilizzate nel gioco
+const nRow = 20;
+const nCol = 10;
+const tetromino = ['I', 'T', 'O', 'L', 'J', 'S', 'Z'];
+const colore = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink'];
+
 // definizione delle classi utilizzate nel gioco
 class Partita {
-    constructor(nomeUtente, modalità, tipoPartita = 'nuova', punteggioInit = 0, statoTabellone1 = [], statoTabellone2 = []) {
+    constructor(nomeUtente, modalità, tipoPartita, punteggioInit, statoTabellone) {
         this.giocatore = nomeUtente;
         this.modalità = modalità;
         this.tipoPartita = tipoPartita;
         this.punteggio = punteggioInit;
-        this.tabellone = new Tabellone(statoTabellone1);
-        if (this.modalità === 'multiplayer') {
-            this.tabellone2 = new Tabellone(statoTabellone2);
-        }
+        this.tabellone = new Tabellone(statoTabellone); // statoTabellone è un array di 200 elementi, 0 se vuoto, lettera identificativa del colore se pieno 
+    }
+
+    toString() {
+        // da capire come fare per passarla al db
     }
 }
 
 class Tabellone {
-    constructor() {
-
-    }
+    constructor(statoTabellone) {
+        for (let i = 0; i < nRow * nCol; i++) {
+            this.tabelloneAttuale[i] = statoTabellone[i];
+        }
+    } //questo costruttore non va una sega, ricorda che bisogna discriminare il caso di nuova partita (array con tutti 0) e il caso di partita salvata (array con i valori presi da statoTabellone)
 
     gravità() {
 
@@ -100,25 +109,27 @@ function Pausa() {
     }
 }
 
-const tetromino = ['I', 'T', 'O', 'L', 'J', 'S', 'Z'];
-
 // funzione che restituisce un tetromino casuale
 function getTetromino() {
     let indiceTetromino = tetromino[Math.floor(Math.random() * tetromino.length)];
     return tetromino[indiceTetromino];
 }
 
+//funzione che restituisce un colore casuale
+function getColore() {
+    let indiceColore = Math.floor(Math.random() * colore.length);
+    return indiceColore;
+}
+
 // funzione che inizializza una nuova partita prendendo, se la partita è salvata, i dati dal database
 function createGame() {
-    const partitaGiocatore1 = new Partita('admin', 'singleplayer');
+    const partitaGiocatore1 = new Partita('admin', 'singleplayer', 'nuovaPartita', 0, []);
 
     if (partitaGiocatore1.tipoPartita === 'salvata') {
         // prendi i dati dal db e sostituisci i valori default di partitaGiocatore1 e partitaGiocatore2
     }
 
     // creazione del tabellone di gioco
-    const nRow = 20;
-    const nCol = 10;
     const tab = document.getElementById('tabellone');
     for (let i = 0; i < nRow; i++) {
         const riga = document.createElement('tr');
@@ -147,7 +158,7 @@ function createGame() {
 
     if (partitaGiocatore1.modalità === 'multiplayer') {
         // i dati sul tipo di partita del secondo giocatore non sono rilevanti, se era salvata per il giocatore 1, lo sarà anche per il giocatore 2
-        const partitaGiocatore2 = new Partita('admin', 'multiplayer', 'secondoGiocatore');
+        const partitaGiocatore2 = new Partita('admin', 'multiplayer', 'secondoGiocatore', 0, []);
 
     }
 }
@@ -177,7 +188,9 @@ chiudiRegole.addEventListener('click', function () {
 });
 
 const pausa = document.getElementById('pausa');
-pausa.addEventListener('click', Pausa);
+pausa.addEventListener('click', function () {
+    Pausa();
+});
 
 // creazione eventi per il controllo dei tasti da mobile
 const rotazioneDx = document.getElementById('ruota_dx');

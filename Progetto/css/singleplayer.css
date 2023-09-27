@@ -70,6 +70,7 @@
         border-radius: 100%;
         padding: 1rem;
         border: 0.1vh solid rgb(245, 245, 245);
+        z-index: 9999;
     }
 
     #pausa > img {
