@@ -3,7 +3,36 @@
 // definizione delle costanti utilizzate nel gioco
 const nRow = 20;
 const nCol = 10;
-const tetromino = ['I', 'T', 'O', 'L', 'J', 'S', 'Z'];
+
+// definizione delle matrici che rappresentano i tetromini (momentaneamente non colorati)
+const I = [
+    [1, 1, 1, 1]
+];
+const T = [
+    [0, 1, 0],
+    [1, 1, 1]
+];
+const O = [
+    [1, 1],
+    [1, 1]
+];
+const L = [
+    [0, 0, 1],
+    [1, 1, 1]
+];
+const J = [
+    [1, 0, 0],
+    [1, 1, 1]
+];
+const S = [
+    [0, 1, 1],
+    [1, 1, 0]
+];
+const Z = [
+    [1, 1, 0],
+    [0, 1, 1]
+];
+const tetromino = [I, T, O, L, J, S, Z];
 const colore = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink'];
 
 // definizione delle classi utilizzate nel gioco
@@ -13,14 +42,14 @@ class Partita {
         this.modalità = modalità;
         this.tipoPartita = tipoPartita;
         this.punteggio = punteggioInit;
-        this.tabellone = new Tabellone(statoTabellone); // statoTabellone è un array di 200 elementi, 0 se vuoto, lettera identificativa del colore se pieno 
+        // this.tabellone = new Tabellone(statoTabellone); // statoTabellone è un array di 200 elementi, 0 se vuoto, lettera identificativa del colore se pieno 
     }
 
     toString() {
         // da capire come fare per passarla al db
     }
 }
-
+/*
 class Tabellone {
     constructor(statoTabellone) {
         for (let i = 0; i < nRow * nCol; i++) {
@@ -35,7 +64,7 @@ class Tabellone {
     riposiziona() {
 
     }
-}
+}*/
 class Tetromino {
     constructor(tipoT, rotazione, x, y) {
         this.tipoT = tipoT;
@@ -95,8 +124,12 @@ function Apri(da_aprire) {
     container.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
 }
 
-// funzione che mette in pausa/fa riprendere il gioco ##da sistemare
 function Pausa() {
+    // da implementare
+}
+
+// funzione che mette in pausa/fa riprendere il gioco (versione mobile)
+function PausaMobile() {
     const immaginePausa = document.getElementById('immagine_pausa');
     const immagineRiprendi = document.getElementById('immagine_riprendi');
     if (immaginePausa.style.display === 'none') {
@@ -112,7 +145,7 @@ function Pausa() {
 // funzione che restituisce un tetromino casuale
 function getTetromino() {
     let indiceTetromino = tetromino[Math.floor(Math.random() * tetromino.length)];
-    return tetromino[indiceTetromino];
+    let tetrominoCorrente = tetromino[indiceTetromino];
 }
 
 //funzione che restituisce un colore casuale
@@ -122,7 +155,7 @@ function getColore() {
 }
 
 // funzione che inizializza una nuova partita prendendo, se la partita è salvata, i dati dal database
-function createGame() {
+function iniziaPartita() {
     const partitaGiocatore1 = new Partita('admin', 'singleplayer', 'nuovaPartita', 0, []);
 
     if (partitaGiocatore1.tipoPartita === 'salvata') {
@@ -159,7 +192,6 @@ function createGame() {
     if (partitaGiocatore1.modalità === 'multiplayer') {
         // i dati sul tipo di partita del secondo giocatore non sono rilevanti, se era salvata per il giocatore 1, lo sarà anche per il giocatore 2
         const partitaGiocatore2 = new Partita('admin', 'multiplayer', 'secondoGiocatore', 0, []);
-
     }
 }
 
@@ -177,6 +209,8 @@ document.getElementById('chiudi_salvataggio').addEventListener('click', function
     event.preventDefault()
 });
 
+document.onload = iniziaPartita();
+
 const chiudiSalva = document.getElementById('chiudi_salvataggio');
 chiudiSalva.addEventListener('click', function () {
     Chiudi('salvataggio_popup');
@@ -189,7 +223,7 @@ chiudiRegole.addEventListener('click', function () {
 
 const pausa = document.getElementById('pausa');
 pausa.addEventListener('click', function () {
-    Pausa();
+    PausaMobile();
 });
 
 // creazione eventi per il controllo dei tasti da mobile
@@ -238,6 +272,9 @@ document.addEventListener('keydown', function (event) {
             break;
         case 'W':
             // tetromino.caduta();
+            break;
+        case 'Space':
+            Pausa();
             break;
     }
 });
