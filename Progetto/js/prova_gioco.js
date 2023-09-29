@@ -2,47 +2,191 @@
 const nRow = 20;
 const nCol = 10;
 
-// definizione delle matrici che rappresentano i tetromini (momentaneamente non colorati)
-const I = [
-    [1, 1, 1, 1]
-];
-const T = [
-    [0, 1, 0],
-    [1, 1, 1]
-];
-const O = [
-    [1, 1],
-    [1, 1]
-];
-const L = [
-    [0, 0, 1],
-    [1, 1, 1]
-];
-const J = [
-    [1, 0, 0],
-    [1, 1, 1]
-];
-const S = [
-    [0, 1, 1],
-    [1, 1, 0]
-];
-const Z = [
-    [1, 1, 0],
-    [0, 1, 1]
-];
-
-const tetromino = [I, T, O, L, J, S, Z];
+const tetromino = ['I', 'T', 'O', 'L', 'J', 'S', 'Z'];
 const colore = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink'];
+
 
 class Tetromino {
     constructor() {
-        this.tipoT = getTetromino();
         this.colore = getColore();
         this.rotazione = 0;
         this.x = 0;
         this.y = 3;
     }
+
+    inserisci(tabellone) {
+        for (let i = 0; i < this.tetMatrice.length; i++) {
+            for (let j = 0; j < this.tetMatrice[i].length; j++) {
+                if (this.tetMatrice[i][j] == 1) {
+                    tabellone.tabelloneAttuale[i + this.x][j + this.y] = colore[this.colore][0];
+                }
+            }
+        }
+    }
+
+    cancella(tabellone) {
+        for (let i = 0; i < this.tetMatrice.length; i++) {
+            for (let j = 0; j < this.tetMatrice[i].length; j++) {
+                if (this.tetMatrice[i][j] == 1) {
+                    tabellone.tabelloneAttuale[i + this.x][j + this.y] = 0;
+                }
+            }
+        }
+    }
+
+    tMuoviDx(tabellone) {
+        // inserire il controllo di fattibilità
+        this.cancella(tabellone);
+        this.y++;
+        this.inserisci(tabellone);
+    }
+
+    tMuoviSx(tabellone) {
+        // inserire il controllo di fattibilità
+        this.cancella(tabellone);
+        this.y--;
+        this.inserisci(tabellone);
+    }
+
+    tMuoviGiu(tabellone) {
+        // inserire il controllo di fattibilità
+        this.cancella(tabellone);
+        this.x--;
+        this.inserisci(tabellone);
+    }
 }
+
+class tetI extends Tetromino {
+    constructor() {
+        super();
+        this.tipoT = 'I';
+        this.tetMatrice = [
+            [1, 1, 1, 1]
+        ];
+    }
+
+    tRuotaDx(tabellone) {
+
+    }
+
+    tRuotaSx(tabellone) {
+
+    }
+}
+
+class tetT extends Tetromino {
+    constructor() {
+        super();
+        this.tipoT = 'T';
+        this.tetMatrice = [
+            [0, 1, 0],
+            [1, 1, 1]
+        ];
+    }
+
+    tRuotaDx(tabellone) {
+
+    }
+
+    tRuotaSx(tabellone) {
+
+    }
+}
+
+class tetO extends Tetromino {
+    constructor() {
+        super();
+        this.tipoT = 'O';
+        this.tetMatrice = [
+            [1, 1],
+            [1, 1]
+        ];
+    }
+    tRuotaDx(tabellone) {
+        return;
+    }
+
+    tRuotaSx(tabellone) {
+        return;
+    }
+}
+
+class tetL extends Tetromino {
+    constructor() {
+        super();
+        this.tipoT = 'L';
+        this.tetMatrice = [
+            [0, 0, 1],
+            [1, 1, 1]
+        ];
+    }
+
+    tRuotaDx(tabellone) {
+
+    }
+
+    tRuotaSx(tabellone) {
+
+    }
+}
+
+class tetJ extends Tetromino {
+    constructor() {
+        super();
+        this.tipoT = 'J';
+        this.tetMatrice = [
+            [1, 0, 0],
+            [1, 1, 1]
+        ];
+    }
+
+    tRuotaDx(tabellone) {
+
+    }
+
+    tRuotaSx(tabellone) {
+
+    }
+}
+
+class tetS extends Tetromino {
+    constructor() {
+        super();
+        this.tipoT = 'S';
+        this.tetMatrice = [
+            [0, 1, 1],
+            [1, 1, 0]
+        ];
+    }
+
+    tRuotaDx(tabellone) {
+
+    }
+
+    tRuotaSx(tabellone) {
+
+    }
+}
+
+class tetZ extends Tetromino {
+    constructor() {
+        super();
+        this.tipoT = 'Z';
+        this.tetMatrice = [
+            [1, 1, 0],
+            [0, 1, 1]
+        ];
+    }
+
+    tRuotaDx(tabellone) {
+
+    }
+
+    tRuotaSx(tabellone) {
+
+    }
+}
+
 
 
 class Tabellone {
@@ -55,74 +199,16 @@ class Tabellone {
             }
         }
     }
-
-    inserisci(tet) {
-        for (let i = 0; i < tet.tipoT.length; i++) {
-            for (let j = 0; j < tet.tipoT[i].length; j++) {
-                if (tet.tipoT[i][j] == 1) {
-                    this.tabelloneAttuale[i + tet.x][j + tet.y] = colore[tet.colore][0];
-                }
-            }
-        }
-    }
-
-    cancella(tet) {
-        for (let i = 0; i < tet.tipoT.length; i++) {
-            for (let j = 0; j < tet.tipoT[i].length; j++) {
-                if (tet.tipoT[i][j] == 1) {
-                    this.tabelloneAttuale[i][j + 3] = 0;
-                }
-            }
-        }
-    }
-
-    riposiziona() {
-
-    }
-
-    //funzioni che agiscono sul tetronimo, ma nel contesto del tabellone a cui appartiene (non avrebbe senso muovere a destra un tetromino se non si considera il fatto che si trovi dentro qualcosa in cui può muoversi)
-    tRuotaDx(tet) {
-
-    }
-
-    tRuotaSx(tet) {
-
-    }
-
-    tMuoviDx(tet) {
-        // inserire il controllo di fattibilità
-        this.cancella(tet);
-        tet.y++;
-        this.inserisci(tet);
-    }
-
-    tMuoviSx(tet) {
-        // inserire il controllo di fattibilità
-        this.cancella(tet);
-        tet.y--;
-        this.inserisci(tet);
-    }
-
-    tMuoviGiu(tet) {
-        // inserire il controllo di fattibilità
-        this.cancella(tet);
-        tet.x--;
-        this.inserisci(tet);
-    }
-
-    tCaduta(tet) {
-        // da capire se tenerla o meno
-    }
 }
 
 function getTetromino() {
-    let indiceTetromino = tetromino[Math.floor(Math.random() * tetromino.length)];
-    return indiceTetromino;
+    const qualeTet = tetromino[Math.floor(Math.random() * tetromino.length)];
+    return qualeTet;
 }
 
 //funzione che restituisce un colore casuale
 function getColore() {
-    let indiceColore = Math.floor(Math.random() * colore.length);
+    const indiceColore = Math.floor(Math.random() * colore.length);
     return indiceColore;
 }
 
@@ -134,9 +220,33 @@ function stampaTabellone(tabellone) {
 }
 
 let tabellone = new Tabellone();
-let nuovoT = new Tetromino();
-tabellone.inserisci(nuovoT);
+let tipoTet = getTetromino();
+let tetAtttivo;
+switch (tipoTet) {
+    case 'I':
+        tetAtttivo = new tetI();
+        break;
+    case 'T':
+        tetAtttivo = new tetT();
+        break;
+    case 'O':
+        tetAtttivo = new tetO();
+        break;
+    case 'L':
+        tetAtttivo = new tetL();
+        break;
+    case 'J':
+        tetAtttivo = new tetJ();
+        break;
+    case 'S':
+        tetAtttivo = new tetS();
+        break;
+    case 'Z':
+        tetAtttivo = new tetZ();
+        break;
+}
+tetAtttivo.inserisci(tabellone);
 stampaTabellone(tabellone);
 console.log('\n');
-tabellone.tMuoviDx(nuovoT);
+tetAtttivo.tMuoviDx(tabellone);
 stampaTabellone(tabellone);
