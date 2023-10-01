@@ -41,7 +41,7 @@ class Tetromino {
         for (let i = 0; i < this.tetMatrice.length; i++) {
             for (let j = 0; j < this.tetMatrice[i].length; j++) {
                 if (this.tetMatrice[i][j] === 1) {
-                    tabellone.tabelloneAttuale[i + this.y][j + this.x] = colore[this.colore];
+                    tabellone.tabelloneAttuale[i + this.y][j + this.x] = colore[this.colore][0];
                 }
             }
         }
@@ -65,11 +65,12 @@ class Tetromino {
                 return;
         }
         this.cancella(tabellone);
+        this.x++;
         if (this.checkCollisione(tabellone) === false) {
+            this.x--;
             this.inserisci(tabellone);
             return;
         }
-        this.x++;
         this.inserisci(tabellone);
     }
 
@@ -81,11 +82,12 @@ class Tetromino {
                 return;
         }
         this.cancella(tabellone);
+        this.x--;
         if (this.checkCollisione(tabellone) === false) {
+            this.x++;
             this.inserisci(tabellone);
             return;
         }
-        this.x--;
         this.inserisci(tabellone);
     }
 
@@ -101,55 +103,80 @@ class Tetromino {
             }
         }
         this.cancella(tabellone);
+        this.y++;
         if (this.checkCollisione(tabellone) === false) {
+            this.y--;
             this.inserisci(tabellone);
             return;
         }
-        this.y++;
         this.inserisci(tabellone);
-        return;
     }
-    /*
-        //funzione che copia il tetromino attuale in una matrice temporanea (utile ad entrambe le rotazioni)
-        ruotaPreliminari() {
-            // matrice di dimensione nxn (dove n è il massimo tra lunghezza e larghezza del tetromino)
-            // questa scelta è stata fatta per rendere piu semplice la rotazione attorno ad un polo (si evita di avere accessi fuori dalla matrice)
-            let matriceTemp = [];
-            let max = Math.max(this.tetMatrice.length, this.tetMatrice[0].length);
-            // inizializzazione della matrice temporanea
-            for (let i = 0; i < max; i++) {
-                matriceTemp[i] = [];
-                for (let j = 0; j < max; j++) {
-                    matriceTemp[i][j] = 0;
-                }
+    // funzioni generiche per la rotazione (le classi derivate inizializzazono il proprio polo di rotazione e usano le funzioni generiche) 
+    tRuotaDx(tabellone) {
+        let matriceTemp = [];
+        const tRighe = this.tetMatrice.length;
+        const tColonne = this.tetMatrice[0].length;
+        // inizializzazione della matrice temporanea
+        for (let i = 0; i < tColonne; i++) {
+            matriceTemp[i] = [];
+            for (let j = 0; j < tRighe; j++) {
+                matriceTemp[i][j] = 0;
             }
-            // copia del tetromino nella matrice temporanea
-            for (let i = 0; i < this.tetMatrice.length; i++) {
-                for (let j = 0; j < this.tetMatrice[i].length; j++) {
-                    if (this.tetMatrice[i][j] === 0) {
-                        matriceTemp[i + this.polo[0]][j + this.polo[1]] = 0;
-                    }
-                    else {
-                        matriceTemp[i + this.polo[0]][j + this.polo[1]] = this.tetMatrice[i][j];
-                    }
-                }
+        }
+
+        for (let i = 0; i < tRighe; i++) {
+            for (let j = 0; j < tColonne; j++) {
+                matriceTemp[j][tRighe - 1 - i] = this.tetMatrice[i][j];
             }
-            console.log(matriceTemp);
         }
-    
-        // funzioni generiche per la rotazione (le classi derivate inizializzazono il proprio polo di rotazione e usano le funzioni generiche) 
-        tRuotaDx(tabellone) {
-            this.ruotaPreliminari();
-            // rotazione della matrice temporanea intorno all'elemento (1,1) della matrice temporanea
-    
-    
+        this.cancella(tabellone);
+
+        if (checkCollisione(matriceTemp, this.x, this.y, tabellone) === false) {
+            this.inserisci(tabellone);
+            return;
         }
-    
-        tRuotaSx(tabellone) {
-            this.ruotaPreliminari();
-            // rotazione della matrice temporanea intorno all'elemento (1,1) della matrice temporanea
-    
-        }*/
+
+        for (let i = 0; i < tColonne; i++) {
+            this.tetMatrice[i] = [];
+            for (let j = 0; j < tRighe; j++) {
+                this.tetMatrice[i][j] = matriceTemp[i][j];
+            }
+        }
+        this.inserisci(tabellone);
+    }
+
+    tRuotaSx(tabellone) {
+        let matriceTemp = [];
+        const tRighe = this.tetMatrice.length;
+        const tColonne = this.tetMatrice[0].length;
+        // inizializzazione della matrice temporanea
+        for (let i = 0; i < tColonne; i++) {
+            matriceTemp[i] = [];
+            for (let j = 0; j < tRighe; j++) {
+                matriceTemp[i][j] = 0;
+            }
+        }
+
+        for (let i = 0; i < tRighe; i++) {
+            for (let j = 0; j < tColonne; j++) {
+                matriceTemp[tColonne - 1 - j][i] = this.tetMatrice[i][j];
+            }
+        }
+
+        this.cancella(tabellone);
+        if (checkCollisione(matriceTemp, tabellone) === false) {
+            this.inserisci(tabellone);
+            return;
+        }
+
+        for (let i = 0; i < tColonne; i++) {
+            this.tetMatrice[i] = [];
+            for (let j = 0; j < tRighe; j++) {
+                this.tetMatrice[i][j] = matriceTemp[i][j];
+            }
+        }
+        this.inserisci(tabellone);
+    }
 }
 
 class tetI extends Tetromino {
@@ -298,6 +325,18 @@ class Tabellone {
     }
 }
 
+// overloading della funzione inserisci e checkCollisione per le matrici generiche (utile per la rotazione)
+
+function checkCollisione(matrice, x, y, tabellone) {
+    for (let i = 0; i < matrice.length; i++) {
+        for (let j = 0; j < matrice[i].length; j++) {
+            if (matrice[i][j] == 1 && tabellone.tabelloneAttuale[i + y][j + x] !== 0)
+                return false;
+        }
+    }
+    return true;
+}
+
 function getTetromino() {
     const qualeTet = tetromino[Math.floor(Math.random() * tetromino.length)];
     return qualeTet;
@@ -314,6 +353,7 @@ function stampaTabellone(tabellone) {
         const stringaRiga = tabellone.tabelloneAttuale[i].join(' ');
         console.log(stringaRiga);
     }
+    console.log('\n');
 }
 
 function Pausa(tabellone) {
@@ -378,3 +418,12 @@ function loopDiGioco(tabellone) {
         // capire che fare (idealmente il loop dovrebbe permettere all'utente di fare le sue cose, finche il tetronimo non cade)
     }
 }
+
+let tab = new Tabellone();
+let tet = new tetL();
+tet.inserisci(tab);
+console.log(tet.tetMatrice);
+stampaTabellone(tab);
+tet.tRuotaDx(tab);
+stampaTabellone(tab);
+
