@@ -196,7 +196,7 @@ class tetI extends Tetromino {
         this.tetMatrice = [
             [1, 1, 1, 1]
         ];
-        
+
     }
 
     //tetI presenta una rotazione particolare, in quanto è l'unico tetromino che può essere ruotato in due modi diversi
@@ -362,8 +362,10 @@ class Tabellone {
             }
         }
         // il punteggio è soggetto ad un moltiplicatore che tiene conto del numero di righe cancellate
-        this.punteggio += quanteRighe * 100 + (quanteRighe - 1) * 50;
-        updatePunteggioDOM(this.punteggio);
+        if (quanteRighe > 0) {
+            this.punteggio += quanteRighe * 100 + (quanteRighe - 1) * 50;
+            updatePunteggioDOM(this.punteggio);
+        }
     }
 
     // la funzione fa cadere il tetromino attivo verso il basso, con un intervallo dipendente dallo statoGravita
@@ -635,11 +637,11 @@ switch (tipoTet) {
 }
 nuovoTetrominoDOM(tet);
 const tab = new Tabellone();
-tet.inserisci(tab); 
+tet.inserisci(tab);
 tab.gravita(tet);
 
-setInterval(() => { 
-    if(tet.attivo === false) {
+setInterval(() => {
+    if (tet.attivo === false) {
         tab.cancellaRighe();
         tipoTet = getTetromino();
         switch (tipoTet) {
