@@ -1,5 +1,3 @@
-'use strict'
-
 // definizione delle costanti utilizzate nel gioco
 const nRow = 20;
 const nCol = 10;
@@ -319,109 +317,16 @@ class Tabellone {
     }
 }
 
-// overloading della funzione checkCollisione per le matrici generiche (utile per controllare la fattibilità della rotazione)
-
-function checkCollisione(matrice, x, y, tabellone) {
-    for (let i = 0; i < matrice.length; i++) {
-        for (let j = 0; j < matrice[i].length; j++) {
-            if (matrice[i][j] == 1 && tabellone.tabelloneAttuale[i + y][j + x] !== 0)
-                return false;
-        }
+class Partita {
+    constructor(nomeUtente, modalità, tipoPartita, punteggioInit, statoTabellone) {
+        this.giocatore = nomeUtente;
+        this.modalità = modalità;
+        this.tipoPartita = tipoPartita;
+        this.punteggio = punteggioInit;
+        // this.tabellone = new Tabellone(statoTabellone); // statoTabellone è un array di 200 elementi, 0 se vuoto, lettera identificativa del colore se pieno 
     }
-    return true;
-}
 
-function getTetromino() {
-    const qualeTet = tetromino[Math.floor(Math.random() * tetromino.length)];
-    return qualeTet;
-}
-
-//funzione che restituisce un colore casuale
-function getColore() {
-    const indiceColore = Math.floor(Math.random() * colore.length);
-    return indiceColore;
-}
-
-function stampaTabellone(tabellone) {
-    for (let i = 0; i < nRow; i++) {
-        const stringaRiga = tabellone.tabelloneAttuale[i].join(' ');
-        console.log(stringaRiga);
-    }
-    console.log('\n');
-}
-
-function Pausa(tabellone) {
-    if (tabellone.statoPartita === statoGioco.inCorso)
-        tabellone.statoPartita = statoGioco.inPausa;
-    else
-        tabellone.statoPartita = statoGioco.inCorso;
-}
-
-// funzione che mette in pausa/fa riprendere il gioco (versione mobile)
-function PausaMobile(tabellone) {
-    const immaginePausa = document.getElementById('immagine_pausa');
-    const immagineRiprendi = document.getElementById('immagine_riprendi');
-    if (tabellone.statoPartita === statoGioco.inCorso) {
-        immaginePausa.style.display = 'block';
-        immagineRiprendi.style.display = 'none';
-        tabellone.statoPartita = statoGioco.inPausa;
-    }
-    else {
-        immaginePausa.style.display = 'none';
-        immagineRiprendi.style.display = 'block';
-        tabellone.statoPartita = statoGioco.inCorso;
+    toString() {
+        // da capire come fare per passarla al db
     }
 }
-
-function nuovaPartita() {
-    const tabellone = new Tabellone();
-    while (tabellone.statoPartita === statoGioco.inCorso) {
-        loopDiGioco(tabellone);
-    }
-}
-
-// Funzione principale del loop di gioco
-function loopDiGioco(tabellone) {
-    let tipoTet = getTetromino();
-    let tetAttivo;
-    switch (tipoTet) {
-        case 'I':
-            tetAttivo = new tetI();
-            break;
-        case 'T':
-            tetAttivo = new tetT();
-            break;
-        case 'O':
-            tetAttivo = new tetO();
-            break;
-        case 'L':
-            tetAttivo = new tetL();
-            break;
-        case 'J':
-            tetAttivo = new tetJ();
-            break;
-        case 'S':
-            tetAttivo = new tetS();
-            break;
-        case 'Z':
-            tetAttivo = new tetZ();
-            break;
-    }
-    tetAttivo.inserisci(tabellone);
-    while (tetAttivo.attivo === true) {
-        // capire che fare (idealmente il loop dovrebbe permettere all'utente di fare le sue cose, finche il tetronimo non cade)
-    }
-}
-
-let tab = new Tabellone();
-let tet = new tetL();
-tet.inserisci(tab);
-stampaTabellone(tab);
-tet.tRuotaDx(tab);
-stampaTabellone(tab);
-tet.tRuotaDx(tab);
-stampaTabellone(tab);
-tet.tRuotaDx(tab);
-stampaTabellone(tab);
-tet.tRuotaDx(tab);
-stampaTabellone(tab);
