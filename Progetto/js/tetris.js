@@ -363,6 +363,7 @@ class Tabellone {
         }
         // il punteggio è soggetto ad un moltiplicatore che tiene conto del numero di righe cancellate
         this.punteggio += quanteRighe * 100 + (quanteRighe - 1) * 50;
+        updatePunteggioDOM(this.punteggio);
     }
 
     // la funzione fa cadere il tetromino attivo verso il basso, con un intervallo dipendente dallo statoGravita
@@ -370,7 +371,7 @@ class Tabellone {
         if (tetromino.attivo === true) {
             setInterval(() => {
                 tetromino.tMuoviGiu(this);
-            }, 3000 * this.statoGravita);
+            }, 1500 * this.statoGravita);
         }
     }
 }
@@ -441,6 +442,7 @@ function iniziaPartita() {
     }
     // inserimento del punteggio iniziale
     const nodePunteggio = document.createElement('p');
+    nodePunteggio.id = 'punteggioAttuale';
     nodePunteggio.style.marginBlockEnd = '0rem';
     nodePunteggio.style.fontSize = '4vw';
     const textnodePunteggio = document.createTextNode(partitaGiocatore1.punteggio);
@@ -513,46 +515,14 @@ function PausaMobile(tabellone) {
     }
 }
 
-function nuovaPartita() {
-    const tabellone = new Tabellone();
-    while (tabellone.statoPartita === statoGioco.inCorso) {
-        loopDiGioco(tabellone);
-    }
+function updatePunteggioDOM(punteggio) {
+    const nodePunteggio = document.getElementById('punteggioAttuale').firstChild;
+    nodePunteggio.nodeValue = punteggio;
 }
 
-// Funzione principale del loop di gioco
-function loopDiGioco(tabellone) {
-    let tipoTet = getTetromino();
-    let tetAttivo;
-    switch (tipoTet) {
-        case 'I':
-            tetAttivo = new tetI();
-            break;
-        case 'T':
-            tetAttivo = new tetT();
-            break;
-        case 'O':
-            tetAttivo = new tetO();
-            break;
-        case 'L':
-            tetAttivo = new tetL();
-            break;
-        case 'J':
-            tetAttivo = new tetJ();
-            break;
-        case 'S':
-            tetAttivo = new tetS();
-            break;
-        case 'Z':
-            tetAttivo = new tetZ();
-            break;
-    }
-    tetAttivo.inserisci(tabellone);
-    while (tetAttivo.attivo === true) {
-        // capire che fare (idealmente il loop dovrebbe permettere all'utente di fare le sue cose, finche il tetronimo non cade)
-    }
+function nuovoTetrominoDOM(tet) {
+    // da implementare
 }
-
 const salva = document.getElementById('salvataggio');
 salva.addEventListener('click', function () {
     Apri('salvataggio_popup');
@@ -623,6 +593,7 @@ document.addEventListener('keydown', function (event) {
         case 's':
             console.log('muovi_giu');
             tab.punteggio += 10;
+            updatePunteggioDOM(tab.punteggio);
             tet.tMuoviGiu(tab);
             break;
         case 'a':
@@ -637,7 +608,65 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
-
+let tipoTet = getTetromino();
+let tet;
+switch (tipoTet) {
+    case 'I':
+        tet = new tetI();
+        break;
+    case 'T':
+        tet = new tetT();
+        break;
+    case 'O':
+        tet = new tetO();
+        break;
+    case 'L':
+        tet = new tetL();
+        break;
+    case 'J':
+        tet = new tetJ();
+        break;
+    case 'S':
+        tet = new tetS();
+        break;
+    case 'Z':
+        tet = new tetZ();
+        break;
+}
+nuovoTetrominoDOM(tet);
 const tab = new Tabellone();
-const tet = new tetI();
-tet.inserisci(tab);
+tet.inserisci(tab); 
+tab.gravita(tet);
+
+setInterval(() => { 
+    if(tet.attivo === false) {
+        tab.cancellaRighe();
+        tipoTet = getTetromino();
+        switch (tipoTet) {
+            case 'I':
+                tet = new tetI();
+                break;
+            case 'T':
+                tet = new tetT();
+                break;
+            case 'O':
+                tet = new tetO();
+                break;
+            case 'L':
+                tet = new tetL();
+                break;
+            case 'J':
+                tet = new tetJ();
+                break;
+            case 'S':
+                tet = new tetS();
+                break;
+            case 'Z':
+                tet = new tetZ();
+                break;
+        }
+        nuovoTetrominoDOM(tet);
+        tet.inserisci(tab);
+        tab.gravita(tet);
+    }
+}, 1000);
