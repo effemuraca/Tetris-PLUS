@@ -57,7 +57,6 @@ class Tetromino {
                 if (this.tetMatrice[i][j] === 1) {
                     tabellone.tabelloneAttuale[i + this.y][j + this.x] = 0;
                     let elemDOM = document.getElementsByClassName('elem_tabellone')[(i + this.y) * nCol + j + this.x];
-                    console.log(elemDOM);
                     elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
                 }
             }
@@ -141,15 +140,11 @@ class Tetromino {
             for (let j = 0; j < tColonne; j++) {
                 const offsetX = i - this.polo[0];
                 const offsetY = j - this.polo[1];
-                const newX = this.polo[0] + offsetY;
+                let newX = this.polo[0] + offsetY;
                 let newY = this.polo[1] - offsetX;
-                // risolve i problemi generati da tetI (out of bounds)
-                if (newY < 0)
-                    newY = Math.abs(newY);
                 matriceTemp[newX][newY] = this.tetMatrice[i][j];
             }
         }
-        console.log(matriceTemp);
         this.cancella(tabellone);
         if (checkCollisione(matriceTemp, this.x, this.y, tabellone) === false) {
             this.inserisci(tabellone);
@@ -201,7 +196,47 @@ class tetI extends Tetromino {
         this.tetMatrice = [
             [1, 1, 1, 1]
         ];
-        this.polo = [0.5, 0.5];
+        
+    }
+
+    //tetI presenta una rotazione particolare, in quanto è l'unico tetromino che può essere ruotato in due modi diversi
+    // La scelta stilistica è quella di mantenere sulla stessa riga il blocco prima e dopo la rotazione, e ciò non è fattibile con la tecnica usata per gli altri tetronimi (il problema principale è che dovrei usare un polo esterno al tetromino)
+    tRuotaDx(tabellone) {
+        const tRighe = this.tetMatrice.length;
+        let matriceTemp = [];
+        this.cancella(tabellone);
+
+        if (tRighe === 1) {
+            matriceTemp = [
+                [1],
+                [1],
+                [1],
+                [1]
+            ];
+            this.x++;
+        }
+
+        else {
+            matriceTemp = [
+                [1, 1, 1, 1]
+            ];
+            this.x--;
+        }
+
+        if (checkCollisione(matriceTemp, this.x, this.y, tabellone) === false) {
+            this.inserisci(tabellone);
+            if (tRighe === 1)
+                this.x--;
+            else
+                this.x++;
+            return;
+        }
+        this.tetMatrice = matriceTemp;
+        this.inserisci(tabellone);
+    }
+
+    tRuotaSx(tabellone) {
+        this.tRuotaDx(tabellone);
     }
 }
 
