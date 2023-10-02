@@ -41,7 +41,7 @@
         width: 4vh;
         height: 4vh;
         background-color: rgba(23, 36, 126, 0.9);
-        border: 0.1vw solid rgba(245, 245, 245, 0.2);
+        border: 0.1vw solid rgba(245, 245, 245, 0.1);
     }
 
     div p {

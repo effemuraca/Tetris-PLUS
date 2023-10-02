@@ -5,7 +5,7 @@ const nRow = 20;
 const nCol = 10;
 
 const tetromino = ['I', 'T', 'O', 'L', 'J', 'S', 'Z'];
-const colore = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink'];
+const colore = ['red', 'orange', 'yellow', 'green', 'cyan', 'purple', 'blue'];
 
 const statoGioco = {
     inCorso: 1,
@@ -46,6 +46,7 @@ class Tetromino {
                     tabellone.tabelloneAttuale[i + this.y][j + this.x] = colore[this.colore][0];
                     let elemDOM = document.getElementsByClassName('elem_tabellone')[(i + this.y) * nCol + j + this.x];
                     elemDOM.style.backgroundColor = colore[this.colore];
+                    elemDOM.style.borderColor = 'rgba(245, 245, 245, 0.6)';
                 }
             }
         }
@@ -58,20 +59,13 @@ class Tetromino {
                     tabellone.tabelloneAttuale[i + this.y][j + this.x] = 0;
                     let elemDOM = document.getElementsByClassName('elem_tabellone')[(i + this.y) * nCol + j + this.x];
                     elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
+                    elemDOM.style.borderColor = 'rgba(245, 245, 245, 0.1)';
                 }
             }
         }
     }
 
     tMuoviDx(tabellone) {
-        if (this.x + this.tetMatrice[0].length >= nCol) {
-            console.log('non posso andare a dx');
-            return;
-        }
-        for (let i = 0; i < this.tetMatrice.length; i++) {
-            if (tabellone.tabelloneAttuale[i + this.y][this.x + this.tetMatrice[i].length] != 0)
-                return;
-        }
         this.cancella(tabellone);
         this.x++;
         if (this.checkCollisione(tabellone) === false) {
@@ -83,16 +77,6 @@ class Tetromino {
     }
 
     tMuoviSx(tabellone) {
-        if (this.x <= 0) {
-            console.log('non posso andare a sx');
-            return;
-        }
-        for (let i = 0; i < this.tetMatrice.length; i++) {
-            if (tabellone.tabelloneAttuale[i + this.y][this.x - 1] != 0) {
-                console.log('collisione');
-                return;
-            }
-        }
         this.cancella(tabellone);
         this.x--;
         if (this.checkCollisione(tabellone) === false) {
@@ -108,19 +92,16 @@ class Tetromino {
             this.attivo = false;
             return;
         }
-        for (let i = 0; i < this.tetMatrice[0].length; i++) {
-            if (tabellone.tabelloneAttuale[this.y + this.tetMatrice.length][i + this.x] != 0) {
-                this.attivo = false;
-                return;
-            }
-        }
         this.cancella(tabellone);
         this.y++;
         if (this.checkCollisione(tabellone) === false) {
             this.y--;
             this.inserisci(tabellone);
+            this.attivo = false;
             return;
         }
+        tabellone.punteggio += 10;
+        updatePunteggioDOM(tab.punteggio);
         this.inserisci(tabellone);
     }
     // funzioni generiche per la rotazione (le classi derivate inizializzazono il proprio polo di rotazione e usano le funzioni generiche) 
@@ -138,13 +119,16 @@ class Tetromino {
 
         for (let i = 0; i < tRighe; i++) {
             for (let j = 0; j < tColonne; j++) {
-                const offsetX = i - this.polo[0];
-                const offsetY = j - this.polo[1];
-                let newX = this.polo[0] + offsetY;
-                let newY = this.polo[1] - offsetX;
-                matriceTemp[newX][newY] = this.tetMatrice[i][j];
+                // dX e dY sono le distanze del blocco dalla posizione del polo di rotazione
+                const dX = i - this.polo[0];
+                const dY = j - this.polo[1];
+                // nX e nY sono le nuove coordinate del blocco dopo la rotazione
+                const nX = this.polo[0] + dY;
+                const nY = this.polo[1] - dX;
+                matriceTemp[nX][nY] = this.tetMatrice[i][j];
             }
         }
+        console.log(matriceTemp);
         this.cancella(tabellone);
         if (checkCollisione(matriceTemp, this.x, this.y, tabellone) === false) {
             this.inserisci(tabellone);
@@ -168,13 +152,11 @@ class Tetromino {
 
         for (let i = 0; i < tRighe; i++) {
             for (let j = 0; j < tColonne; j++) {
-                const offsetX = i - this.polo[0];
-                const offsetY = j - this.polo[1];
-                const newX = this.polo[0] + offsetY;
-                let newY = this.polo[1] - offsetX;
-                if (newY < 0)
-                    newY = Math.abs(newY);
-                matriceTemp[newX][newY] = this.tetMatrice[i][j];
+                const dX = i - this.polo[0];
+                const dY = j - this.polo[1];
+                const nX = this.polo[0] + dY;
+                const nY = this.polo[1] - dX;
+                matriceTemp[nX][nY] = this.tetMatrice[i][j];
             }
         }
 
@@ -353,6 +335,8 @@ class Tabellone {
         let quanteRighe = 0;
         while (riga >= 0) {
             if (this.checkRigaPiena(riga) === true) {
+                console.log('riga piena');
+                console.log(riga);
                 this.tabelloneAttuale.splice(riga, 1);
                 this.tabelloneAttuale.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
                 quanteRighe++;
@@ -365,9 +349,22 @@ class Tabellone {
         if (quanteRighe > 0) {
             this.punteggio += quanteRighe * 100 + (quanteRighe - 1) * 50;
             updatePunteggioDOM(this.punteggio);
+            this.riscriviTabelloneDOM();
         }
     }
 
+    riscriviTabelloneDOM() {
+        for (let i = 0; i < nRow; i++) {
+            for (let j = 0; j < nCol; j++) {
+                let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
+                if (this.tabelloneAttuale[i][j] !== 0) {
+                    //elemDOM.style.backgroundColor = '  ';
+                }
+                else
+                    elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
+            }
+        }
+    }
     // la funzione fa cadere il tetromino attivo verso il basso, con un intervallo dipendente dallo statoGravita
     gravita(tetromino) {
         if (tetromino.attivo === true) {
@@ -594,8 +591,6 @@ document.addEventListener('keydown', function (event) {
             break;
         case 's':
             console.log('muovi_giu');
-            tab.punteggio += 10;
-            updatePunteggioDOM(tab.punteggio);
             tet.tMuoviGiu(tab);
             break;
         case 'a':
@@ -670,5 +665,6 @@ setInterval(() => {
         nuovoTetrominoDOM(tet);
         tet.inserisci(tab);
         tab.gravita(tet);
+        stampaTabellone(tab);
     }
-}, 1000);
+}, 500);
