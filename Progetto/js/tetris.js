@@ -28,8 +28,10 @@ class Tetromino {
             for (let j = 0; j < this.tetMatrice[i].length; j++) {
                 if (this.tetMatrice[i][j] == 1 && tabellone.tabelloneAttuale[i + this.y][j + this.x] !== 0) {
                     // se il pezzo è nella posizione iniziale e non è possibile inserirlo, la partita è finita
-                    if (this.y === 0 && this.x === 3)
-                        tabellone.statoPartita = 0;
+                    if (this.y === 0 && this.x === 3) {
+                        tabellone.statoPartita = statoGioco.finita;
+                        this.attivo = false;
+                    }
                     return false;
                 }
             }
@@ -38,6 +40,8 @@ class Tetromino {
     }
 
     inserisci(tabellone) {
+        if (tabellone.statoPartita === statoGioco.finita)
+            return;
         if (this.checkCollisione(tabellone) === false)
             return;
         for (let i = 0; i < this.tetMatrice.length; i++) {
@@ -66,6 +70,8 @@ class Tetromino {
     }
 
     tMuoviDx(tabellone) {
+        if (tabellone.statoPartita === statoGioco.finita)
+            return;
         this.cancella(tabellone);
         this.x++;
         if (this.checkCollisione(tabellone) === false) {
@@ -77,6 +83,8 @@ class Tetromino {
     }
 
     tMuoviSx(tabellone) {
+        if (tabellone.statoPartita === statoGioco.finita)
+            return;
         this.cancella(tabellone);
         this.x--;
         if (this.checkCollisione(tabellone) === false) {
@@ -88,6 +96,8 @@ class Tetromino {
     }
 
     tMuoviGiu(tabellone) {
+        if (tabellone.statoPartita === statoGioco.finita)
+            return;
         if (this.y + this.tetMatrice.length >= nRow) {
             this.attivo = false;
             return;
@@ -106,6 +116,8 @@ class Tetromino {
     }
     // funzioni generiche per la rotazione (le classi derivate inizializzazono il proprio polo di rotazione e usano le funzioni generiche) 
     tRuotaDx(tabellone) {
+        if (tabellone.statoPartita === statoGioco.finita)
+            return;
         let matriceTemp = [];
         const tRighe = this.tetMatrice.length;
         const tColonne = this.tetMatrice[0].length;
@@ -124,7 +136,9 @@ class Tetromino {
                 const dY = j - this.polo[1];
                 // nX e nY sono le nuove coordinate del blocco dopo la rotazione
                 const nX = this.polo[0] + dY;
-                const nY = this.polo[1] - dX;
+                let nY = this.polo[1] - dX;
+                if (nY < 0)
+                    nY = Math.abs(nY);
                 matriceTemp[nX][nY] = this.tetMatrice[i][j];
             }
         }
@@ -139,6 +153,8 @@ class Tetromino {
     }
 
     tRuotaSx(tabellone) {
+        if (tabellone.statoPartita === statoGioco.finita)
+            return;
         let matriceTemp = [];
         const tRighe = this.tetMatrice.length;
         const tColonne = this.tetMatrice[0].length;
@@ -155,7 +171,10 @@ class Tetromino {
                 const dX = i - this.polo[0];
                 const dY = j - this.polo[1];
                 const nX = this.polo[0] + dY;
-                const nY = this.polo[1] - dX;
+                let nY = this.polo[1] - dX;
+                console.log(nX, nY);
+                if (nY < 0)
+                    nY = Math.abs(nY);
                 matriceTemp[nX][nY] = this.tetMatrice[i][j];
             }
         }
@@ -178,47 +197,8 @@ class tetI extends Tetromino {
         this.tetMatrice = [
             [1, 1, 1, 1]
         ];
+        this.polo = [0, 0]
 
-    }
-
-    //tetI presenta una rotazione particolare, in quanto è l'unico tetromino che può essere ruotato in due modi diversi
-    // La scelta stilistica è quella di mantenere sulla stessa riga il blocco prima e dopo la rotazione, e ciò non è fattibile con la tecnica usata per gli altri tetronimi (il problema principale è che dovrei usare un polo esterno al tetromino)
-    tRuotaDx(tabellone) {
-        const tRighe = this.tetMatrice.length;
-        let matriceTemp = [];
-        this.cancella(tabellone);
-
-        if (tRighe === 1) {
-            matriceTemp = [
-                [1],
-                [1],
-                [1],
-                [1]
-            ];
-            this.x++;
-        }
-
-        else {
-            matriceTemp = [
-                [1, 1, 1, 1]
-            ];
-            this.x--;
-        }
-
-        if (checkCollisione(matriceTemp, this.x, this.y, tabellone) === false) {
-            this.inserisci(tabellone);
-            if (tRighe === 1)
-                this.x--;
-            else
-                this.x++;
-            return;
-        }
-        this.tetMatrice = matriceTemp;
-        this.inserisci(tabellone);
-    }
-
-    tRuotaSx(tabellone) {
-        this.tRuotaDx(tabellone);
     }
 }
 
@@ -522,6 +502,11 @@ function updatePunteggioDOM(punteggio) {
 function nuovoTetrominoDOM(tet) {
     // da implementare
 }
+
+function finePartita(){
+    // funzione che fa apparire un div che dice quanti punti sono stati fatti e che la partita è terminata
+}
+
 const salva = document.getElementById('salvataggio');
 salva.addEventListener('click', function () {
     Apri('salvataggio_popup');
@@ -583,14 +568,12 @@ muoviGiu.addEventListener('click', function () {
 document.addEventListener('keydown', function (event) {
     switch (event.key) {
         case 'e':
-            console.log('ruota_dx');
             tet.tRuotaDx(tab);
             break;
         case 'q':
             tet.tRuotaSx(tab);
             break;
         case 's':
-            console.log('muovi_giu');
             tet.tMuoviGiu(tab);
             break;
         case 'a':
@@ -630,41 +613,50 @@ switch (tipoTet) {
         tet = new tetZ();
         break;
 }
-nuovoTetrominoDOM(tet);
 const tab = new Tabellone();
 tet.inserisci(tab);
+nuovoTetrominoDOM(tet);
 tab.gravita(tet);
 
-setInterval(() => {
-    if (tet.attivo === false) {
-        tab.cancellaRighe();
-        tipoTet = getTetromino();
-        switch (tipoTet) {
-            case 'I':
-                tet = new tetI();
-                break;
-            case 'T':
-                tet = new tetT();
-                break;
-            case 'O':
-                tet = new tetO();
-                break;
-            case 'L':
-                tet = new tetL();
-                break;
-            case 'J':
-                tet = new tetJ();
-                break;
-            case 'S':
-                tet = new tetS();
-                break;
-            case 'Z':
-                tet = new tetZ();
-                break;
+let gioco =
+    setInterval(() => {
+        if (tab.statoPartita === statoGioco.inPausa) {
+            return;
         }
-        nuovoTetrominoDOM(tet);
-        tet.inserisci(tab);
-        tab.gravita(tet);
-        stampaTabellone(tab);
-    }
-}, 500);
+        if (tab.statoPartita === statoGioco.finita) {
+            clearInterval(gioco);
+            finePartita();
+            return;
+        }
+        if (tet.attivo === false) {
+            tab.cancellaRighe();
+            tipoTet = getTetromino();
+            switch (tipoTet) {
+                case 'I':
+                    tet = new tetI();
+                    break;
+                case 'T':
+                    tet = new tetT();
+                    break;
+                case 'O':
+                    tet = new tetO();
+                    break;
+                case 'L':
+                    tet = new tetL();
+                    break;
+                case 'J':
+                    tet = new tetJ();
+                    break;
+                case 'S':
+                    tet = new tetS();
+                    break;
+                case 'Z':
+                    tet = new tetZ();
+                    break;
+            }
+            tet.inserisci(tab);
+            nuovoTetrominoDOM(tet);
+            tab.gravita(tet);
+            stampaTabellone(tab);
+        }
+    }, 500);
