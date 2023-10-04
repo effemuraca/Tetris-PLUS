@@ -47,10 +47,9 @@ class Tetromino {
         for (let i = 0; i < this.tetMatrice.length; i++) {
             for (let j = 0; j < this.tetMatrice[i].length; j++) {
                 if (this.tetMatrice[i][j] === 1) {
-                    tabellone.tabelloneAttuale[i + this.y][j + this.x] = colore[this.colore][0];
+                    tabellone.tabelloneAttuale[i + this.y][j + this.x] = colore[this.colore];
                     let elemDOM = document.getElementsByClassName('elem_tabellone')[(i + this.y) * nCol + j + this.x];
                     elemDOM.style.backgroundColor = colore[this.colore];
-                    elemDOM.style.borderColor = 'rgba(245, 245, 245, 0.6)';
                 }
             }
         }
@@ -63,7 +62,6 @@ class Tetromino {
                     tabellone.tabelloneAttuale[i + this.y][j + this.x] = 0;
                     let elemDOM = document.getElementsByClassName('elem_tabellone')[(i + this.y) * nCol + j + this.x];
                     elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
-                    elemDOM.style.borderColor = 'rgba(245, 245, 245, 0.1)';
                 }
             }
         }
@@ -95,11 +93,13 @@ class Tetromino {
         this.inserisci(tabellone);
     }
 
-    tMuoviGiu(tabellone) {
+    tMuoviGiu(tabellone, gravita) {
+        console.log("SONO UN PEZZO STRONZO");
         if (tabellone.statoPartita === statoGioco.finita)
             return;
         if (this.y + this.tetMatrice.length >= nRow) {
             this.attivo = false;
+            clearInterval(gravita);
             return;
         }
         this.cancella(tabellone);
@@ -108,6 +108,7 @@ class Tetromino {
             this.y--;
             this.inserisci(tabellone);
             this.attivo = false;
+            clearInterval(gravita);
             return;
         }
         tabellone.punteggio += 10;
@@ -142,7 +143,6 @@ class Tetromino {
                 matriceTemp[nX][nY] = this.tetMatrice[i][j];
             }
         }
-        console.log(matriceTemp);
         this.cancella(tabellone);
         if (checkCollisione(matriceTemp, this.x, this.y, tabellone) === false) {
             this.inserisci(tabellone);
@@ -311,46 +311,49 @@ class Tabellone {
     //funzione che cancella una riga piena e sposta le righe sopra di essa di una posizione verso il basso
     cancellaRighe() {
         let riga = nRow - 1;
-        // quanteRighe è una variabile che tiene conto di quante righe sono state cancellate
-        let quanteRighe = 0;
+        let righeCancellate = 0;
+
         while (riga >= 0) {
-            if (this.checkRigaPiena(riga) === true) {
-                console.log('riga piena');
-                console.log(riga);
+            if (this.checkRigaPiena(riga)) {
+                // rimozione della riga piena
                 this.tabelloneAttuale.splice(riga, 1);
-                this.tabelloneAttuale.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-                quanteRighe++;
-            }
-            else {
+                // aggiunta di una nuova riga vuota in cima al tabellone
+                this.tabelloneAttuale.unshift(new Array(nCol).fill(0));
+                righeCancellate++;
+                stampaTabellone(tab);
+            } else {
                 riga--;
             }
         }
-        // il punteggio è soggetto ad un moltiplicatore che tiene conto del numero di righe cancellate
-        if (quanteRighe > 0) {
-            this.punteggio += quanteRighe * 100 + (quanteRighe - 1) * 50;
-            updatePunteggioDOM(this.punteggio);
+
+        if (righeCancellate > 0) {
             this.riscriviTabelloneDOM();
+            this.punteggio += righeCancellate * 100 + (righeCancellate - 1) * 50;
+            updatePunteggioDOM(this.punteggio);
         }
     }
 
     riscriviTabelloneDOM() {
+        console.log(document.getElementsByClassName('elem_tabellone'));
         for (let i = 0; i < nRow; i++) {
             for (let j = 0; j < nCol; j++) {
-                let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
-                if (this.tabelloneAttuale[i][j] !== 0) {
-                    //elemDOM.style.backgroundColor = '  ';
-                }
-                else
+                const elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
+                if (this.tabelloneAttuale[i][j] === 0) {
                     elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
+                } else {
+                    elemDOM.style.backgroundColor = this.tabelloneAttuale[i][j];
+                }
             }
         }
     }
+    
     // la funzione fa cadere il tetromino attivo verso il basso, con un intervallo dipendente dallo statoGravita
     gravita(tetromino) {
         if (tetromino.attivo === true) {
-            setInterval(() => {
-                tetromino.tMuoviGiu(this);
+            const gravita = setInterval(() => {
+                tetromino.tMuoviGiu(this, gravita);
             }, 1500 * this.statoGravita);
+
         }
     }
 }
@@ -503,7 +506,7 @@ function nuovoTetrominoDOM(tet) {
     // da implementare
 }
 
-function finePartita(){
+function finePartita() {
     // funzione che fa apparire un div che dice quanti punti sono stati fatti e che la partita è terminata
 }
 
@@ -657,6 +660,5 @@ let gioco =
             tet.inserisci(tab);
             nuovoTetrominoDOM(tet);
             tab.gravita(tet);
-            stampaTabellone(tab);
         }
     }, 500);
