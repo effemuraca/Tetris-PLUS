@@ -3,7 +3,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        gap: 10vw;
+        gap: 8vw;
     }
 
     aside {
@@ -218,8 +218,9 @@
     }
 
     h1 {
-        font-size: 6.5vw;
+        font-size: 9vw;
         padding-bottom: 4rem;
+        text-align: center;
     }
 }
 
@@ -273,10 +274,19 @@ div#regolamento_popup {
     max-height: 70vh;
     overflow: auto;
 }
+div#game_over {
+    display: none;
+    background-color: rgba(23, 36, 126, 0.9);
+    border: 0.01rem solid rgb(245, 245, 245);
+    border-radius: 2rem;
+    padding: 3rem;
+}
 
 h1 {
+    font-size: 3vw;
     display: inline-block;
     margin-block-start: 0rem;
+    margin-block-end: 0rem;
 }
 
 a {

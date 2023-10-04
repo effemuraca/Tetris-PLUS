@@ -346,7 +346,7 @@ class Tabellone {
             }
         }
     }
-    
+
     // la funzione fa cadere il tetromino attivo verso il basso, con un intervallo dipendente dallo statoGravita
     gravita(tetromino) {
         if (tetromino.attivo === true) {
@@ -355,6 +355,19 @@ class Tabellone {
             }, 1500 * this.statoGravita);
 
         }
+    }
+
+    finePartita() {
+        const gameOver = document.getElementById('game_over');
+        gameOver.style.display = 'block';
+        const container = document.getElementById('container');
+        container.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        const nodePunteggio = document.getElementById('info_go');
+        nodePunteggio.style.marginBlock = '1rem';
+        nodePunteggio.style.fontSize = '1.5vw';
+        nodePunteggio.textContent = 'Hai totalizzato ' + this.punteggio + ' punti';
+
+        // inserisci la parte del codice che salva la partita in classifica
     }
 }
 
@@ -426,7 +439,7 @@ function iniziaPartita() {
     const nodePunteggio = document.createElement('p');
     nodePunteggio.id = 'punteggioAttuale';
     nodePunteggio.style.marginBlockEnd = '0rem';
-    nodePunteggio.style.fontSize = '4vw';
+    nodePunteggio.style.fontSize = '3vw';
     const textnodePunteggio = document.createTextNode(partitaGiocatore1.punteggio);
     nodePunteggio.appendChild(textnodePunteggio);
     document.getElementById('punteggio').appendChild(nodePunteggio);
@@ -504,10 +517,6 @@ function updatePunteggioDOM(punteggio) {
 
 function nuovoTetrominoDOM(tet) {
     // da implementare
-}
-
-function finePartita() {
-    // funzione che fa apparire un div che dice quanti punti sono stati fatti e che la partita è terminata
 }
 
 const salva = document.getElementById('salvataggio');
@@ -628,7 +637,7 @@ let gioco =
         }
         if (tab.statoPartita === statoGioco.finita) {
             clearInterval(gioco);
-            finePartita();
+            tab.finePartita();
             return;
         }
         if (tet.attivo === false) {
