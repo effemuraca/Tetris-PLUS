@@ -96,6 +96,15 @@
     li {
         font-size: 1.25rem;
     }
+
+    #game_over h1 {
+        display: inline-block;
+        font-size: 3rem;
+    }
+
+    p {
+        font-size: 2rem;
+    }
 }
 
 @media screen and (max-width: 1000px) {
@@ -218,9 +227,16 @@
     }
 
     h1 {
-        font-size: 9vw;
+        font-size: 5vw;
         padding-bottom: 4rem;
         text-align: center;
+        margin-block-start: 0rem;
+        margin-block-end: 0rem;
+        display: inline-block;
+    }
+
+    #game_over h1 {
+        display: block;
     }
 }
 
@@ -279,14 +295,7 @@ div#game_over {
     background-color: rgba(23, 36, 126, 0.9);
     border: 0.01rem solid rgb(245, 245, 245);
     border-radius: 2rem;
-    padding: 3rem;
-}
-
-h1 {
-    font-size: 3vw;
-    display: inline-block;
-    margin-block-start: 0rem;
-    margin-block-end: 0rem;
+    padding: 2.5rem;
 }
 
 a {

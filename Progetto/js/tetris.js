@@ -68,7 +68,7 @@ class Tetromino {
     }
 
     tMuoviDx(tabellone) {
-        if (tabellone.statoPartita === statoGioco.finita)
+        if (tabellone.statoPartita === statoGioco.finita || tabellone.statoPartita === statoGioco.inPausa)
             return;
         this.cancella(tabellone);
         this.x++;
@@ -81,7 +81,7 @@ class Tetromino {
     }
 
     tMuoviSx(tabellone) {
-        if (tabellone.statoPartita === statoGioco.finita)
+        if (tabellone.statoPartita === statoGioco.finita || tabellone.statoPartita === statoGioco.inPausa)
             return;
         this.cancella(tabellone);
         this.x--;
@@ -94,8 +94,7 @@ class Tetromino {
     }
 
     tMuoviGiu(tabellone, gravita) {
-        console.log("SONO UN PEZZO STRONZO");
-        if (tabellone.statoPartita === statoGioco.finita)
+        if (tabellone.statoPartita === statoGioco.finita || tabellone.statoPartita === statoGioco.inPausa)
             return;
         if (this.y + this.tetMatrice.length >= nRow) {
             this.attivo = false;
@@ -117,7 +116,7 @@ class Tetromino {
     }
     // funzioni generiche per la rotazione (le classi derivate inizializzazono il proprio polo di rotazione e usano le funzioni generiche) 
     tRuotaDx(tabellone) {
-        if (tabellone.statoPartita === statoGioco.finita)
+        if (tabellone.statoPartita === statoGioco.finita || tabellone.statoPartita === statoGioco.inPausa)
             return;
         let matriceTemp = [];
         const tRighe = this.tetMatrice.length;
@@ -153,7 +152,7 @@ class Tetromino {
     }
 
     tRuotaSx(tabellone) {
-        if (tabellone.statoPartita === statoGioco.finita)
+        if (tabellone.statoPartita === statoGioco.finita || tabellone.statoPartita === statoGioco.inPausa)
             return;
         let matriceTemp = [];
         const tRighe = this.tetMatrice.length;
@@ -309,11 +308,11 @@ class Tabellone {
     }
 
     //funzione che cancella una riga piena e sposta le righe sopra di essa di una posizione verso il basso
-    cancellaRighe() {
-        let riga = nRow - 1;
+    cancellaRighe(tetromino) {
+        let riga = tetromino.y + tetromino.tetMatrice.length - 1;
         let righeCancellate = 0;
 
-        while (riga >= 0) {
+        while (riga >= tetromino.y) {
             if (this.checkRigaPiena(riga)) {
                 // rimozione della riga piena
                 this.tabelloneAttuale.splice(riga, 1);
@@ -330,6 +329,7 @@ class Tabellone {
             this.riscriviTabelloneDOM();
             this.punteggio += righeCancellate * 100 + (righeCancellate - 1) * 50;
             updatePunteggioDOM(this.punteggio);
+            tet.cancella(this);
         }
     }
 
@@ -364,7 +364,6 @@ class Tabellone {
         container.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
         const nodePunteggio = document.getElementById('info_go');
         nodePunteggio.style.marginBlock = '1rem';
-        nodePunteggio.style.fontSize = '1.5vw';
         nodePunteggio.textContent = 'Hai totalizzato ' + this.punteggio + ' punti';
 
         // inserisci la parte del codice che salva la partita in classifica
@@ -487,7 +486,8 @@ function stampaTabellone(tabellone) {
     console.log('\n');
 }
 
-function Pausa(tabellone) {
+function pausa(tabellone) {
+    console.log('pausa');
     if (tabellone.statoPartita === statoGioco.inCorso)
         tabellone.statoPartita = statoGioco.inPausa;
     else
@@ -495,7 +495,7 @@ function Pausa(tabellone) {
 }
 
 // funzione che mette in pausa/fa riprendere il gioco (versione mobile)
-function PausaMobile(tabellone) {
+function pausaMobile(tabellone) {
     const immaginePausa = document.getElementById('immagine_pausa');
     const immagineRiprendi = document.getElementById('immagine_riprendi');
     if (tabellone.statoPartita === statoGioco.inCorso) {
@@ -545,9 +545,9 @@ chiudiRegole.addEventListener('click', function () {
     Chiudi('regolamento_popup');
 });
 
-const pausa = document.getElementById('pausa');
-pausa.addEventListener('click', function () {
-    PausaMobile();
+const pausaListener = document.getElementById('pausa');
+pausaListener.addEventListener('click', function () {
+    pausaMobile(tab);
 });
 
 // creazione eventi per il controllo dei tasti da mobile
@@ -594,8 +594,8 @@ document.addEventListener('keydown', function (event) {
         case 'd':
             tet.tMuoviDx(tab);
             break;
-        case 'Space':
-            Pausa();
+        case ' ':
+            pausa(tab);
             break;
     }
 });
@@ -631,8 +631,9 @@ nuovoTetrominoDOM(tet);
 tab.gravita(tet);
 
 let gioco =
-    setInterval(() => {
+    setInterval(() => { 
         if (tab.statoPartita === statoGioco.inPausa) {
+            clearInterval(gioco);
             return;
         }
         if (tab.statoPartita === statoGioco.finita) {
@@ -641,7 +642,7 @@ let gioco =
             return;
         }
         if (tet.attivo === false) {
-            tab.cancellaRighe();
+            tab.cancellaRighe(tet);
             tipoTet = getTetromino();
             switch (tipoTet) {
                 case 'I':
@@ -670,4 +671,4 @@ let gioco =
             nuovoTetrominoDOM(tet);
             tab.gravita(tet);
         }
-    }, 500);
+    }, 300);
