@@ -6,6 +6,7 @@ const nCol = 10;
 
 const tetromino = ['I', 'T', 'O', 'L', 'J', 'S', 'Z'];
 const colore = ['red', 'orange', 'yellow', 'green', 'cyan', 'purple', 'blue'];
+const speciale = ['destroyer', 'dinamite', 'stopper', 'accelerator', 'mist'];
 
 const statoGioco = {
     inCorso: 1,
@@ -47,9 +48,10 @@ class Tetromino {
         for (let i = 0; i < this.tetMatrice.length; i++) {
             for (let j = 0; j < this.tetMatrice[i].length; j++) {
                 if (this.tetMatrice[i][j] === 1) {
-                    tabellone.tabelloneAttuale[i + this.y][j + this.x] = colore[this.colore];
+                    tabellone.tabelloneAttuale[i + this.y][j + this.x] = this.colore;
                     let elemDOM = document.getElementsByClassName('elem_tabellone')[(i + this.y) * nCol + j + this.x];
-                    elemDOM.style.backgroundColor = colore[this.colore];
+                    if (this.tipoT)
+                        elemDOM.style.backgroundColor = this.colore;
                 }
             }
         }
@@ -74,9 +76,11 @@ class Tetromino {
         this.x++;
         if (this.checkCollisione(tabellone) === false) {
             this.x--;
+            console.log('inserisci da tMuoviDx');
             this.inserisci(tabellone);
             return;
         }
+        console.log('inserisci da tMuoviDx');
         this.inserisci(tabellone);
     }
 
@@ -87,9 +91,11 @@ class Tetromino {
         this.x--;
         if (this.checkCollisione(tabellone) === false) {
             this.x++;
+            console.log('inserisci da tMuoviSx');
             this.inserisci(tabellone);
             return;
         }
+        console.log('inserisci da tMuoviSx');
         this.inserisci(tabellone);
     }
 
@@ -105,13 +111,69 @@ class Tetromino {
         this.y++;
         if (this.checkCollisione(tabellone) === false) {
             this.y--;
+            console.log('inserisci da tMuoviGiu caso fallito');
             this.inserisci(tabellone);
             this.attivo = false;
             clearInterval(gravita);
+            if (this.tipoTet === 'destroyer' || this.tipoTet === 'dinamite' || this.tipoTet === 'stopper' || this.tipoTet === 'accelerator' || this.tipoTet === 'mist') {
+                console.log('inserisci da tMuoviGiu caso speciale');
+                switch (this.tipoTet) {
+                    case 'destroyer':
+                        tabellone.tabelloneAttuale.splice(this.y + 1, 1);
+                        tabellone.tabelloneAttuale.unshift(new Array(nCol).fill(0));
+                        break;
+                    case 'dinamite':
+                        for (let i = this.y - 2; i <= this.y + 2; i++) {
+                            for (let j = this.x - 2; j <= this.x + 2; j++) {
+                                if (i >= 0 && i < nRow && j >= 0 && j < nCol) {
+                                    tabellone.tabelloneAttuale[i][j] = 0;
+                                    let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
+                                    elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
+                                }
+                            }
+                        } 
+                        break;
+                        
+                    case 'stopper':
+                        // ferma il tempo per 15 secondi
+                        setTimeout(() => {
+                            clearInterval(gravita);
+                        }, 15000);
+                        break;
+
+                    case 'accelerator':
+                        tabellone.statoGravita -= 0.2;
+                        break;
+
+                    case 'mist':
+                        // nasconde per 15 secondi le tre righe più in basso del tabellone
+                        for (let i = nRow - 3; i < nRow; i++) {
+                            for (let j = 0; j < nCol; j++) {
+                                tabellone.tabelloneAttuale[i][j] = 0;
+                                let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
+                                elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
+                            }
+                        }
+                        setTimeout(() => {
+                            for (let i = nRow - 3; i < nRow; i++) {
+                                for (let j = 0; j < nCol; j++) {
+                                    tabellone.tabelloneAttuale[i][j] = 0;
+                                    let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
+                                    elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
+                                }
+                            }
+                        }, 15000);
+                        break;
+                }
+                this.attivo = false;
+                clearInterval(gravita);
+                return;
+            }
             return;
         }
         tabellone.punteggio += 10;
         updatePunteggioDOM(tab.punteggio);
+        console.log('inserisci da tMuoviGiu caso riuscito');
         this.inserisci(tabellone);
     }
     // funzioni generiche per la rotazione (le classi derivate inizializzazono il proprio polo di rotazione e usano le funzioni generiche) 
@@ -148,6 +210,7 @@ class Tetromino {
             return;
         }
         this.tetMatrice = matriceTemp;
+        console.log('inserisci da tRuotaDx');
         this.inserisci(tabellone);
     }
 
@@ -185,6 +248,7 @@ class Tetromino {
             return;
         }
         this.tetMatrice = matriceTemp;
+        console.log('inserisci da tRuotaSx');
         this.inserisci(tabellone);
     }
 }
@@ -281,6 +345,25 @@ class tetZ extends Tetromino {
     }
 }
 
+class tetSpec extends Tetromino {
+    constructor() {
+        super();
+        this.tipoT = getSpeciale();
+        this.colore = 'white';
+        this.tetMatrice = [
+            [1, 1],
+            [1, 1]
+        ];
+    }
+    tRuotaDx(tabellone) {
+        return;
+    }
+
+    tRuotaSx(tabellone) {
+        return;
+    }
+}
+
 class Tabellone {
     constructor(statoTabellone, punteggio) {
         // manca il caso in cui il tabellone non è vuoto e viene preso dal db (statoTabellone rappresenta il tabellone della partita presa dal db)
@@ -309,6 +392,7 @@ class Tabellone {
 
     //funzione che cancella una riga piena e sposta le righe sopra di essa di una posizione verso il basso
     cancellaRighe(tetromino) {
+        console.log('cancellaRighe');
         let riga = tetromino.y + tetromino.tetMatrice.length - 1;
         let righeCancellate = 0;
 
@@ -326,10 +410,10 @@ class Tabellone {
         }
 
         if (righeCancellate > 0) {
+            this.righeCancellate = true;
             this.riscriviTabelloneDOM();
             this.punteggio += righeCancellate * 100 + (righeCancellate - 1) * 50;
             updatePunteggioDOM(this.punteggio);
-            tet.cancella(this);
         }
     }
 
@@ -351,6 +435,10 @@ class Tabellone {
     gravita(tetromino) {
         if (tetromino.attivo === true) {
             const gravita = setInterval(() => {
+                if (tetromino.attivo === false) {
+                    clearInterval(gravita);
+                    return;
+                }
                 tetromino.tMuoviGiu(this, gravita);
             }, 1500 * this.statoGravita);
 
@@ -467,6 +555,19 @@ function checkCollisione(matrice, x, y, tabellone) {
     return true;
 }
 
+function getPossibilita() {
+    const possibilita = Math.floor(Math.random() * 15);
+    if (possibilita === 0)
+        return true;
+    else
+        return false;
+}
+
+function getSpeciale() {
+    const spec = speciale[Math.floor(Math.random() * speciale.length)];
+    return spec;
+}
+
 function getTetromino() {
     const qualeTet = tetromino[Math.floor(Math.random() * tetromino.length)];
     return qualeTet;
@@ -474,8 +575,8 @@ function getTetromino() {
 
 //funzione che restituisce un colore casuale
 function getColore() {
-    const indiceColore = Math.floor(Math.random() * colore.length);
-    return indiceColore;
+    const col = colore[Math.floor(Math.random() * colore.length)];
+    return col;
 }
 
 function stampaTabellone(tabellone) {
@@ -631,7 +732,7 @@ nuovoTetrominoDOM(tet);
 tab.gravita(tet);
 
 let gioco =
-    setInterval(() => { 
+    setInterval(() => {
         if (tab.statoPartita === statoGioco.inPausa) {
             clearInterval(gioco);
             return;
@@ -643,32 +744,43 @@ let gioco =
         }
         if (tet.attivo === false) {
             tab.cancellaRighe(tet);
-            tipoTet = getTetromino();
-            switch (tipoTet) {
-                case 'I':
-                    tet = new tetI();
-                    break;
-                case 'T':
-                    tet = new tetT();
-                    break;
-                case 'O':
-                    tet = new tetO();
-                    break;
-                case 'L':
-                    tet = new tetL();
-                    break;
-                case 'J':
-                    tet = new tetJ();
-                    break;
-                case 'S':
-                    tet = new tetS();
-                    break;
-                case 'Z':
-                    tet = new tetZ();
-                    break;
+            if (getPossibilita() === true) {
+                console.log('speciale');
+                tet = new tetSpec();
+                console.log(tet);
             }
+            else {
+                tipoTet = getTetromino();
+                switch (tipoTet) {
+                    case 'I':
+                        tet = new tetI();
+                        break;
+                    case 'T':
+                        tet = new tetT();
+                        break;
+                    case 'O':
+                        tet = new tetO();
+                        break;
+                    case 'L':
+                        tet = new tetL();
+                        break;
+                    case 'J':
+                        tet = new tetJ();
+                        break;
+                    case 'S':
+                        tet = new tetS();
+                        break;
+                    case 'Z':
+                        tet = new tetZ();
+                        break;
+                }
+            }
+            tab.statoGravita = (tab.punteggio > 10000) ? tab.statoGravita -= 0.05 : tab.statoGravita;
+            if (tab.statoGravita < 0.2)
+                tab.statoGravita = 0.2;
+            console.log(tab.statoGravita);
             tet.inserisci(tab);
             nuovoTetrominoDOM(tet);
             tab.gravita(tet);
         }
-    }, 300);
+    }, 200);
