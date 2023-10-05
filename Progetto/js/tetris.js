@@ -41,7 +41,7 @@ class Tetromino {
     }
 
     inserisci(tabellone) {
-        if (tabellone.statoPartita === statoGioco.finita)
+        if (tabellone.statoPartita === statoGioco.finita || tabellone.statoPartita === statoGioco.inPausa)
             return;
         if (this.checkCollisione(tabellone) === false)
             return;
@@ -81,6 +81,7 @@ class Tetromino {
             return;
         }
         console.log('inserisci da tMuoviDx');
+        this.attivo = true;
         this.inserisci(tabellone);
     }
 
@@ -96,6 +97,7 @@ class Tetromino {
             return;
         }
         console.log('inserisci da tMuoviSx');
+        this.attivo = true;
         this.inserisci(tabellone);
     }
 
@@ -115,60 +117,6 @@ class Tetromino {
             this.inserisci(tabellone);
             this.attivo = false;
             clearInterval(gravita);
-            if (this.tipoTet === 'destroyer' || this.tipoTet === 'dinamite' || this.tipoTet === 'stopper' || this.tipoTet === 'accelerator' || this.tipoTet === 'mist') {
-                console.log('inserisci da tMuoviGiu caso speciale');
-                switch (this.tipoTet) {
-                    case 'destroyer':
-                        tabellone.tabelloneAttuale.splice(this.y + 1, 1);
-                        tabellone.tabelloneAttuale.unshift(new Array(nCol).fill(0));
-                        break;
-                    case 'dinamite':
-                        for (let i = this.y - 2; i <= this.y + 2; i++) {
-                            for (let j = this.x - 2; j <= this.x + 2; j++) {
-                                if (i >= 0 && i < nRow && j >= 0 && j < nCol) {
-                                    tabellone.tabelloneAttuale[i][j] = 0;
-                                    let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
-                                    elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
-                                }
-                            }
-                        } 
-                        break;
-                        
-                    case 'stopper':
-                        // ferma il tempo per 15 secondi
-                        setTimeout(() => {
-                            clearInterval(gravita);
-                        }, 15000);
-                        break;
-
-                    case 'accelerator':
-                        tabellone.statoGravita -= 0.2;
-                        break;
-
-                    case 'mist':
-                        // nasconde per 15 secondi le tre righe più in basso del tabellone
-                        for (let i = nRow - 3; i < nRow; i++) {
-                            for (let j = 0; j < nCol; j++) {
-                                tabellone.tabelloneAttuale[i][j] = 0;
-                                let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
-                                elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
-                            }
-                        }
-                        setTimeout(() => {
-                            for (let i = nRow - 3; i < nRow; i++) {
-                                for (let j = 0; j < nCol; j++) {
-                                    tabellone.tabelloneAttuale[i][j] = 0;
-                                    let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
-                                    elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
-                                }
-                            }
-                        }, 15000);
-                        break;
-                }
-                this.attivo = false;
-                clearInterval(gravita);
-                return;
-            }
             return;
         }
         tabellone.punteggio += 10;
@@ -250,6 +198,64 @@ class Tetromino {
         this.tetMatrice = matriceTemp;
         console.log('inserisci da tRuotaSx');
         this.inserisci(tabellone);
+    }
+
+    checkSpeciale(tabellone) {
+        if (this.tipoT === 'destroyer' || this.tipoT === 'dinamite' || this.tipoT === 'stopper' || this.tipoT === 'accelerator' || this.tipoT === 'mist') {
+            console.log('tMuoviGiu caso speciale');
+            switch (this.tipoT) {
+                case 'destroyer':
+                    tabellone.tabelloneAttuale.splice(this.y + 1, 1);
+                    tabellone.tabelloneAttuale.unshift(new Array(nCol).fill(0));
+                    tabellone.riscriviTabelloneDOM();
+                    break;
+
+                case 'dinamite':
+                    for (let i = this.y - 2; i <= this.y + 2; i++) {
+                        for (let j = this.x - 2; j <= this.x + 2; j++) {
+                            if (i >= 0 && i < nRow && j >= 0 && j < nCol) {
+                                tabellone.tabelloneAttuale[i][j] = 0;
+                                let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
+                                elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
+                            }
+                        }
+                    }
+                    break;
+
+                case 'stopper':
+                    // ferma il tempo per 15 secondi
+                    tabellone.statoGravita = 999;
+                    setTimeout(() => {
+                        tabellone.statoGravita = 1;
+                    }, 15000);
+
+                case 'accelerator':
+                    tabellone.statoGravita -= 0.2;
+                    break;
+
+                case 'mist':
+                    // nasconde per 15 secondi le tre righe più in basso del tabellone
+                    for (let i = nRow - 3; i < nRow; i++) {
+                        for (let j = 0; j < nCol; j++) {
+                            let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
+                            elemDOM.style.backgroundColor = 'rgb(0, 0, 0)';
+                        }
+                    }
+                    setTimeout(() => {
+                        for (let i = nRow - 3; i < nRow; i++) {
+                            for (let j = 0; j < nCol; j++) {
+                                let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
+                                if (tabellone.tabelloneAttuale[i][j] !== 0)
+                                    elemDOM.style.backgroundColor = tabellone.tabelloneAttuale[i][j];
+                                else
+                                    elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
+                            }
+                        }
+                    }, 15000);
+                    break;
+            }
+            return;
+        }
     }
 }
 
@@ -440,13 +446,13 @@ class Tabellone {
                     return;
                 }
                 tetromino.tMuoviGiu(this, gravita);
-            }, 1500 * this.statoGravita);
-
+            }, 1000 * this.statoGravita);
         }
     }
 
     finePartita() {
         const gameOver = document.getElementById('game_over');
+        gameOver.classList.add('aperto');
         gameOver.style.display = 'block';
         const container = document.getElementById('container');
         container.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
@@ -485,12 +491,13 @@ function Apri(da_aprire) {
     const daAprire = document.getElementById(da_aprire);
     const controllaSalva = document.getElementById('salvataggio_popup');
     const controllaRegole = document.getElementById('regolamento_popup');
-    if (da_aprire === 'salvataggio_popup' && controllaRegole.className === 'aperto') {
-        window.alert("Non si può aprire il popup di salvataggio finché il regolamento è aperto"); //magari sistema gli alert in qualche modo
+    const controllaGo = document.getElementById('game_over');
+    if ((da_aprire === 'salvataggio_popup' && controllaRegole.className === 'aperto') || (da_aprire === 'salvataggio_popup' && controllaGo.className === 'aperto')) {
+        window.alert("Non si può aprire il popup di salvataggio finché il regolamento o la schermata di game over sono aperto"); //magari sistema gli alert in qualche modo
         return;
     }
-    else if (da_aprire === 'regolamento_popup' && controllaSalva.className === 'aperto') {
-        window.alert("Non si può aprire il regolamento finché il popup di salvataggio è aperto");
+    else if ((da_aprire === 'regolamento_popup' && controllaSalva.className === 'aperto') || (da_aprire === 'regolamento_popup' && controllaGo.className === 'aperto')) {
+        window.alert("Non si può aprire il regolamento finché il popup di salvataggio o la schermata di game over sono aperto");
         return;
     }
     daAprire.classList.add('aperto');
@@ -531,8 +538,22 @@ function iniziaPartita() {
     nodePunteggio.appendChild(textnodePunteggio);
     document.getElementById('punteggio').appendChild(nodePunteggio);
 
+    //creazione dell'interfaccia per la scelta del tetromino successivo
+    const prossimo = document.getElementById('prossimo_tetromino_tabellone');
+    for (let i = 0; i < 5; i++) {
+        const riga = document.createElement('tr');
+        prossimo.appendChild(riga);
+
+        for (let j = 0; j < 5; j++) {
+            const elementoProssimo = document.createElement('td');
+            elementoProssimo.className = 'elem_prossimo';
+            riga.appendChild(elementoProssimo);
+        }
+    }
+
     // inserimento del nome utente
     const nodeUtente = document.createElement('p');
+    nodeUtente.style.marginBlockEnd = '0rem';
     const textnodeUtente = document.createTextNode(partitaGiocatore1.giocatore);
     nodeUtente.appendChild(textnodeUtente);
     document.getElementById('nome_giocatore1').appendChild(nodeUtente);
@@ -556,7 +577,7 @@ function checkCollisione(matrice, x, y, tabellone) {
 }
 
 function getPossibilita() {
-    const possibilita = Math.floor(Math.random() * 15);
+    const possibilita = Math.floor(Math.random() * 14);
     if (possibilita === 0)
         return true;
     else
@@ -617,7 +638,24 @@ function updatePunteggioDOM(punteggio) {
 }
 
 function nuovoTetrominoDOM(tet) {
-    // da implementare
+
+    for (let i = 0; i < 25; i++) {
+        let elemDOM = document.getElementsByClassName('elem_prossimo')[i];
+        elemDOM.style.backgroundColor = 'transparent';
+    }
+    
+    for (let i = 0; i < tet.tetMatrice.length; i++) {
+        for (let j = 0; j < tet.tetMatrice[i].length; j++) {
+            if (tet.tetMatrice[i][j] === 1) {
+                if (tet.tipoT === 'I')
+                    i++;
+                let elemDOM = document.getElementsByClassName('elem_prossimo')[(i + 1) * 5 + (j + 1)];
+                if (tet.tipoT === 'I')
+                    i--;
+                elemDOM.style.backgroundColor = tet.colore;
+            }
+        }
+    }
 }
 
 const salva = document.getElementById('salvataggio');
@@ -734,7 +772,6 @@ tab.gravita(tet);
 let gioco =
     setInterval(() => {
         if (tab.statoPartita === statoGioco.inPausa) {
-            clearInterval(gioco);
             return;
         }
         if (tab.statoPartita === statoGioco.finita) {
@@ -744,6 +781,7 @@ let gioco =
         }
         if (tet.attivo === false) {
             tab.cancellaRighe(tet);
+            tet.checkSpeciale(tab);
             if (getPossibilita() === true) {
                 console.log('speciale');
                 tet = new tetSpec();
@@ -783,4 +821,4 @@ let gioco =
             nuovoTetrominoDOM(tet);
             tab.gravita(tet);
         }
-    }, 200);
+    }, 100);
