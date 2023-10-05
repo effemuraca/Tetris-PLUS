@@ -5,7 +5,7 @@ const nRow = 20;
 const nCol = 10;
 
 const tetromino = ['I', 'T', 'O', 'L', 'J', 'S', 'Z'];
-const colore = ['red', 'orange', 'yellow', 'green', 'cyan', 'purple', 'blue'];
+const colore = ['red', 'coral', 'yellow', 'green', 'cyan', 'purple', 'blue'];
 const speciale = ['destroyer', 'dinamite', 'stopper', 'accelerator', 'mist'];
 
 const statoGioco = {
@@ -355,7 +355,7 @@ class tetSpec extends Tetromino {
     constructor() {
         super();
         this.tipoT = getSpeciale();
-        this.colore = 'white';
+        this.colore = 'gold';
         this.tetMatrice = [
             [1, 1],
             [1, 1]
@@ -480,6 +480,7 @@ class Partita {
 
 // funzioni per la gestione dei popup di salvataggio e regolamento
 function Chiudi(da_chiudere) {
+    pausa(tab);
     const daChiudere = document.getElementById(da_chiudere);
     daChiudere.style.display = 'none';
     daChiudere.classList.remove('aperto');
@@ -500,6 +501,7 @@ function Apri(da_aprire) {
         window.alert("Non si può aprire il regolamento finché il popup di salvataggio o la schermata di game over sono aperto");
         return;
     }
+    pausa(tab);
     daAprire.classList.add('aperto');
     daAprire.style.display = 'block';
     const container = document.getElementById('container');
@@ -637,30 +639,65 @@ function updatePunteggioDOM(punteggio) {
     nodePunteggio.nodeValue = punteggio;
 }
 
-function nuovoTetrominoDOM(tet) {
+function nuovoTetrominoDOM(qualeTet) {
+    let prossimoTet;
+    switch (qualeTet) {
+        case 'I':
+            prossimoTet = new tetI();
+            break;
+        case 'T':
+            prossimoTet = new tetT();
+            break;
+        case 'O':
+            prossimoTet = new tetO();
+            break;
+        case 'L':
+            prossimoTet = new tetL();
+            break;
+        case 'J':
+            prossimoTet = new tetJ();
+            break;
+        case 'S':
+            prossimoTet = new tetS();
+            break;
+        case 'Z':
+            prossimoTet = new tetZ();
+            break;
+        case 'Speciale':
+            prossimoTet = new tetSpec();
+            break;
+    }
 
     for (let i = 0; i < 25; i++) {
         let elemDOM = document.getElementsByClassName('elem_prossimo')[i];
         elemDOM.style.backgroundColor = 'transparent';
     }
-    
-    for (let i = 0; i < tet.tetMatrice.length; i++) {
-        for (let j = 0; j < tet.tetMatrice[i].length; j++) {
-            if (tet.tetMatrice[i][j] === 1) {
-                if (tet.tipoT === 'I')
+
+    for (let i = 0; i < prossimoTet.tetMatrice.length; i++) {
+        for (let j = 0; j < prossimoTet.tetMatrice[i].length; j++) {
+            if (prossimoTet.tetMatrice[i][j] === 1) {
+                if (prossimoTet.tipoT === 'I')
                     i++;
                 let elemDOM = document.getElementsByClassName('elem_prossimo')[(i + 1) * 5 + (j + 1)];
-                if (tet.tipoT === 'I')
+                if (prossimoTet.tipoT === 'I')
                     i--;
-                elemDOM.style.backgroundColor = tet.colore;
+                if (qualeTet === 'Speciale')
+                    elemDOM.style.backgroundColor = 'gold';
+                else
+                    elemDOM.style.backgroundColor = 'rgb(177, 221, 241)';
             }
         }
     }
+
+    const letteraTet = document.getElementById('prossimo_tetromino_nome');
+    letteraTet.textContent = prossimoTet.tipoT;
+    letteraTet.style.fontSize = '3vw';
 }
 
 const salva = document.getElementById('salvataggio');
 salva.addEventListener('click', function () {
     Apri('salvataggio_popup');
+
 });
 
 const regole = document.getElementById('regolamento');
@@ -766,8 +803,9 @@ switch (tipoTet) {
 }
 const tab = new Tabellone();
 tet.inserisci(tab);
-nuovoTetrominoDOM(tet);
 tab.gravita(tet);
+tipoTet = getTetromino();
+nuovoTetrominoDOM(tipoTet);
 
 let gioco =
     setInterval(() => {
@@ -782,43 +820,43 @@ let gioco =
         if (tet.attivo === false) {
             tab.cancellaRighe(tet);
             tet.checkSpeciale(tab);
-            if (getPossibilita() === true) {
-                console.log('speciale');
-                tet = new tetSpec();
-                console.log(tet);
+
+            switch (tipoTet) {
+                case 'I':
+                    tet = new tetI();
+                    break;
+                case 'T':
+                    tet = new tetT();
+                    break;
+                case 'O':
+                    tet = new tetO();
+                    break;
+                case 'L':
+                    tet = new tetL();
+                    break;
+                case 'J':
+                    tet = new tetJ();
+                    break;
+                case 'S':
+                    tet = new tetS();
+                    break;
+                case 'Z':
+                    tet = new tetZ();
+                    break;
+                case 'Speciale':
+                    tet = new tetSpec();
+                    break;
             }
-            else {
-                tipoTet = getTetromino();
-                switch (tipoTet) {
-                    case 'I':
-                        tet = new tetI();
-                        break;
-                    case 'T':
-                        tet = new tetT();
-                        break;
-                    case 'O':
-                        tet = new tetO();
-                        break;
-                    case 'L':
-                        tet = new tetL();
-                        break;
-                    case 'J':
-                        tet = new tetJ();
-                        break;
-                    case 'S':
-                        tet = new tetS();
-                        break;
-                    case 'Z':
-                        tet = new tetZ();
-                        break;
-                }
-            }
+
+            tipoTet = getTetromino();
+            if (getPossibilita() === true)
+                tipoTet = 'Speciale';
+            nuovoTetrominoDOM(tipoTet);
             tab.statoGravita = (tab.punteggio > 10000) ? tab.statoGravita -= 0.05 : tab.statoGravita;
             if (tab.statoGravita < 0.2)
                 tab.statoGravita = 0.2;
             console.log(tab.statoGravita);
             tet.inserisci(tab);
-            nuovoTetrominoDOM(tet);
             tab.gravita(tet);
         }
     }, 100);
