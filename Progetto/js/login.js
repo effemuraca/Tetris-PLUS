@@ -40,5 +40,76 @@ function TestaPassword() {
     daAppendere.appendChild(nuovoP);
 }
 
+function testaUsername() {
+    const username = document.getElementById('username').value;
+    const checkErrore = document.getElementById('errore');
+    if (checkErrore !== null) {
+        checkErrore.remove();
+    }
+    const daAppendere = document.getElementsByClassName('username')[0];
+    const nuovoP = document.createElement('p');
+    nuovoP.style.fontSize = '1vw';
+    let testoP;
+
+    if (username.length < 5) {
+        testoP = document.createTextNode('Lo username deve contenere almeno 5 caratteri');
+        nuovoP.id = 'errore';
+    }
+    else if (/[ ]/.test(username)) {
+        testoP = document.createTextNode('Lo username non deve contenere spazi');
+        nuovoP.id = 'errore';
+    }
+    nuovoP.appendChild(testoP);
+    daAppendere.appendChild(nuovoP);
+}
+
+function testaRisposta() {
+    const risposta = document.getElementById('risposta').value;
+    const checkErrore = document.getElementById('errore');
+    if (checkErrore !== null) {
+        checkErrore.remove();
+    }
+    const daAppendere = document.getElementsByClassName('risposta')[0];
+    const nuovoP = document.createElement('p');
+    nuovoP.style.fontSize = '1vw';
+    let testoP;
+
+    if (risposta.length < 5) {
+        testoP = document.createTextNode('La risposta deve contenere almeno 5 caratteri');
+        nuovoP.id = 'errore';
+    }
+    nuovoP.appendChild(testoP);
+    daAppendere.appendChild(nuovoP);
+}
+
+function testaMail() {
+    const mail = document.getElementById('mail').value;
+    const checkErrore = document.getElementById('errore');
+    if (checkErrore !== null) {
+        checkErrore.remove();
+    }
+    const daAppendere = document.getElementsByClassName('mail')[0];
+    const nuovoP = document.createElement('p');
+    nuovoP.style.fontSize = '1vw';
+    let testoP;
+
+    if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(mail)) {
+        testoP = document.createTextNode('Inserire una mail valida');
+        nuovoP.id = 'errore';
+    }
+    nuovoP.appendChild(testoP);
+    daAppendere.appendChild(nuovoP);
+}
+
 const testPW = document.getElementById('pwd');
 testPW.addEventListener('change', TestaPassword);   
+
+const testUsername = document.getElementById('username');
+testUsername.addEventListener('change', testaUsername);
+
+const testDomanda = document.getElementById('risposta');
+testDomanda.addEventListener('change', testaRisposta);
+
+const testMail = document.getElementById('mail');
+testMail.addEventListener('change', testaMail);
+

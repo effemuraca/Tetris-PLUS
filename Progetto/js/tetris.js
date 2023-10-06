@@ -81,7 +81,6 @@ class Tetromino {
             return;
         }
         console.log('inserisci da tMuoviDx');
-        this.attivo = true;
         this.inserisci(tabellone);
     }
 
@@ -97,7 +96,6 @@ class Tetromino {
             return;
         }
         console.log('inserisci da tMuoviSx');
-        this.attivo = true;
         this.inserisci(tabellone);
     }
 
@@ -238,7 +236,7 @@ class Tetromino {
                     for (let i = nRow - 3; i < nRow; i++) {
                         for (let j = 0; j < nCol; j++) {
                             let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
-                            elemDOM.style.backgroundColor = 'rgb(0, 0, 0)';
+                            elemDOM.style.backgroundColor = 'white';
                         }
                     }
                     setTimeout(() => {
@@ -480,7 +478,7 @@ class Partita {
 
 // funzioni per la gestione dei popup di salvataggio e regolamento
 function Chiudi(da_chiudere) {
-    pausa(tab);
+    tab.statoPartita = statoGioco.inCorso;
     const daChiudere = document.getElementById(da_chiudere);
     daChiudere.style.display = 'none';
     daChiudere.classList.remove('aperto');
@@ -489,6 +487,7 @@ function Chiudi(da_chiudere) {
 }
 
 function Apri(da_aprire) {
+    tab.statoPartita = statoGioco.inPausa;
     const daAprire = document.getElementById(da_aprire);
     const controllaSalva = document.getElementById('salvataggio_popup');
     const controllaRegole = document.getElementById('regolamento_popup');
@@ -501,7 +500,6 @@ function Apri(da_aprire) {
         window.alert("Non si può aprire il regolamento finché il popup di salvataggio o la schermata di game over sono aperto");
         return;
     }
-    pausa(tab);
     daAprire.classList.add('aperto');
     daAprire.style.display = 'block';
     const container = document.getElementById('container');

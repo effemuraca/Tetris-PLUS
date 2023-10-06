@@ -6,29 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Ferdinando Muraca">
     <title>Singleplayer</title>
-    <link rel="icon" href="images/tetris.ico" type="image/x-icon">
+    <link rel="icon" href="../images/tetris.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Eczar&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="css/tetris.css" type="text/css">
-    <link rel="stylesheet" href="css/login.css" type="text/css">
-    <link rel="stylesheet" href="css/singleplayer.css" type="text/css">
+    <link rel="stylesheet" href="../css/tetris.css" type="text/css">
+    <link rel="stylesheet" href="../css/login.css" type="text/css">
+    <link rel="stylesheet" href="../css/singleplayer.css" type="text/css">
 </head>
 
 <body>
     <nav>
         <a href="modalità.html">
             <button>
-                <img src="images/modalità.png">
+                <img src="../images/modalità.png">
             </button>
         </a>
         <button id="salvataggio">
-            <img src="images/salva.png">
+            <img src="../images/salva.png">
         </button>
         <button id="regolamento">
-            <img src="images/info.png" alt="info">
+            <img src="../images/info.png" alt="info">
         </button>
     </nav>
     <div id="core">
@@ -56,28 +56,28 @@
         </main>
         <div id="comandi">
             <button id="muovi_sx">
-                <img src="images/left-arrow.png">
+                <img src="../images/left-arrow.png">
             </button>
             <button id="muovi_dx">
-                <img src="images/right-arrow.png">
+                <img src="../images/right-arrow.png">
             </button>
             <button id="muovi_giu">
-                <img src="images/arrow-down.png">
+                <img src="../images/arrow-down.png">
             </button>
             <button id="ruota_sx">
-                <img src="images/rotate-left.png">
+                <img src="../images/rotate-left.png">
             </button>
             <button id="ruota_dx">
-                <img src="images/rotate-right.png">
+                <img src="../images/rotate-right.png">
             </button>
             <button id="pausa">
-                <img src="images/pause.png" id="immagine_pausa">
-                <img src="images/play.png" id="immagine_riprendi">
+                <img src="../images/pause.png" id="immagine_pausa">
+                <img src="../images/play.png" id="immagine_riprendi">
             </button>
         </div>
     </div>
     <div id="container">
-        <form action="php/salva.php" method="get" autocomplete="on" id="salvataggio_popup">
+        <form action="../php/salva.php" method="get" autocomplete="on" id="salvataggio_popup">
             <fieldset>
                 <legend>
                     Salva la partita
@@ -153,21 +153,21 @@
                     <strong>
                         Block Destroyer
                     </strong>
-                    <img src="images/block_destroyer.png">
+                    <img src="../images/block_destroyer.png">
                     : Un blocco in grado di distruggere tutti i blocchi nella sua stessa riga.
                 </li>
                 <li>
                     <strong>
                         Dinamite
                     </strong>
-                    <img src="images/dinamite.png">
+                    <img src="../images/dinamite.png">
                     : Un blocco che elimina tutti i blocchi presenti fino a due blocchi di raggio dall'esplosione
                 </li>
                 <li>
                     <strong>
                         Time Stopper
                     </strong>
-                    <img src="images/time_stopper.png">
+                    <img src="../images/time_stopper.png">
                     : Un blocco che all'impatto con altri tetromini o con il terreno interrompe per un tempo stabilito
                     la
                     naturale caduta dei tetromini, facendo in modo che questa sia legata solo al movimento del giocatore
@@ -176,7 +176,7 @@
                     <strong>
                         Time Accelerator
                     </strong>
-                    <img src="images/time_accelerator.png">
+                    <img src="../images/time_accelerator.png">
                     : Un blocco che all'impatto con altri tetromini o con il terreno velocizza la normale caduta al
                     terreno
                     dei tetromini
@@ -185,7 +185,7 @@
                     <strong>
                         Mist Block
                     </strong>
-                    <img src="images/mist_block.png">
+                    <img src="../images/mist_block.png">
                     : Un blocco che all'impatto con altri tetromini o con il terreno nasconde le ultime x file del
                     tabellone,
                     impedendo la visione della parte più bassa.
@@ -200,7 +200,7 @@
             </p>
         </div>
     </div>
-    <script src="js/tetris.js"></script>
+    <script src="../js/tetris.js"></script>
 </body>
 
 </html>

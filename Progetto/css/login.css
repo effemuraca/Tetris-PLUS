@@ -1,5 +1,5 @@
 main {
-    height: 98vh;
+    height: 97vh;
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -21,6 +21,7 @@ legend {
 p {
     font-size: 1.25rem;
     margin: 1.5rem 0rem;
+    margin-block-start: 0rem;
 }
 
 form input {
