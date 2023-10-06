@@ -31,6 +31,8 @@ nav img {
     background-color: rgba(44, 53, 190, 0.9);
 }
 
+
+
 @media screen and (max-width: 1000px) {
     nav img {
         width: 4vw;

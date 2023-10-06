@@ -101,11 +101,11 @@ class Tetromino {
 
     tMuoviGiu(tabellone, gravita) {
         if (tabellone.statoPartita === statoGioco.finita || tabellone.statoPartita === statoGioco.inPausa)
-            return;
+            return false;
         if (this.y + this.tetMatrice.length >= nRow) {
             this.attivo = false;
             clearInterval(gravita);
-            return;
+            return false;
         }
         this.cancella(tabellone);
         this.y++;
@@ -115,12 +115,13 @@ class Tetromino {
             this.inserisci(tabellone);
             this.attivo = false;
             clearInterval(gravita);
-            return;
+            return false;
         }
         tabellone.punteggio += 10;
         updatePunteggioDOM(tab.punteggio);
         console.log('inserisci da tMuoviGiu caso riuscito');
         this.inserisci(tabellone);
+        return true;
     }
     // funzioni generiche per la rotazione (le classi derivate inizializzazono il proprio polo di rotazione e usano le funzioni generiche) 
     tRuotaDx(tabellone) {
@@ -451,7 +452,7 @@ class Tabellone {
     finePartita() {
         const gameOver = document.getElementById('game_over');
         gameOver.classList.add('aperto');
-        gameOver.style.display = 'block';
+        gameOver.style.display = 'flex';
         const container = document.getElementById('container');
         container.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
         const nodePunteggio = document.getElementById('info_go');
@@ -719,6 +720,11 @@ chiudiRegole.addEventListener('click', function () {
     Chiudi('regolamento_popup');
 });
 
+const riprova = document.getElementById('riprova');
+riprova.addEventListener('click', function () {
+    location.reload();
+});
+
 const pausaListener = document.getElementById('pausa');
 pausaListener.addEventListener('click', function () {
     pausaMobile(tab);
@@ -815,7 +821,7 @@ let gioco =
             tab.finePartita();
             return;
         }
-        if (tet.attivo === false) {
+        if (tet.attivo === false && tet.tMuoviGiu(tab) === false) {
             tab.cancellaRighe(tet);
             tet.checkSpeciale(tab);
 
