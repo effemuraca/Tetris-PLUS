@@ -4,6 +4,7 @@
 function SelezioneModalità(numero_giocatori) {
     let selezione;
     let nonSelezione;
+    sessionStorage.setItem('numero_giocatori', numero_giocatori);
     if (numero_giocatori === 1) {
         selezione = document.getElementById('partita_singleplayer');
         nonSelezione = document.getElementById('partita_multiplayer');
@@ -20,21 +21,13 @@ function SelezioneModalità(numero_giocatori) {
 
 // funzione per la scelta del tipo di partita (nuova o salvata)
 function TipoPartita(tipo_partita) {
-    let modalità;
-    let tipo;
-    if (document.getElementById('partita_singleplayer').className === 'selezionato') {
-        modalità = 'singleplayer';  
-    }
-    else if (document.getElementById('partita_multiplayer').className === 'selezionato') {
-        modalità = 'multiplayer';
-    }
-    else {
-        modalità = false;
-    }
-
-    if (!modalità) {
+    if (sessionStorage.getItem('numero_giocatori') !== '1' && sessionStorage.getItem('numero_giocatori') !== '2') {
         // da sostituire con un p che compare
         window.alert('non hai selezionato una modalità');
+    }
+    else {
+        sessionStorage.setItem('tipo_partita', tipo_partita);
+        window.location.href = '../html/singleplayer.html';
     }
 }
 

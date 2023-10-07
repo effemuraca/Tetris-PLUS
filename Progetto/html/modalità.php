@@ -68,10 +68,12 @@
                 </tr>
             </tbody>
         </table>
-        <p>
-            Effettua il logout
-            <!-- da gestire -->
-        </p>
+        <a>
+            <?php include '../php/login.php'; 
+            logout();
+            ?>
+            Clicca qui per eserguire il logout
+        </a>
     </main>
     <script src="../js/modalità.js"></script>
 </body>

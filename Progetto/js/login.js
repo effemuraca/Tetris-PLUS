@@ -16,6 +16,10 @@ function TestaPassword() {
         testoP = document.createTextNode('La password deve contenere almeno 8 caratteri');
         nuovoP.id = 'errore';
     }
+    else if (pw.length > 20) {
+        testoP = document.createTextNode('La password deve contenere al massimo 20 caratteri');
+        nuovoP.id = 'errore';
+    }
     else if (!/[a-z]/.test(pw)) {
         testoP = document.createTextNode('La password deve contenere almeno una lettera minuscola');
         nuovoP.id = 'errore';
@@ -51,8 +55,12 @@ function testaUsername() {
     nuovoP.style.fontSize = '1vw';
     let testoP;
 
-    if (username.length < 5) {
+    if (username.length < 3) {
         testoP = document.createTextNode('Lo username deve contenere almeno 5 caratteri');
+        nuovoP.id = 'errore';
+    }
+    else if (username.length > 20) {
+        testoP = document.createTextNode('Lo username deve contenere al massimo 20 caratteri');
         nuovoP.id = 'errore';
     }
     else if (/[ ]/.test(username)) {
@@ -74,8 +82,12 @@ function testaRisposta() {
     nuovoP.style.fontSize = '1vw';
     let testoP;
 
-    if (risposta.length < 5) {
+    if (risposta.length < 3) {
         testoP = document.createTextNode('La risposta deve contenere almeno 5 caratteri');
+        nuovoP.id = 'errore';
+    }
+    else if (risposta.length > 30) {
+        testoP = document.createTextNode('La risposta deve contenere al massimo 20 caratteri');
         nuovoP.id = 'errore';
     }
     nuovoP.appendChild(testoP);
@@ -95,6 +107,14 @@ function testaMail() {
 
     if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(mail)) {
         testoP = document.createTextNode('Inserire una mail valida');
+        nuovoP.id = 'errore';
+    }
+    else if (mail.length < 6) {
+        testoP = document.createTextNode('La mail deve contenere almeno 5 caratteri');
+        nuovoP.id = 'errore';
+    }
+    else if (mail.length > 30) {
+        testoP = document.createTextNode('La mail deve contenere al massimo 30 caratteri');
         nuovoP.id = 'errore';
     }
     nuovoP.appendChild(testoP);

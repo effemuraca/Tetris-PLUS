@@ -129,6 +129,11 @@
     #prossimo_tetromino_nome {
         display: none;
     }
+
+    #icona_giocatore {
+        width: 3rem;
+        height: 3rem;
+    }
 }
 
 @media screen and (max-width: 1000px) {

@@ -36,21 +36,21 @@
                         Mail:
                     </label>
                     <br>
-                    <input type="email" id="mail" name="mail" required minlength="3">
+                    <input type="email" id="mail" name="mail" required minlength="6" maxlength="30">
                 </p>
                 <p class="nuova_password">
                     <label for="pwd">
                         Nuova Password:
                     </label>
                     <br>
-                    <input type="password" id="pwd" name="pwd" required minlength="3">
+                    <input type="password" id="pwd" name="pwd" required minlength="8" maxlength="20">
                 </p>
                 <p class="risposta_account">
                     <label for="risposta_account">
                         Inserisci la risposta alla domanda di sicurezza: <!-- da mettere quella giusta con js-->
                     </label>
                     <br>
-                    <input type="text" id="risposta_account" name="risposta_account" required minlength="3">
+                    <input type="text" id="risposta_account" name="risposta_account" required minlength="3" maxlength="30">
                 </p>
                 <p>
                     <?php
@@ -62,6 +62,9 @@
                         }
                         if ($domandaErr) {
                             echo $domandaErr;
+                        }
+                        if ($loginErr) {
+                            echo $loginErr;
                         }
                     ?>
                 </p>

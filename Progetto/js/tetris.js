@@ -464,16 +464,12 @@ class Tabellone {
 }
 
 class Partita {
-    constructor(nomeUtente, modalità, tipoPartita, punteggioInit, statoTabellone) {
-        this.giocatore = nomeUtente;
+    constructor(giocatore, modalità, tipoPartita, punteggio, tabellone) {
+        this.giocatore = giocatore;
         this.modalità = modalità;
         this.tipoPartita = tipoPartita;
-        this.punteggio = punteggioInit;
-        // this.tabellone = new Tabellone(statoTabellone); // statoTabellone è un array di 200 elementi, 0 se vuoto, lettera identificativa del colore se pieno 
-    }
-
-    toString() {
-        // da capire come fare per passarla al db
+        this.punteggio = punteggio;
+        this.tabellone = tabellone;
     }
 }
 
@@ -511,7 +507,9 @@ function Apri(da_aprire) {
 
 // funzione che inizializza una nuova partita prendendo, se la partita è salvata, i dati dal database
 function iniziaPartita() {
-    const partitaGiocatore1 = new Partita('admin', 'singleplayer', 'nuovaPartita', 0, []);
+    const nGiocatori = sessionStorage.getItem('numero_giocatori');
+    const tipoPartita = sessionStorage.getItem('tipo_partita');
+    const partitaGiocatore1 = new Partita('admin', nGiocatori, tipoPartita, 0, []);
 
     if (partitaGiocatore1.tipoPartita === 'salvata') {
         // prendi i dati dal db e sostituisci i valori default di partitaGiocatore1 e partitaGiocatore2
@@ -561,7 +559,8 @@ function iniziaPartita() {
 
     if (partitaGiocatore1.modalità === 'multiplayer') {
         // i dati sul tipo di partita del secondo giocatore non sono rilevanti, se era salvata per il giocatore 1, lo sarà anche per il giocatore 2
-        const partitaGiocatore2 = new Partita('admin', 'multiplayer', 'secondoGiocatore', 0, []);
+        let nomeGiocatore2 = prompt('Inserisci il nome del secondo giocatore', 'Giocatore 2');
+        const partitaGiocatore2 = new Partita(nomeGiocatore2, 'multiplayer', 'secondoGiocatore', 0, []);
     }
 }
 

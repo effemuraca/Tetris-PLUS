@@ -35,21 +35,21 @@
                         Username:
                     </label>
                     <br>
-                    <input type="text" id="username" name="username" required minlength="4">
+                    <input type="text" id="username" name="username" required minlength="3" maxlength="20">
                 </p>
                 <p class="mail">
                     <label for="mail">
                         Mail:
                     </label>
                     <br>
-                    <input type="email" id="mail" name="mail" required minlength="5">
+                    <input type="email" id="mail" name="mail" required minlength="6" maxlength="30">
                 </p>
                 <p class="password">
                     <label for="pwd">
                         Password:
                     </label>
                     <br>
-                    <input type="password" id="pwd" name="pwd" required minlength="5">
+                    <input type="password" id="pwd" name="pwd" required minlength="8" maxlength="20">
                 </p>
                 <p class="domanda">
                     <label for="domanda">
@@ -72,7 +72,23 @@
                         Risposta:
                     </label>
                     <br>
-                    <input type="text" id="risposta" name="risposta" required minlength="3">
+                    <input type="text" id="risposta" name="risposta" required minlength="3" maxlength="30">
+                </p>
+                <p>
+                    <?php
+                        if ($userErr) {
+                            echo $userErr;
+                        }
+                        if ($mailErr) {
+                            echo $mailErr;
+                        }
+                        if ($pwdErr) {
+                            echo $pwdErr;
+                        }
+                        if ($domandaErr) {
+                            echo $domandaErr;
+                        }
+                    ?>
                 </p>
                 <input type="submit" value="Conferma">
                 <a href="login.html">

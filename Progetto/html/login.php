@@ -37,14 +37,14 @@
                         Username:
                     </label>
                     <br>
-                    <input type="text" id="username" name="username" required minlength="4">
+                    <input type="text" id="username" name="username" required minlength="3" maxlength="20">
                 </p>
                 <p class="password">
                     <label for="pwd">
                         Password:
                     </label>
                     <br>
-                    <input type="password" id="pwd" name="pwd" required minlength="5">
+                    <input type="password" id="pwd" name="pwd" required minlength="8" maxlength="20">
                 </p>
                 <p id="errore">
                     Username o password errati,
