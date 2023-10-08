@@ -119,6 +119,9 @@ function testaMail() {
     }
     nuovoP.appendChild(testoP);
     daAppendere.appendChild(nuovoP);
+
+
+
 }
 
 const testPW = document.getElementById('pwd');
