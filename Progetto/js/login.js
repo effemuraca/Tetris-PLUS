@@ -122,7 +122,7 @@ function testaMail() {
 }
 
 const testPW = document.getElementById('pwd');
-testPW.addEventListener('change', TestaPassword);   
+testPW.addEventListener('change', TestaPassword);
 
 const testUsername = document.getElementById('username');
 testUsername.addEventListener('change', testaUsername);

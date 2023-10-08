@@ -33,15 +33,6 @@
     </nav>
     <div id="core">
         <aside>
-            <div id="prossimo_tetronimo">
-                <p>
-                    Prossimo tetromino:
-                </p>
-                <table id="prossimo_tetromino_tabellone">
-                </table>
-                <p id="prossimo_tetromino_nome">
-                </p>
-            </div>
             <div id="punteggio">
                 <p>
                     Punteggio:
@@ -51,9 +42,7 @@
                 <img src="../images/user.png" id="icona_giocatore">
             </div>
         </aside>
-        <main>
-            <table id="tabellone">
-            </table>
+        <main id="container_tabellone">
         </main>
         <div id="comandi">
             <button id="muovi_sx">
@@ -76,6 +65,17 @@
                 <img src="../images/play.png" id="immagine_riprendi">
             </button>
         </div>
+        <aside>
+            <div id="prossimo_tetronimo">
+                <p>
+                    Prossimo tetromino:
+                </p>
+                <table id="prossimo_tetromino_tabellone">
+                </table>
+                <p id="prossimo_tetromino_nome">
+                </p>
+            </div>
+        </aside>
     </div>
     <div id="container">
         <form action="../php/salva.php" method="get" autocomplete="on" id="salvataggio_popup">
@@ -213,7 +213,9 @@
             </div>
         </div>
     </div>
-    <script src="../js/tetris.js"></script>
+    <script src="../js/classi_gioco.js"></script>
+    <script src="../js/funzioni_gioco.js"></script>
+    <script src="../js/handler_gioco.js"></script>
 </body>
 
 </html>

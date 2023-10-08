@@ -7,6 +7,11 @@ a {
     color: rgb(245, 245, 245);
     text-decoration: none;
 }
+#logout {
+    text-decoration: underline;
+    font-size: 1.5vw;
+    padding: 1rem;
+}
 
 button {
     display: inline;
@@ -42,7 +47,7 @@ button:hover p {
         height: 90vh;
         display: flex;
         align-items: center;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
     }
 
@@ -102,7 +107,6 @@ button:hover p {
         margin: 0.1rem auto;
         vertical-align: middle;
         text-align: center;
-
     }
 
     td {
@@ -110,7 +114,11 @@ button:hover p {
         border-radius: 3vh;
     }
 
-    thead td{
+    #logout {
+        font-size: 3vw;
+    }
+
+    thead td {
         font-weight: bold;
         padding: 0.5vh;
         border-bottom: 0.3vh solid rgb(245, 245, 245);
@@ -118,7 +126,7 @@ button:hover p {
         background-color: rgba(9, 151, 173, 0.9);
     }
 
-    tbody td{
+    tbody td {
         font-size: 6vw;
         padding: 1.5rem;
         background-color: rgba(23, 36, 126, 0.9);

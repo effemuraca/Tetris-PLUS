@@ -11,15 +11,6 @@ function generateRandomSalt()
     return base64_encode(random_bytes(8));
 }
 
-function logout()
-{
-    if (isset($_SESSION['username'])) {
-        unset($_SESSION['username']);
-        session_destroy();
-        header('Location: ../html/index.html');
-    }
-}
-
 try {
     // nel login non mi interessa cosa l'utente inserisce nei campi, perche tanto io controllo solo se il suo user e 
     // la sua pw coincidono con quelli nel db

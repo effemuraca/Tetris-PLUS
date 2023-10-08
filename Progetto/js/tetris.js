@@ -503,8 +503,6 @@ function Apri(da_aprire) {
     container.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
 }
 
-
-
 // funzione che inizializza una nuova partita prendendo, se la partita è salvata, i dati dal database
 function iniziaPartita() {
     const nGiocatori = sessionStorage.getItem('numero_giocatori');
