@@ -15,12 +15,12 @@ document.getElementById('chiudi_salvataggio').addEventListener('click', function
 
 const chiudiSalva = document.getElementById('chiudi_salvataggio');
 chiudiSalva.addEventListener('click', function () {
-    Chiudi('salvataggio_popup', partitaG1.tabellone);
+    Chiudi('salvataggio_popup', partitaG1.tabellone, partitaG2.tabellone);
 });
 
 const chiudiRegole = document.getElementById('chiudi_regolamento');
 chiudiRegole.addEventListener('click', function () {
-    Chiudi('regolamento_popup', partitaG1.tabellone);
+    Chiudi('regolamento_popup', partitaG1.tabellone, partitaG2.tabellone);
 });
 
 const riprova = document.getElementById('riprova');
@@ -89,6 +89,8 @@ let partitaG1 = new Partita();
 let partitaG2;
 partitaG1.iniziaPartita();
 if (sessionStorage.getItem('numero_giocatori') === '2') {
+    const classeMP = document.getElementById('container_tabellone');
+    classeMP.classList.add('multiplayer');
     const nomeGiocatore2 = prompt('Inserisci il nome del secondo giocatore', 'Giocatore 2');
     partitaG2 = new Partita(2, nomeGiocatore2);
     partitaG2.iniziaPartita();

@@ -75,7 +75,7 @@ class Partita {
         nodeUtente.style.marginBlockEnd = '0rem';
         const textnodeUtente = document.createTextNode(this.username);
         nodeUtente.appendChild(textnodeUtente);
-        document.getElementById('nome_giocatore1').appendChild(nodeUtente);
+        document.getElementById('nome_giocatore').appendChild(nodeUtente);
     }
 
     salvaPartita() {

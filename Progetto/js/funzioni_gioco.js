@@ -1,5 +1,6 @@
 // funzioni per la gestione dei popup di salvataggio e regolamento
 function Chiudi(da_chiudere, tab1, tab2 = null) {
+    console.log('chiamata a chiudi');
     tab1.statoPartita = statoGioco.inCorso;
     if (sessionStorage.getItem('numero_giocatori') === '2')
         tab2.statoPartita = statoGioco.inCorso;
@@ -11,9 +12,9 @@ function Chiudi(da_chiudere, tab1, tab2 = null) {
 }
 
 function Apri(da_aprire, tab1, tab2 = null) {
-    tab1.statoPartita = statoGioco.inCorso;
+    tab1.statoPartita = statoGioco.inPausa;
     if (sessionStorage.getItem('numero_giocatori') === '2')
-        tab2.statoPartita = statoGioco.inCorso;
+        tab2.statoPartita = statoGioco.inPausa;
     const daAprire = document.getElementById(da_aprire);
     const controllaSalva = document.getElementById('salvataggio_popup');
     const controllaRegole = document.getElementById('regolamento_popup');

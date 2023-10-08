@@ -2,8 +2,7 @@
     #core {
         display: flex;
         align-items: center;
-        justify-content: flex-start;
-        gap: 8vw;
+        justify-content: space-between;
     }
 
     aside {
@@ -92,7 +91,7 @@
         background-color: rgba(9, 151, 173, 0.9);
     }
 
-    div#nome_giocatore1 {
+    div#nome_giocatore {
         border-radius: 2rem;
     }
 
@@ -133,6 +132,11 @@
     #icona_giocatore {
         width: 3rem;
         height: 3rem;
+    }
+
+    .multiplayer td {
+        width: 3vh;
+        height: 3vh;
     }
 }
 
@@ -238,7 +242,7 @@
         vertical-align: middle;
     }
 
-    div#nome_giocatore1 {
+    div#nome_giocatore {
         display: none;
     }
 
@@ -297,7 +301,6 @@
         margin: 0rem;
         vertical-align: middle;
     }
-
 }
 
 @media screen and (min-width: 501px) and (max-width: 1000px) {
