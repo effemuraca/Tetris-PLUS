@@ -1,8 +1,69 @@
+function loopGioco(partitaG1, partitaG2) {
+    partitaG1.prosTetromino = scegliTetromino(partitaG1);
+    partitaG1.prosTetromino.inserisci(partitaG1.tabellone);
+    partitaG1.tetromino = partitaG1.prosTetromino;
+    partitaG1.prosTetromino = scegliTetromino(partitaG1);
+    partitaG1.tabellone.gravita(partitaG1.tetromino);
+
+    let gioco1 =
+        setInterval(() => {
+            if (partitaG1.tabellone.statoPartita === statoGioco.inPausa) {
+                return;
+            }
+            if (partitaG1.tabellone.statoPartita === statoGioco.finita) {
+                clearInterval(gioco1);
+                if (nGiocatori === '2')
+                    partitaG1.finePartita(partitaG2.tabellone);
+                else
+                    partitaG1.finePartita();
+                return;
+            }
+            if (partitaG1.tetromino.attivo === false && partitaG1.tetromino.tMuoviGiu(partitaG1.tabellone) === false) {
+                partitaG1.tabellone.cancellaRighe(partitaG1.tetromino);
+                partitaG1.tetromino.checkSpeciale(partitaG1.tabellone);
+                partitaG1.prosTetromino.inserisci(partitaG1.tabellone);
+                partitaG1.tetromino = partitaG1.prosTetromino;
+                partitaG1.prosTetromino = scegliTetromino(partitaG1);
+                aggiornaGravita(partitaG1.tabellone);
+                partitaG1.tabellone.gravita(partitaG1.tetromino);
+            }
+        }, 100);
+
+    if (nGiocatori === '2') {
+        partitaG2.tabellone.qualeGiocatore = 1;
+        partitaG2.prosTetromino = scegliTetromino(partitaG2);
+        partitaG2.prosTetromino.inserisci(partitaG2.tabellone);
+        partitaG2.tetromino = partitaG2.prosTetromino;
+        partitaG2.prosTetromino = scegliTetromino(partitaG2);
+        partitaG2.tabellone.gravita(partitaG2.tetromino);
+
+        let gioco2 =
+            setInterval(() => {
+                if (partitaG2.tabellone.statoPartita === statoGioco.inPausa) {
+                    return;
+                }
+                if (partitaG2.tabellone.statoPartita === statoGioco.finita) {
+                    clearInterval(gioco2);
+                    partitaG2.finePartita(partitaG1.tabellone);
+                    return;
+                }
+                if (partitaG2.tetromino.attivo === false && partitaG2.tetromino.tMuoviGiu(partitaG2.tabellone) === false) {
+                    partitaG2.tabellone.cancellaRighe(partitaG2.tetromino);
+                    partitaG2.tetromino.checkSpeciale(partitaG2.tabellone);
+                    partitaG2.prosTetromino.inserisci(partitaG2.tabellone);
+                    partitaG2.tetromino = partitaG2.prosTetromino;
+                    partitaG2.prosTetromino = scegliTetromino(partitaG2);
+                    aggiornaGravita(partitaG2.tabellone);
+                    partitaG2.tabellone.gravita(partitaG2.tetromino);
+                }
+            }, 100);
+    }
+}
+
 // funzioni per la gestione dei popup di salvataggio e regolamento
 function Chiudi(da_chiudere, tab1, tab2 = null) {
-    console.log('chiamata a chiudi');
     tab1.statoPartita = statoGioco.inCorso;
-    if (sessionStorage.getItem('numero_giocatori') === '2')
+    if (nGiocatori === '2')
         tab2.statoPartita = statoGioco.inCorso;
     const daChiudere = document.getElementById(da_chiudere);
     daChiudere.style.display = 'none';
@@ -13,7 +74,7 @@ function Chiudi(da_chiudere, tab1, tab2 = null) {
 
 function Apri(da_aprire, tab1, tab2 = null) {
     tab1.statoPartita = statoGioco.inPausa;
-    if (sessionStorage.getItem('numero_giocatori') === '2')
+    if (nGiocatori === '2')
         tab2.statoPartita = statoGioco.inPausa;
     const daAprire = document.getElementById(da_aprire);
     const controllaSalva = document.getElementById('salvataggio_popup');
@@ -77,11 +138,11 @@ function stampaTabellone(tabellone) {
     console.log('\n');
 }
 
-function scegliTetromino() {
+function scegliTetromino(partita) {
     let tipoTet = getTetromino();
     if (getPossibilita() === true)
         tipoTet = 'Speciale';
-    nuovoTetrominoDOM(tipoTet);
+    nuovoTetrominoDOM(tipoTet, partita.tabellone.qualeGiocatore);
     let tet;
     switch (tipoTet) {
         case 'I':
@@ -142,12 +203,12 @@ function pausaMobile(tabellone) {
     }
 }
 
-function updatePunteggioDOM(punteggio) {
-    const nodePunteggio = document.getElementById('punteggioAttuale').firstChild;
-    nodePunteggio.nodeValue = punteggio;
+function updatePunteggioDOM(tab) {
+    const nodePunteggio = document.getElementsByClassName('punteggioAttuale')[tab.qualeGiocatore];
+    nodePunteggio.textContent = tab.punteggio;
 }
 
-function nuovoTetrominoDOM(qualeTet) {
+function nuovoTetrominoDOM(qualeTet, giocatore) {
     let prossimoTet;
     switch (qualeTet) {
         case 'I':
@@ -175,18 +236,16 @@ function nuovoTetrominoDOM(qualeTet) {
             prossimoTet = new tetSpec();
             break;
     }
-
     for (let i = 0; i < 25; i++) {
-        let elemDOM = document.getElementsByClassName('elem_prossimo')[i];
+        let elemDOM = document.getElementsByClassName('elem_prossimo')[i + giocatore * 25];
         elemDOM.style.backgroundColor = 'transparent';
     }
-
     for (let i = 0; i < prossimoTet.tetMatrice.length; i++) {
         for (let j = 0; j < prossimoTet.tetMatrice[i].length; j++) {
             if (prossimoTet.tetMatrice[i][j] === 1) {
                 if (prossimoTet.tipoT === 'I')
                     i++;
-                let elemDOM = document.getElementsByClassName('elem_prossimo')[(i + 1) * 5 + (j + 1)];
+                let elemDOM = document.getElementsByClassName('elem_prossimo')[(i + 1) * 5 + (j + 1) + giocatore * 25];
                 if (prossimoTet.tipoT === 'I')
                     i--;
                 if (qualeTet === 'Speciale')
@@ -196,7 +255,6 @@ function nuovoTetrominoDOM(qualeTet) {
             }
         }
     }
-
     const letteraTet = document.getElementById('prossimo_tetromino_nome');
     letteraTet.textContent = prossimoTet.tipoT;
     letteraTet.style.fontSize = '3vw';

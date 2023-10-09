@@ -273,7 +273,7 @@
     }
 
     #game_over h1 {
-        display: block;
+        display: inline;
     }
 
     #game_over p {

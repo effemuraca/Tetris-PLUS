@@ -3,6 +3,7 @@
 // definizione delle costanti utilizzate nel gioco
 const nRow = 20;
 const nCol = 10;
+const nGiocatori = sessionStorage.getItem('numero_giocatori');
 
 const tetromino = ['I', 'T', 'O', 'L', 'J', 'S', 'Z'];
 const colore = ['red', 'coral', 'yellow', 'green', 'cyan', 'purple', 'blue'];
@@ -50,7 +51,7 @@ class Partita {
         }
         // inserimento del punteggio iniziale
         const nodePunteggio = document.createElement('p');
-        nodePunteggio.id = 'punteggioAttuale';
+        nodePunteggio.className = 'punteggioAttuale';
         nodePunteggio.style.marginBlockEnd = '0rem';
         nodePunteggio.style.fontSize = '3vw';
         const textnodePunteggio = document.createTextNode(this.punteggio);
@@ -76,6 +77,28 @@ class Partita {
         const textnodeUtente = document.createTextNode(this.username);
         nodeUtente.appendChild(textnodeUtente);
         document.getElementById('nome_giocatore').appendChild(nodeUtente);
+    }
+
+    finePartita(tab = []) {
+        // se ci sono due giocatori, passo il tabellone del giocatore che non ha perso per mettere in pausa la sua partita
+        if (nGiocatori === '2') {
+            tab.statoGioco = statoGioco.inPausa;
+        }
+        const gameOver = document.getElementById('game_over');
+        gameOver.classList.add('aperto');
+        gameOver.style.display = 'flex';
+        const container = document.getElementById('container');
+        container.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        const nodePunteggio = document.getElementById('info_go');
+        nodePunteggio.style.marginBlock = '1rem';
+        nodePunteggio.textContent = 'Hai totalizzato ' + this.tabellone.punteggio + ' punti';
+        setTimeout(() => {
+            if (nGiocatori === '2') {
+                Chiudi('game_over', partitaG1.tabellone, partitaG2.tabellone);
+            }
+            else
+                Chiudi('game_over', partitaG1.tabellone);
+        }, 5000);
     }
 
     salvaPartita() {
@@ -119,7 +142,7 @@ class Tetromino {
                 if (this.tetMatrice[i][j] === 1) {
                     tabellone.tabelloneAttuale[i + this.y][j + this.x] = this.colore;
                     let elemDOM
-                    if (sessionStorage.getItem('numero_giocatori') === '2')
+                    if (tabellone.qualeGiocatore === 1)
                         elemDOM = document.getElementsByClassName('elem_tabellone')[200 + (i + this.y) * nCol + j + this.x];
                     else
                         elemDOM = document.getElementsByClassName('elem_tabellone')[(i + this.y) * nCol + j + this.x];
@@ -136,7 +159,7 @@ class Tetromino {
                 if (this.tetMatrice[i][j] === 1) {
                     tabellone.tabelloneAttuale[i + this.y][j + this.x] = 0;
                     let elemDOM
-                    if (sessionStorage.getItem('numero_giocatori') === '2')
+                    if (tabellone.qualeGiocatore === 1)
                         elemDOM = document.getElementsByClassName('elem_tabellone')[200 + (i + this.y) * nCol + j + this.x];
                     else
                         elemDOM = document.getElementsByClassName('elem_tabellone')[(i + this.y) * nCol + j + this.x];
@@ -195,7 +218,7 @@ class Tetromino {
             return false;
         }
         tabellone.punteggio += 10;
-        updatePunteggioDOM(tabellone.punteggio);
+        updatePunteggioDOM(tabellone);
         console.log('inserisci da tMuoviGiu caso riuscito');
         this.inserisci(tabellone);
         return true;
@@ -283,7 +306,7 @@ class Tetromino {
                 case 'destroyer':
                     tabellone.tabelloneAttuale.splice(this.y + 1, 1);
                     tabellone.tabelloneAttuale.unshift(new Array(nCol).fill(0));
-                    tabellone.riscriviTabelloneDOM();
+                    tabellone.riscriviTabelloneDOM(tabellone.qualeGiocatore);
                     break;
 
                 case 'dinamite':
@@ -291,7 +314,7 @@ class Tetromino {
                         for (let j = this.x - 2; j <= this.x + 2; j++) {
                             if (i >= 0 && i < nRow && j >= 0 && j < nCol) {
                                 tabellone.tabelloneAttuale[i][j] = 0;
-                                let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
+                                let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j + tabellone.qualeGiocatore * 200];
                                 elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
                             }
                         }
@@ -313,14 +336,14 @@ class Tetromino {
                     // nasconde per 15 secondi le tre righe più in basso del tabellone
                     for (let i = nRow - 3; i < nRow; i++) {
                         for (let j = 0; j < nCol; j++) {
-                            let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
+                            let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j + tabellone.qualeGiocatore * 200];
                             elemDOM.style.backgroundColor = 'white';
                         }
                     }
                     setTimeout(() => {
                         for (let i = nRow - 3; i < nRow; i++) {
                             for (let j = 0; j < nCol; j++) {
-                                let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
+                                let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j + tabellone.qualeGiocatore * 200];
                                 if (tabellone.tabelloneAttuale[i][j] !== 0)
                                     elemDOM.style.backgroundColor = tabellone.tabelloneAttuale[i][j];
                                 else
@@ -461,6 +484,8 @@ class Tabellone {
         this.statoPartita = statoGioco.inCorso;
         // statoGravita rappresenta quanto effetto ha la gravità sul tetromino attivo
         this.statoGravita = 1;
+        // è utile tenere nel tabellone una reference a quale giocatore appartiene, per evitare di passare a molte funzioni come parametro l'intero oggetto partita
+        this.qualeGiocatore = 0;
     }
 
     //funzione che controlla se una riga è piena
@@ -492,17 +517,16 @@ class Tabellone {
 
         if (righeCancellate > 0) {
             this.righeCancellate = true;
-            this.riscriviTabelloneDOM();
+            this.riscriviTabelloneDOM(this.qualeGiocatore);
             this.punteggio += righeCancellate * 100 + (righeCancellate - 1) * 50;
-            updatePunteggioDOM(this.punteggio);
+            updatePunteggioDOM(this);
         }
     }
 
-    riscriviTabelloneDOM() {
-        console.log(document.getElementsByClassName('elem_tabellone'));
+    riscriviTabelloneDOM(giocatore) {
         for (let i = 0; i < nRow; i++) {
             for (let j = 0; j < nCol; j++) {
-                const elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j];
+                const elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j + giocatore * 200];
                 if (this.tabelloneAttuale[i][j] === 0) {
                     elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
                 } else {
@@ -523,18 +547,5 @@ class Tabellone {
                 tetromino.tMuoviGiu(this, gravita);
             }, 1000 * this.statoGravita);
         }
-    }
-
-    finePartita() {
-        const gameOver = document.getElementById('game_over');
-        gameOver.classList.add('aperto');
-        gameOver.style.display = 'flex';
-        const container = document.getElementById('container');
-        container.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        const nodePunteggio = document.getElementById('info_go');
-        nodePunteggio.style.marginBlock = '1rem';
-        nodePunteggio.textContent = 'Hai totalizzato ' + this.punteggio + ' punti';
-
-        // inserisci la parte del codice che salva la partita in classifica
     }
 }

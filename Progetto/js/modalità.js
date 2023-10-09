@@ -10,6 +10,10 @@ function SelezioneModalità(numero_giocatori) {
         nonSelezione = document.getElementById('partita_multiplayer');
     }
     else if (numero_giocatori === 2) {
+        if (window.innerWidth < 1001) { 
+            alert('Non è possibile giocare in modalità multiplayer da mobile')
+            return;
+        }
         selezione = document.getElementById('partita_multiplayer');
         nonSelezione = document.getElementById('partita_singleplayer');
     }
