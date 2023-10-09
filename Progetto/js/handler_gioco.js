@@ -88,17 +88,6 @@ document.addEventListener('keydown', function (event) {
         case 'd':
             partitaG1.tetromino.tMuoviDx(partitaG1.tabellone);
             break;
-        case ' ':
-            pausa(partitaG1.tabellone);
-            if (nGiocatori === '2')
-                pausa(partitaG2.tabellone);
-            break;
-    }
-});
-
-// creazione eventi per il controllo dei tasti da pc
-document.addEventListener('keydown', function (event) {
-    switch (event.key) {
         case 'ArrowUp':
             partitaG2.tetromino.tRuotaDx(partitaG2.tabellone);
             break;
@@ -113,6 +102,11 @@ document.addEventListener('keydown', function (event) {
             break;
         case 'ArrowRight':
             partitaG2.tetromino.tMuoviDx(partitaG2.tabellone);
+            break;
+        case ' ':
+            pausa(partitaG1.tabellone);
+            if (nGiocatori === '2')
+                pausa(partitaG2.tabellone);
             break;
     }
 });
