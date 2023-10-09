@@ -2,14 +2,13 @@
     #core {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-evenly;
     }
 
     aside {
         position: relative;
         float: left;
         height: 97vh;
-        width: 25vw;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
@@ -27,7 +26,7 @@
         border: 0.1rem solid rgb(245, 245, 245);
         background-color: rgba(23, 36, 126, 0.9);
         padding: 0.5rem;
-        min-width: 15vw;
+        min-width: 12vw;
     }
 
     aside div p {
@@ -133,10 +132,19 @@
         width: 3rem;
         height: 3rem;
     }
+}
 
+@media screen and (max-width: 1301px) and (min-width: 1000px) {
     .multiplayer td {
-        width: 3vh;
-        height: 3vh;
+        width: 2.5vmin;
+        height: 2.5vmin;
+    }
+}
+
+@media screen and (max-width: 1500px) and (min-width: 1300px) {
+    .multiplayer td {
+        width: 2.5vmin;
+        height: 2.5vmin;
     }
 }
 

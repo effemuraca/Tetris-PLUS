@@ -79,11 +79,7 @@ class Partita {
         document.getElementById('nome_giocatore').appendChild(nodeUtente);
     }
 
-    finePartita(tab = []) {
-        // se ci sono due giocatori, passo il tabellone del giocatore che non ha perso per mettere in pausa la sua partita
-        if (nGiocatori === '2') {
-            tab.statoGioco = statoGioco.inPausa;
-        }
+    finePartita(altroTab = null) {
         const gameOver = document.getElementById('game_over');
         gameOver.classList.add('aperto');
         gameOver.style.display = 'flex';
@@ -92,6 +88,10 @@ class Partita {
         const nodePunteggio = document.getElementById('info_go');
         nodePunteggio.style.marginBlock = '1rem';
         nodePunteggio.textContent = 'Hai totalizzato ' + this.tabellone.punteggio + ' punti';
+        this.tabellone.statoPartita = statoGioco.finita;
+        // se ci sono due giocatori, passo il tabellone del giocatore che non ha perso per mettere in pausa la sua partita
+        if (nGiocatori === '2' && altroTab !== null)
+            altroTab.statoPartita = statoGioco.inPausa;
         setTimeout(() => {
             if (nGiocatori === '2') {
                 Chiudi('game_over', partitaG1.tabellone, partitaG2.tabellone);
@@ -113,7 +113,6 @@ class Tetromino {
         this.tetMatrice = matrice;
         this.x = 3;
         this.y = 0;
-        this.attivo = true;
     }
 
     checkCollisione(tabellone) {
@@ -121,10 +120,8 @@ class Tetromino {
             for (let j = 0; j < this.tetMatrice[i].length; j++) {
                 if (this.tetMatrice[i][j] == 1 && tabellone.tabelloneAttuale[i + this.y][j + this.x] !== 0) {
                     // se il pezzo è nella posizione iniziale e non è possibile inserirlo, la partita è finita
-                    if (this.y === 0 && this.x === 3) {
+                    if (this.y === 0 && this.x === 3)
                         tabellone.statoPartita = statoGioco.finita;
-                        this.attivo = false;
-                    }
                     return false;
                 }
             }
@@ -199,22 +196,17 @@ class Tetromino {
         this.inserisci(tabellone);
     }
 
-    tMuoviGiu(tabellone, gravita) {
+    tMuoviGiu(tabellone) {
         if (tabellone.statoPartita === statoGioco.finita || tabellone.statoPartita === statoGioco.inPausa)
             return false;
-        if (this.y + this.tetMatrice.length >= nRow) {
-            this.attivo = false;
-            clearInterval(gravita);
+        if (this.y + this.tetMatrice.length >= nRow)
             return false;
-        }
         this.cancella(tabellone);
         this.y++;
         if (this.checkCollisione(tabellone) === false) {
             this.y--;
             console.log('inserisci da tMuoviGiu caso fallito');
             this.inserisci(tabellone);
-            this.attivo = false;
-            clearInterval(gravita);
             return false;
         }
         tabellone.punteggio += 10;
@@ -323,7 +315,7 @@ class Tetromino {
 
                 case 'stopper':
                     // ferma il tempo per 15 secondi
-                    tabellone.statoGravita = 999;
+                    tabellone.statoGravita = 9999;
                     setTimeout(() => {
                         tabellone.statoGravita = 1;
                     }, 15000);
@@ -533,19 +525,6 @@ class Tabellone {
                     elemDOM.style.backgroundColor = this.tabelloneAttuale[i][j];
                 }
             }
-        }
-    }
-
-    // la funzione fa cadere il tetromino attivo verso il basso, con un intervallo dipendente dallo statoGravita
-    gravita(tetromino) {
-        if (tetromino.attivo === true) {
-            const gravita = setInterval(() => {
-                if (tetromino.attivo === false) {
-                    clearInterval(gravita);
-                    return;
-                }
-                tetromino.tMuoviGiu(this, gravita);
-            }, 1000 * this.statoGravita);
         }
     }
 }
