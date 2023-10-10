@@ -19,6 +19,7 @@ class Partita {
     constructor(nutente = 1, username = sessionStorage.getItem('username')) {
         this.username = username;
         this.nUtente = nutente;
+        this.data = new Date();
         if (sessionStorage.getItem('tipo_partita') === 'nuova') {
             this.punteggio = 0;
             this.tabellone = new Tabellone();
@@ -99,10 +100,16 @@ class Partita {
             else
                 Chiudi('game_over', partitaG1.tabellone);
         }, 5000);
+        this.salvaPartita();
     }
 
     salvaPartita() {
-
+        this.punteggio = this.tabellone.punteggio;
+        const myJSON = JSON.stringify(this);
+      /*  const xhr = new XMLHttpRequest();
+        xhr.open('POST', '../php/salva.php', true);
+        xhr.setRequestHeader('Content-type', 'application/json'); 
+        xhr.send(myJSON);*/
     }
 }
 
