@@ -44,6 +44,13 @@ pausaListener.addEventListener('click', function () {
     pausaMobile(partitaG1.tabellone);
 });
 
+const salvataggio = document.getElementById('bottone_salvataggio');
+salvataggio.addEventListener('click', function () {
+    const daInviare = scegliPartita(partitaG1, partitaG2);
+    daInviare.salvaPartita();
+
+}
+
 // creazione eventi per il controllo dei tasti da mobile
 const rotazioneDx = document.getElementById('ruota_dx');
 rotazioneDx.addEventListener('click', function () {
@@ -120,6 +127,7 @@ if (nGiocatori === '2') {
     const nomeGiocatore2 = prompt('Inserisci il nome del secondo giocatore', 'Giocatore 2');
     partitaG2 = new Partita(2, nomeGiocatore2);
     partitaG2.iniziaPartita();
+    aggiornaSalvataggio();
 }
 
 loopGioco(partitaG1, partitaG2);

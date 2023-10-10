@@ -42,6 +42,8 @@ CREATE TABLE IF NOT EXISTS `Muraca`.`Salvate` (
   `idSalvate` INT NOT NULL AUTO_INCREMENT,
   `Username` VARCHAR(20) NOT NULL,
   `StringaPartita` VARCHAR(2000) NOT NULL,
+  `Data` VARCHAR(20) NOT NULL,
+  `TipoSalvataggio` TINYINT(1) NULL,
   PRIMARY KEY (`idSalvate`),
   UNIQUE INDEX `idSalvate_UNIQUE` (`idSalvate` ASC),
   INDEX `fk_Salvate_Utente1_idx` (`Username` ASC),
@@ -51,17 +53,6 @@ CREATE TABLE IF NOT EXISTS `Muraca`.`Salvate` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Muraca`.`ProssimoTetromino`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Muraca`.`ProssimoTetromino` ;
-
-CREATE TABLE IF NOT EXISTS `Muraca`.`ProssimoTetromino` (
-)
-ENGINE = InnoDB;
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

@@ -1,5 +1,4 @@
 <?php declare(strict_types=1);
-include_once("classi.php");
 
 $user = $pwd = $domanda = $risposta = '';
 $userErr = $pwdErr = $rispostaErr = $loginErr = '';

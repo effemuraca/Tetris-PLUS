@@ -19,7 +19,6 @@ class Partita {
     constructor(nutente = 1, username = sessionStorage.getItem('username')) {
         this.username = username;
         this.nUtente = nutente;
-        this.data = new Date();
         if (sessionStorage.getItem('tipo_partita') === 'nuova') {
             this.punteggio = 0;
             this.tabellone = new Tabellone();
@@ -91,34 +90,56 @@ class Partita {
         nodePunteggio.textContent = 'Hai totalizzato ' + this.tabellone.punteggio + ' punti';
         this.tabellone.statoPartita = statoGioco.finita;
         // se ci sono due giocatori, passo il tabellone del giocatore che non ha perso per mettere in pausa la sua partita
-        if (nGiocatori === '2' && altroTab !== null)
+        if (nGiocatori === '2' && altroTab.statoPartita !== statoGioco.finita) {
             altroTab.statoPartita = statoGioco.inPausa;
-        setTimeout(() => {
-            if (nGiocatori === '2') {
+            setTimeout(() => {
                 Chiudi('game_over', partitaG1.tabellone, partitaG2.tabellone);
+            }, 5000);
+        }
+        this.punteggio = this.tabellone.punteggio;
+        this.salvaPartitaFinita();
+    }
+
+    salvaPartitaFinita() {
+        let promise = fetch('../php/salva_classifica.php', {
+            method: 'POST',
+            body: JSON.stringify(this.punteggio),
+            headers: {
+                'Content-Type': 'application/json'
             }
-            else
-                Chiudi('game_over', partitaG1.tabellone);
-        }, 5000);
-        this.salvaPartita();
+        });
+        promise
+            .then((response) => {
+                if (response.ok) {
+                    console.log('Richiesta di salvataggio della partita terminata inoltrata correttamente al server');
+                } else {
+                    console.log('Errore nella richiesta di salvataggio della partita terminata al server');
+                }
+            })
+            .catch((error) => {
+                console.error('Errore durante la richiesta: ' + error);
+            });
     }
 
     salvaPartita() {
-        this.punteggio = this.tabellone.punteggio;
-        const myJSON = JSON.stringify(this);
-        console.log(myJSON);
-        const richiesta = new XMLHttpRequest();
-        richiesta.open('POST', 'salva.php', true);
-        richiesta.onload = function () {
-            if (richiesta.success)
-                console.log('salvataggio avvenuto con successo');
-            else {
-                console.log('salvataggio non avvenuto');
-                alert('salvataggio non riuscito, riprova più tardi')
+        let promise = fetch('../php/salva.php', {
+            method: 'POST',
+            body: JSON.stringify(this),
+            headers: {
+                'Content-Type': 'application/json'
             }
-        }
-        richiesta.setRequestHeader('Content-type', 'application/json');
-        richiesta.send(myJSON);
+        });
+        promise
+            .then((response) => {
+                if (response.ok) {
+                    console.log('Richiesta di salvataggio della partita in corso inoltrata correttamente al server');
+                } else {
+                    console.log('Errore nella richiesta di salvataggio della partita in corso al server');
+                }
+            })
+            .catch((error) => {
+                console.error('Errore durante la richiesta: ' + error);
+            });
     }
 }
 

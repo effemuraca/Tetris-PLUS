@@ -1,5 +1,4 @@
 <?php declare(strict_types=1);
-include_once("classi.php");
 function logout()
 {
     if (isset($_SESSION['username'])) {
@@ -8,6 +7,8 @@ function logout()
         session_destroy();
         header("Location:../html/login.php");
     }
+    else
+        header("Location:../html/login.php");
 }
 
 logout();

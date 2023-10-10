@@ -73,8 +73,8 @@
         </aside>
     </div>
     <div id="container">
-        <form action="../php/salva.php" method="get" autocomplete="on" id="salvataggio_popup">
-            <fieldset>
+    <form action="../php/salva.php" method="get" autocomplete="on" id="salvataggio_popup">
+            <fieldset id="form_salvataggio">
                 <legend>
                     Salva la partita
                     <button id="chiudi_salvataggio" class="bottone_x">
@@ -89,7 +89,7 @@
                         </strong>
                     </label>
                     <br>
-                    <select id="tipo_salvataggio">
+                    <select id="tipo_salvataggio" required>
                         <option value="privata">
                             Partita privata
                         </option>
@@ -99,13 +99,14 @@
                     </select>
                 </p>
                 <br>
-                <input type="checkbox" id="partecipazione_classifica" name="partecipazione_classifica"
-                    value="conferma_partecipazione" required>
-                <label for="classfica">
-                    Voglio partecipare alla classifica.
-                </label>
-                <br>
-                <input type="submit" value="Conferma">
+                <p>
+                    <?php
+                        if ($tipoSalvataggioErr) {
+                            echo $tipoSalvataggioErr;
+                        }
+                    ?>
+                </p>
+                <input type="submit" value="Conferma" id="bottone_salvataggio">
             </fieldset>
         </form>
         <div id="regolamento_popup">

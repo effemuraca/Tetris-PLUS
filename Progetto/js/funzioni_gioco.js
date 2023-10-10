@@ -86,7 +86,7 @@ function checkCollisione(matrice, x, y, tabellone) {
     for (let i = 0; i < matrice.length; i++) {
         for (let j = 0; j < matrice[i].length; j++) {
             if ((i + y) * nCol + j + x < 0 || (i + y) * nCol + j + x >= nRow * nCol)
-            return false;
+                return false;
             if (matrice[i][j] == 1 && tabellone.tabelloneAttuale[i + y][j + x] !== 0)
                 return false;
         }
@@ -247,4 +247,28 @@ function nuovoTetrominoDOM(qualeTet, giocatore) {
     const letteraTet = document.getElementById('prossimo_tetromino_nome');
     letteraTet.textContent = prossimoTet.tipoT;
     letteraTet.style.fontSize = '3vw';
+}
+
+function aggiornaSalvataggio() {
+    const form = document.getElementById('form_salvataggio');
+    const select = document.createElement('select');
+    select.id = 'partita_da_salvare';
+    select.required = true;
+    const option1 = document.createElement('option');
+    option1.value = 'partita1';
+    option1.textContent = 'Partita 1';
+    const option2 = document.createElement('option');
+    option2.value = 'partita2';
+    option2.textContent = 'Partita 2';
+    select.appendChild(option1);
+    select.appendChild(option2);
+    form.appendChild(select);
+}
+
+function scegliPartita(partita1, partita2) {
+    const select = document.getElementById('partita_da_salvare');
+    if (select.value === 'partita1')
+        return partita1;
+    else
+        return partita2;
 }
