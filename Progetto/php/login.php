@@ -15,6 +15,7 @@ function generateRandomSalt()
 try {
     // nel login non mi interessa cosa l'utente inserisce nei campi, perche tanto io controllo solo se il suo user e 
     // la sua pw coincidono con quelli nel db
+    session_start();
     if ($_SESSION['username'] != null) {
         header('Location: ../html/modalità.html');
         throw new Exception("Utente già loggato");
