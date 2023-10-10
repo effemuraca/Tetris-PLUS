@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Titillium Web';
+    src: url('../fonts/Titillium_Web/TitilliumWeb-Regular.ttf') format("truetype");
+}
+
 body {
     font-family: "Titillium Web", sans-serif;
     background-image: url(/Progetto/images/main_pattern.jpg);

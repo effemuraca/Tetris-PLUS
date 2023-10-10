@@ -7,7 +7,7 @@ const nGiocatori = sessionStorage.getItem('numero_giocatori');
 
 const tetromino = ['I', 'T', 'O', 'L', 'J', 'S', 'Z'];
 const colore = ['red', 'coral', 'yellow', 'green', 'cyan', 'purple', 'blue'];
-const speciale = ['destroyer', 'dinamite', 'stopper', 'accelerator', 'mist'];
+const speciale = ['destroyer', 'dinamite', 'resetter', 'accelerator', 'mist'];
 
 const statoGioco = {
     inCorso: 1,
@@ -106,10 +106,19 @@ class Partita {
     salvaPartita() {
         this.punteggio = this.tabellone.punteggio;
         const myJSON = JSON.stringify(this);
-      /*  const xhr = new XMLHttpRequest();
-        xhr.open('POST', '../php/salva.php', true);
-        xhr.setRequestHeader('Content-type', 'application/json'); 
-        xhr.send(myJSON);*/
+        console.log(myJSON);
+        const richiesta = new XMLHttpRequest();
+        richiesta.open('POST', 'salva.php', true);
+        richiesta.onload = function () {
+            if (richiesta.success)
+                console.log('salvataggio avvenuto con successo');
+            else {
+                console.log('salvataggio non avvenuto');
+                alert('salvataggio non riuscito, riprova più tardi')
+            }
+        }
+        richiesta.setRequestHeader('Content-type', 'application/json');
+        richiesta.send(myJSON);
     }
 }
 
@@ -120,11 +129,15 @@ class Tetromino {
         this.tetMatrice = matrice;
         this.x = 3;
         this.y = 0;
+        // this.attivo serve per evitare eventuali incosistenze del tipo: il tetromino si è fermato, ma è ancora attivo e quindi può essere mosso
+        this.attivo = true;
     }
 
     checkCollisione(tabellone) {
         for (let i = 0; i < this.tetMatrice.length; i++) {
             for (let j = 0; j < this.tetMatrice[i].length; j++) {
+                if ((i + this.y) * nCol + j + this.x < 0 || (i + this.y) * nCol + j + this.x >= nRow * nCol)
+                    return false;
                 if (this.tetMatrice[i][j] == 1 && tabellone.tabelloneAttuale[i + this.y][j + this.x] !== 0) {
                     // se il pezzo è nella posizione iniziale e non è possibile inserirlo, la partita è finita
                     if (this.y === 0 && this.x === 3)
@@ -176,6 +189,8 @@ class Tetromino {
     tMuoviDx(tabellone) {
         if (tabellone.statoPartita === statoGioco.finita || tabellone.statoPartita === statoGioco.inPausa)
             return;
+        if (this.attivo === false)
+            return;
         this.cancella(tabellone);
         this.x++;
         if (this.checkCollisione(tabellone) === false) {
@@ -190,6 +205,8 @@ class Tetromino {
 
     tMuoviSx(tabellone) {
         if (tabellone.statoPartita === statoGioco.finita || tabellone.statoPartita === statoGioco.inPausa)
+            return;
+        if (this.attivo === false)
             return;
         this.cancella(tabellone);
         this.x--;
@@ -206,8 +223,8 @@ class Tetromino {
     tMuoviGiu(tabellone) {
         if (tabellone.statoPartita === statoGioco.finita || tabellone.statoPartita === statoGioco.inPausa)
             return false;
-        if (this.y + this.tetMatrice.length >= nRow)
-            return false;
+        if (this.attivo === false)
+            return;
         this.cancella(tabellone);
         this.y++;
         if (this.checkCollisione(tabellone) === false) {
@@ -225,6 +242,8 @@ class Tetromino {
     // funzioni generiche per la rotazione (le classi derivate inizializzazono il proprio polo di rotazione e usano le funzioni generiche) 
     tRuotaDx(tabellone) {
         if (tabellone.statoPartita === statoGioco.finita || tabellone.statoPartita === statoGioco.inPausa)
+            return;
+        if (this.attivo === false)
             return;
         let matriceTemp = [];
         const tRighe = this.tetMatrice.length;
@@ -263,6 +282,8 @@ class Tetromino {
     tRuotaSx(tabellone) {
         if (tabellone.statoPartita === statoGioco.finita || tabellone.statoPartita === statoGioco.inPausa)
             return;
+        if (this.attivo === false)
+            return;
         let matriceTemp = [];
         const tRighe = this.tetMatrice.length;
         const tColonne = this.tetMatrice[0].length;
@@ -299,7 +320,7 @@ class Tetromino {
     }
 
     checkSpeciale(tabellone) {
-        if (this.tipoT === 'destroyer' || this.tipoT === 'dinamite' || this.tipoT === 'stopper' || this.tipoT === 'accelerator' || this.tipoT === 'mist') {
+        if (this.tipoT === 'destroyer' || this.tipoT === 'dinamite' || this.tipoT === 'resetter' || this.tipoT === 'accelerator' || this.tipoT === 'mist') {
             console.log('tMuoviGiu caso speciale');
             switch (this.tipoT) {
                 case 'destroyer':
@@ -320,12 +341,9 @@ class Tetromino {
                     }
                     break;
 
-                case 'stopper':
-                    // ferma il tempo per 15 secondi
-                    tabellone.statoGravita = 9999;
-                    setTimeout(() => {
-                        tabellone.statoGravita = 1;
-                    }, 15000);
+                case 'resetter':
+                    tabellone.statoGravita = 1;
+                    break;
 
                 case 'accelerator':
                     tabellone.statoGravita -= 0.2;
@@ -336,7 +354,7 @@ class Tetromino {
                     for (let i = nRow - 3; i < nRow; i++) {
                         for (let j = 0; j < nCol; j++) {
                             let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j + tabellone.qualeGiocatore * 200];
-                            elemDOM.style.backgroundColor = 'white';
+                            elemDOM.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
                         }
                     }
                     setTimeout(() => {

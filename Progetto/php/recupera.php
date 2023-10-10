@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 include_once("classi.php");
 
-$user = $pwd = $domanda = '';
-$userErr = $pwdErr = $domandaErr = $loginErr = '';
-$c_str = "mysql:host=localhost;dbname=muraca";
+$user = $pwd = $domanda = $risposta = '';
+$userErr = $pwdErr = $rispostaErr = $loginErr = '';
+$c_str = "mysql:host=localhost;dbname=Muraca";
 $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -56,24 +56,26 @@ try {
         if ($pwdErr != '')
             throw new Exception("Password non valida");
     }
+    
+    $domanda = $_POST['domanda'];
 
-    if (empty($_POST['domanda'])) {
-        $domandaErr = 'La domanda di sicurezza è richiesta';
-        throw new Exception("Domanda di sicurezza richiesta");
+    if (empty($_POST['risposta'])) {
+        $rispostaErr = 'La risposta alla domanda di sicurezza è richiesta';
+        throw new Exception("Risposta alla domanda di sicurezza richiesta");
     } else
-        $domanda = $_POST['domanda'];
+        $risposta = $_POST['domanda'];
 
-    $sql = "SELECT * FROM utenti WHERE username = :user AND domanda = :domanda LIMIT 1";
+    $sql = "SELECT * FROM Utente WHERE Username = :user AND Risposta = :risposta LIMIT 1";
     $statement = $pdo->prepare($sql);
     $statement->bindValue(':user', $user);
-    $statement->bindValue(':domanda', $domanda);
+    $statement->bindValue(':risposta', $risposta);
     $statement->execute();
     $result = $pdo->query($sql);
 
     if ($result->rowCount() == 1) {
         // aggiornamento della password
         $salt = generateRandomSalt();
-        $sql = "UPDATE utenti SET password = :pwd, salt = :salt WHERE username = :user";
+        $sql = "UPDATE Utente SET Password = :pwd, Salt = :salt WHERE Username = :user";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':pwd', md5($pwd . $salt));
         $statement->bindValue(':salt', $salt);

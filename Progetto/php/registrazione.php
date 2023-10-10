@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 include_once("classi.php");
 
-$user = $mail = $pwd = $domanda = '';
-$userErr = $mailErr = $pwdErr = $domandaErr = $loginErr = '';
-$c_str = "mysql:host=localhost;dbname=muraca";
+$user = $mail = $pwd = $domanda =  $risposta = '';
+$userErr = $mailErr = $pwdErr = $rispostaErr = $loginErr = '';
+$c_str = "mysql:host=localhost;dbname=Muraca";
 $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -90,29 +90,31 @@ try {
             throw new Exception("Password non valida");
     }
 
-    if (empty($_POST['domanda'])) {
-        $domandaErr = 'La domanda di sicurezza è richiesta';
-        throw new Exception("Domanda di sicurezza richiesta");
+    $domanda = $_POST['domanda'];
+    
+    if (empty($_POST['riposta'])) {
+        $rispostaErr = 'La risposta alla domanda di sicurezza è richiesta';
+        throw new Exception("Risposta alla domanda di sicurezza richiesta");
     } else {
-        $domanda = $_POST['domanda'];
+        $risposta = $_POST['riposta'];
 
         // validazione della domanda di sicurezza (almeno 3 caratteri)
-        if (strlen($domanda) < 3) {
-            $domandaErr = 'La domanda di sicurezza deve contenere almeno 3 caratteri';
+        if (strlen($risposta) < 3) {
+            $rispostaErr = 'La risposta alla domanda di sicurezza deve contenere almeno 3 caratteri';
         }
-        else if (strlen($domanda) > 20) {
-            $domandaErr = 'La domanda di sicurezza deve contenere al massimo 20 caratteri';
+        else if (strlen($risposta) > 20) {
+            $rispostaErr = 'La risposta alla domanda di sicurezza deve contenere al massimo 20 caratteri';
         }
         // validazione della domanda di sicurezza (nessun carattere speciale)
-        else if (preg_match("/[\'^£$%&*()}{@#~?><>,|=_+!-]/", $domanda)) {
-            $domandaErr = 'La domanda di sicurezza non deve contenere caratteri speciali';
+        else if (preg_match("/[\'^£$%&*()}{@#~?><>,|=_+!-]/", $risposta)) {
+            $rispostaErr = 'La risposta alla domanda di sicurezza non deve contenere caratteri speciali';
         }
 
-        if ($domandaErr != '')
-            throw new Exception("Domanda di sicurezza non valida");
-    }        
+        if ($rispostaErr != '')
+            throw new Exception("Riposta alla domanda di sicurezza non valida");
+    }
 
-    $sql = "SELECT * FROM utenti WHERE username = :user LIMIT 1";
+    $sql = "SELECT * FROM Utente WHERE Username = :user LIMIT 1";
     $statement = $pdo->prepare($sql);
     $statement->bindValue(':user', $user);
     $statement->execute();
@@ -123,7 +125,7 @@ try {
         throw new Exception("Username già in uso");
     }
 
-    $sql = "SELECT * FROM utenti WHERE mail = :mail LIMIT 1";
+    $sql = "SELECT * FROM Utente WHERE Mail = :mail LIMIT 1";
     $statement = $pdo->prepare($sql);
     $statement->bindValue(':mail', $mail);
     $statement->execute();
@@ -135,13 +137,14 @@ try {
     }
 
     $salt = generateRandomSalt();
-    $sql = "INSERT INTO utenti (username, mail, password, salt, domanda) VALUES (:user, :mail, :pwd, :salt, :domanda)";
+    $sql = "INSERT INTO Utente (Username, Mail, Password, Salt, Domanda, Riposta) VALUES (:user, :mail, :pwd, :salt, :domanda, :risposta)";
     $statement = $pdo->prepare($sql);
     $statement->bindValue(':user', $user);
     $statement->bindValue(':mail', $mail);
     $statement->bindValue(':pwd', md5($pwd . $salt));
     $statement->bindValue(':salt', $salt);
     $statement->bindValue(':domanda', $domanda);
+    $statement->bindValue(':risposta', $risposta);
     $statement->execute();
 
     header("Location: ../html/login.html");

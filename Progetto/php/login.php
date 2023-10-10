@@ -3,7 +3,7 @@ include_once("classi.php");
 $user = $pwd = '';
 $userErr = $pwdErr = $loginErr = '';
 
-$c_str = "mysql:host=localhost;dbname=muraca";
+$c_str = "mysql:host=localhost;dbname=Muraca";
 $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -32,14 +32,14 @@ try {
     } else
         $pwd = $_POST['pwd'];
 
-    $sql = "SELECT salt FROM utenti WHERE username = :user LIMIT 1";
+    $sql = "SELECT Salt FROM Utente WHERE Username = :user LIMIT 1";
     $statement = $pdo->prepare($sql);
     $statement->bindValue(':user', $user);
     $statement->execute();
     $result = $pdo->query($sql);
     if ($result->rowCount() == 1) {
         $salt = $result->fetchColumn();
-        $sql = "SELECT * FROM utenti WHERE username = :user AND password = :pwd LIMIT 1";
+        $sql = "SELECT * FROM Utente WHERE Username = :user AND Password = :pwd LIMIT 1";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':user', $user);
         $statement->bindValue(':pwd', md5($pwd . $salt));

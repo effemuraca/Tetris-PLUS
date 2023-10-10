@@ -33,6 +33,7 @@ function aggiornaInterval(gioco, partita1, partita2 = null) {
             return;
         }
         if (partita1.tetromino.tMuoviGiu(partita1.tabellone) === false) {
+            partita1.tetromino.attivo = false;
             partita1.tabellone.cancellaRighe(partita1.tetromino);
             partita1.tetromino.checkSpeciale(partita1.tabellone);
             partita1.prosTetromino.inserisci(partita1.tabellone);
@@ -84,6 +85,8 @@ function Apri(da_aprire, tab1, tab2 = null) {
 function checkCollisione(matrice, x, y, tabellone) {
     for (let i = 0; i < matrice.length; i++) {
         for (let j = 0; j < matrice[i].length; j++) {
+            if ((i + y) * nCol + j + x < 0 || (i + y) * nCol + j + x >= nRow * nCol)
+            return false;
             if (matrice[i][j] == 1 && tabellone.tabelloneAttuale[i + y][j + x] !== 0)
                 return false;
         }
@@ -100,7 +103,7 @@ function getPossibilita() {
 }
 
 function getSpeciale() {
-    const spec = 'stopper';//speciale[Math.floor(Math.random() * speciale.length)];
+    const spec = speciale[Math.floor(Math.random() * speciale.length)];
     return spec;
 }
 
@@ -159,7 +162,7 @@ function scegliTetromino(partita) {
 }
 
 function aggiornaGravita(gioco, partita1, partita2 = null) {
-    partita1.tabellone.statoGravita = (partita1.tabellone.punteggio > 7500) ? partita1.tabellone.statoGravita -= 0.025 : partita1.tabellone.statoGravita;
+    partita1.tabellone.statoGravita -= 0.025;
     if (partita1.tabellone.statoGravita < 0.2)
         partita1.tabellone.statoGravita = 0.2;
     aggiornaInterval(gioco, partita1, partita2);
