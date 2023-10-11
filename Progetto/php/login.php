@@ -20,7 +20,7 @@ try {
         $userErr = "L'username è richiesto";
         throw new Exception("Username richiesto");
     } else
-        $user = $_POST['user'];
+        $user = $_POST['username'];
 
     if (empty($_POST['pwd'])) {
         $pwdErr = 'La password è richiesta';
@@ -30,7 +30,7 @@ try {
 
     $sql = "SELECT * FROM Utente WHERE Username = :user LIMIT 1";
     $statement = $pdo->prepare($sql);
-    $statement->bindValue(':user', $user);
+    $statement->bindValue(':user', $username);
     $statement->execute();
     $result = $pdo->query($sql);
 

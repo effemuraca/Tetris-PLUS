@@ -49,13 +49,13 @@
                 </p>
                 <p>
                     <?php
-                        if ($userErr) {
+                        if (isset($_POST['username']) && $userErr) {
                             echo $userErr;
                         }
-                        if ($pwdErr) {
+                        if ($pwdErr && isset($_POST['pwd'])) {
                             echo $pwdErr;
                         }
-                        if ($loginErr) {
+                        if ($loginErr && isset($_POST['username']) && isset($_POST['pwd'])) {
                             echo $loginErr;
                         }  
                     ?>
