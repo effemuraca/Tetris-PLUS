@@ -6,10 +6,6 @@ $c_str = "mysql:host=localhost;dbname=Muraca";
 $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-function generateRandomSalt() {
-    return base64_encode(random_bytes(8));
-}
-
 try {
     // il controllo sulla presenza di username e password è già stato fatto in html, ma è qui ugualmente per sicurezza
     if (empty($_POST['username'])) {
@@ -27,8 +23,7 @@ try {
         // validazione della password (almeno 8 caratteri)
         if (strlen($pwd) < 8) {
             $pwdErr = 'La password deve contenere almeno 8 caratteri';
-        }
-        else if (strlen($pwd) > 20) {
+        } else if (strlen($pwd) > 20) {
             $pwdErr = 'La password deve contenere al massimo 20 caratteri';
         }
         // validazione della password (almeno un numero)
@@ -55,7 +50,7 @@ try {
         if ($pwdErr != '')
             throw new Exception("Password non valida");
     }
-    
+
     $domanda = $_POST['domanda'];
 
     if (empty($_POST['risposta'])) {
@@ -64,33 +59,38 @@ try {
     } else
         $risposta = $_POST['domanda'];
 
-    $sql = "SELECT * FROM Utente WHERE Username = :user AND Risposta = :risposta LIMIT 1";
+    $sql = "SELECT * FROM Utente WHERE Username = :user LIMIT 1";
     $statement = $pdo->prepare($sql);
     $statement->bindValue(':user', $user);
-    $statement->bindValue(':risposta', $risposta);
     $statement->execute();
     $result = $pdo->query($sql);
 
     if ($result->rowCount() == 1) {
-        // aggiornamento della password
-        $salt = generateRandomSalt();
-        $sql = "UPDATE Utente SET Password = :pwd, Salt = :salt WHERE Username = :user";
-        $statement = $pdo->prepare($sql);
-        $statement->bindValue(':pwd', md5($pwd . $salt));
-        $statement->bindValue(':salt', $salt);
-        $statement->bindValue(':user', $user);
-        $statement->execute();
-
-        // inizializzazione della sessione
-        session_start();
-        // salvataggio dell'username nella sessione
-        $_SESSION['username'] = $user;
-        // reindirizzamento alla pagina principale
-        header('Location: ../html/modalità.html');
+        // controllo se la risposta alla domanda di sicurezza inserita dall'utente coincide con quella nel database
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        if (password_verify($risposta, $row['Risposta'])) {
+            // aggiornamento della password
+            $sql = "UPDATE Utente SET Password = :pwd WHERE Username = :user";
+            $statement = $pdo->prepare($sql);
+            $statement->bindValue(':user', $user);
+            $statement->bindValue(':pwd', password_hash($pwd, PASSWORD_DEFAULT));
+            $statement->execute();
+            // login effettuato con successo
+            // inizializzazione della sessione
+            session_start();
+            // salvataggio dell'username nella sessione
+            $_SESSION['username'] = $user;
+            // reindirizzamento alla pagina principale
+            header('Location: ../html/modalità.html');
+        } else {
+            // risposta alla domanda di sicurezza errata
+            $loginErr = 'Risposta alla domanda di sicurezza errata';
+            throw new Exception("Risposta alla domanda di sicurezza errata");
+        }
     } else {
-        // login fallito
-        $loginErr = 'Username o domanda di sicurezza errati';
-        throw new Exception("Username o domanda di sicurezza errati");
+        // utente non trovato
+        $loginErr = 'Username errato, <a href="registrati.php" id="registrati"> registrati </a> o riprova';
+        throw new Exception("Username errato");
         //chiusura della connessione con il database
     }
     $pdo = null;

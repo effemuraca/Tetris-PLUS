@@ -53,7 +53,7 @@ function testaUsername() {
     const daAppendere = document.getElementsByClassName('username')[0];
     const nuovoP = document.createElement('p');
     nuovoP.style.fontSize = '1vw';
-    let testoP;
+    let testoP = null;
 
     if (username.length < 3) {
         testoP = document.createTextNode('Lo username deve contenere almeno 5 caratteri');
@@ -69,6 +69,9 @@ function testaUsername() {
     }
     nuovoP.appendChild(testoP);
     daAppendere.appendChild(nuovoP);
+    if (testoP === null) {
+        sessionStorage.setItem('username', username);
+    }
 }
 
 function testaRisposta() {

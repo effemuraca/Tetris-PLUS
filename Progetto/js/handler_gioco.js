@@ -118,14 +118,30 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
-let partitaG1 = new Partita();
+let partitaG1
 let partitaG2;
+if (sessionStorage.getItem('partita') !== null) {
+    const partita = JSON.parse(sessionStorage.getItem('partita'));
+    partitaG1 = partita;
+    partitaG1.username = sessionStorage.getItem('username');
+}
+
+else
+    partitaG1 = new Partita();
+
 partitaG1.iniziaPartita();
 if (nGiocatori === '2') {
     const classeMP = document.getElementById('container_tabellone');
     classeMP.classList.add('multiplayer');
     const nomeGiocatore2 = prompt('Inserisci il nome del secondo giocatore', 'Giocatore 2');
-    partitaG2 = new Partita(2, nomeGiocatore2);
+    if (sessionStorage.getItem('partita') !== null) {
+        const partita = JSON.parse(sessionStorage.getItem('partita'));
+        partitaG2 = partita;
+        partitaG2.username = nomeGiocatore2;  
+        partitaG2.nUtente = 2;
+    }
+    else
+        partitaG2 = new Partita(2, nomeGiocatore2);
     partitaG2.iniziaPartita();
     aggiornaSalvataggio();
 }

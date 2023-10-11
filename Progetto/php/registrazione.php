@@ -6,10 +6,6 @@ $c_str = "mysql:host=localhost;dbname=Muraca";
 $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-function generateRandomSalt() {
-    return base64_encode(random_bytes(8));
-}
-
 try {
 
     if (empty($_POST['username'])) {
@@ -135,15 +131,13 @@ try {
         throw new Exception("Mail già in uso");
     }
 
-    $salt = generateRandomSalt();
-    $sql = "INSERT INTO Utente (Username, Mail, Password, Salt, Domanda, Riposta) VALUES (:user, :mail, :pwd, :salt, :domanda, :risposta)";
+    $sql = "INSERT INTO Utente (Username, Mail, Password, Domanda, Riposta) VALUES (:user, :mail, :pwd, :domanda, :risposta)";
     $statement = $pdo->prepare($sql);
     $statement->bindValue(':user', $user);
     $statement->bindValue(':mail', $mail);
-    $statement->bindValue(':pwd', md5($pwd . $salt));
-    $statement->bindValue(':salt', $salt);
+    $statement->bindValue(':pwd', password_hash($pwd, PASSWORD_DEFAULT));
     $statement->bindValue(':domanda', $domanda);
-    $statement->bindValue(':risposta', $risposta);
+    $statement->bindValue(':risposta', password_hash($risposta, PASSWORD_DEFAULT));
     $statement->execute();
 
     header("Location: ../html/login.html");

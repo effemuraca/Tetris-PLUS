@@ -32,7 +32,8 @@ try {
         } else
             $tipoSalvataggio = $_GET['tipo_salvataggio'];
     }
-    $stmt = $pdo->prepare("INSERT INTO PartiteSalvate (Username, StringaPartita, TipoSalvataggio, Data) VALUES (:user, :partita, :tipo, :data)");
+    $sql = "INSERT INTO PartiteSalvate (Username, StringaPartita, TipoSalvataggio, Data) VALUES (:user, :partita, :tipo, :data)";
+    $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':user', $_SESSION['username']);
     $stmt->bindParam(':partita', $_SESSION['stringaJSON']);
     $stmt->bindParam(':tipo', $tipoSalvataggio);

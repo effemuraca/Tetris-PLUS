@@ -46,23 +46,9 @@
     </nav>
     <br>
     <main>
-        <table id="classifica">
-            <thead>
-                <tr>
-                    <td>
-                        Nome Utente
-                    </td>
-                    <td>
-                        Punteggio
-                    </td>
-                    <td>
-                        Data Partita
-                    </td>
-                </tr>
-            </thead>
-            <tbody id="body_classifica">
-            </tbody>
-        </table>
+        <?php
+            include "../php/classifica.php";
+        ?>
     </main>
 </body>
 

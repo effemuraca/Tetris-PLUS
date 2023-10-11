@@ -10,7 +10,7 @@ function SelezioneModalità(numero_giocatori) {
         nonSelezione = document.getElementById('partita_multiplayer');
     }
     else if (numero_giocatori === 2) {
-        if (window.innerWidth < 1001) { 
+        if (window.innerWidth < 1001) {
             alert('Non è possibile giocare in modalità multiplayer da mobile')
             return;
         }
@@ -29,10 +29,8 @@ function TipoPartita(tipo_partita) {
         // da sostituire con un p che compare
         window.alert('non hai selezionato una modalità');
     }
-    else {
-        sessionStorage.setItem('tipo_partita', tipo_partita);
+    else
         window.location.href = '../html/singleplayer.html';
-    }
 }
 
 const singleplayer = document.getElementById('partita_singleplayer');

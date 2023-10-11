@@ -5,6 +5,7 @@ $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 try {
+    session_start();
     if (empty($_SESSION['username'])) {
         header("Location:../html/login.php");
         throw new Exception("Utente non loggato");

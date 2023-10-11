@@ -7,11 +7,6 @@ $c_str = "mysql:host=localhost;dbname=Muraca";
 $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-function generateRandomSalt()
-{
-    return base64_encode(random_bytes(8));
-}
-
 try {
     // nel login non mi interessa cosa l'utente inserisce nei campi, perche tanto io controllo solo se il suo user e 
     // la sua pw coincidono con quelli nel db
@@ -33,30 +28,32 @@ try {
     } else
         $pwd = $_POST['pwd'];
 
-    $sql = "SELECT Salt FROM Utente WHERE Username = :user LIMIT 1";
+    $sql = "SELECT * FROM Utente WHERE Username = :user LIMIT 1";
     $statement = $pdo->prepare($sql);
     $statement->bindValue(':user', $user);
     $statement->execute();
     $result = $pdo->query($sql);
+
     if ($result->rowCount() == 1) {
-        $salt = $result->fetchColumn();
-        $sql = "SELECT * FROM Utente WHERE Username = :user AND Password = :pwd LIMIT 1";
-        $statement = $pdo->prepare($sql);
-        $statement->bindValue(':user', $user);
-        $statement->bindValue(':pwd', md5($pwd . $salt));
-        $statement->execute();
-        $result = $pdo->query($sql);
-        // login effettuato con successo
-        // inizializzazione della sessione
-        session_start();
-        // salvataggio dell'username nella sessione
-        $_SESSION['username'] = $user;
-        // reindirizzamento alla pagina principale
-        header('Location: ../html/modalità.html');
+        // controllo se la password inserita dall'utente coincide con quella nel database
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        if (password_verify($pwd, $row['Password'])) {
+            // login effettuato con successo
+            // inizializzazione della sessione
+            session_start();
+            // salvataggio dell'username nella sessione
+            $_SESSION['username'] = $user;
+            // reindirizzamento alla pagina principale
+            header('Location: ../html/modalità.html');
+        } else {
+            // login fallito
+            $loginErr = 'Password errata <a href="recupera.html" id="reimposta_pw"> reimposta password </a> o riprova';
+            throw new Exception("Password errata");
+        }
     } else {
         // login fallito
-        $loginErr = 'Username o password errati <a href="recupera.html" id="reimposta_pw"> reimposta password </a>';
-        throw new Exception("Username o password errati");
+        $loginErr = 'Username non trovato <a href="registrati.php" id="registrati"> registrati </a> o riprova';
+        throw new Exception("Username non trovato");
     }
     //chiusura della connessione con il database
     $pdo = null;

@@ -23,10 +23,9 @@ DROP TABLE IF EXISTS `Muraca`.`Utente` ;
 CREATE TABLE IF NOT EXISTS `Muraca`.`Utente` (
   `Username` VARCHAR(20) NOT NULL,
   `Mail` VARCHAR(30) NOT NULL,
-  `Password` VARCHAR(20) NOT NULL,
-  `Salt` VARCHAR(64) NOT NULL,
+  `Password` VARCHAR(255) NOT NULL,
   `Domanda` INT NOT NULL,
-  `Risposta` VARCHAR(30) NOT NULL,
+  `Risposta` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`Username`),
   UNIQUE INDEX `Username_UNIQUE` (`Username` ASC),
   UNIQUE INDEX `Mail_UNIQUE` (`Mail` ASC))
@@ -34,16 +33,17 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Muraca`.`Salvate`
+-- Table `Muraca`.`PartiteSalvate`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Muraca`.`Salvate` ;
+DROP TABLE IF EXISTS `Muraca`.`PartiteSalvate` ;
 
-CREATE TABLE IF NOT EXISTS `Muraca`.`Salvate` (
+CREATE TABLE IF NOT EXISTS `Muraca`.`PartiteSalvate` (
   `idSalvate` INT NOT NULL AUTO_INCREMENT,
   `Username` VARCHAR(20) NOT NULL,
-  `StringaPartita` VARCHAR(2000) NOT NULL,
+  `StringaPartita` VARCHAR(2000) NULL,
   `Data` VARCHAR(20) NOT NULL,
   `TipoSalvataggio` TINYINT(1) NULL,
+  `Punteggio` INT NULL,
   PRIMARY KEY (`idSalvate`),
   UNIQUE INDEX `idSalvate_UNIQUE` (`idSalvate` ASC),
   INDEX `fk_Salvate_Utente1_idx` (`Username` ASC),
@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `Muraca`.`Salvate` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

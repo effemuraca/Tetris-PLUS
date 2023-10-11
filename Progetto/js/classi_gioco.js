@@ -4,6 +4,7 @@
 const nRow = 20;
 const nCol = 10;
 const nGiocatori = sessionStorage.getItem('numero_giocatori');
+let datiGioco;
 
 const tetromino = ['I', 'T', 'O', 'L', 'J', 'S', 'Z'];
 const colore = ['red', 'coral', 'yellow', 'green', 'cyan', 'purple', 'blue'];
@@ -19,17 +20,10 @@ class Partita {
     constructor(nutente = 1, username = sessionStorage.getItem('username')) {
         this.username = username;
         this.nUtente = nutente;
-        if (sessionStorage.getItem('tipo_partita') === 'nuova') {
-            this.punteggio = 0;
-            this.tabellone = new Tabellone();
-            this.tetromino = [];
-            this.prosTetromino = [];
-        }
-
-        else if (sessionStorage.getItem('tipo_partita') === 'salvata') {
-            // da sostituire con la parte del codice che prende la partita dal db
-        }
-
+        this.punteggio = 0;
+        this.tabellone = new Tabellone();
+        this.tetromino = [];
+        this.prosTetromino = [];
     }
 
     iniziaPartita() {
@@ -74,7 +68,7 @@ class Partita {
         // inserimento del nome utente
         const nodeUtente = document.createElement('p');
         nodeUtente.style.marginBlockEnd = '0rem';
-        const textnodeUtente = document.createTextNode(this.username);
+        const textnodeUtente = document.createTextNode(sessionStorage.getItem('username'));
         nodeUtente.appendChild(textnodeUtente);
         document.getElementById('nome_giocatore').appendChild(nodeUtente);
     }
