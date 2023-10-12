@@ -50,6 +50,7 @@
         </form>
     </main>
     <script src="../js/login.js"></script>
+    <script src="../js/login_handler.js"></script>
 </body>
 
 </html>

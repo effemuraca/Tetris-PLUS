@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 session_start();
-$c_str = "mysql:host=localhost;dbname=Muraca";
+$c_str = "mysql:host=localhost;dbname=Muraca_635455";
 $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

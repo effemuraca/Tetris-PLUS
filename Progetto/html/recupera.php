@@ -63,6 +63,8 @@
             </fieldset>
         </form>
     </main>
+    <script src="../js/recupera.js"></script>
+    <script src="../js/login_handler.js"></script>
 </body>
 
 </html>
