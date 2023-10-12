@@ -26,12 +26,12 @@
                 <legend>
                     Recupera account:
                 </legend>
-                <p class="mail">
-                    <label for="mail">
-                        Mail:
+                <p class="username">
+                    <label for="username">
+                        Username:
                     </label>
                     <br>
-                    <input type="email" id="mail" name="mail" required minlength="6" maxlength="30">
+                    <input type="text" id="username" name="username" required minlength="3" maxlength="20">
                 </p>
                 <p class="nuova_password">
                     <label for="pwd">
@@ -40,9 +40,21 @@
                     <br>
                     <input type="password" id="pwd" name="pwd" required minlength="8" maxlength="20">
                 </p>
+                <p class="password">
+                    <label for="pwd2">
+                        Inaerisci nuovamente la password:
+                    </label>
+                    <br>
+                    <input type="password" id="pwd2" name="pwd2" required minlength="8" maxlength="20">
+                </p>
+                <p>
+                    <?php
+                    echo $domanda;
+                    ?>
+                </p>
                 <p class="risposta_account">
                     <label for="risposta_account">
-                        <?php echo $domanda; ?>:
+                        Risposta:
                     </label>
                     <br>
                     <input type="text" id="risposta_account" name="risposta_account" required minlength="3"
@@ -50,17 +62,23 @@
                 </p>
                 <p>
                     <?php
-                    if ($userErr) {
+                    if (isset($_POST['username']) && $userErr) {
                         echo $userErr;
                     }
-                    if ($pwdErr) {
+                    if (isset($_POST['pwd']) && $pwdErr) {
                         echo $pwdErr;
                     }
-                    if ($domandaErr) {
+                    if (isset($_POST['pwd2']) && $pwd2Err) {
+                        echo $pwd2Err;
+                    }
+                    if (isset($_POST['domanda']) && $domandaErr) {
                         echo $domandaErr;
                     }
-                    if ($loginErr) {
+                    if (isset($_POST['username']) && isset($_POST['pwd']) && isset($_POST['domanda']) && $loginErr) {
                         echo $loginErr;
+                    }
+                    if (isset($_POST['pwd']) && isset($_POST['pwd2']) && $passErr) {
+                        echo $passErr;
                     }
                     ?>
                 </p>

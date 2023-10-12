@@ -6,7 +6,7 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 try {
     session_start();
-    if (empty($_SESSION['username'])) {
+    if (isset($_SESSION['username']) == false) {
         header("Location:../html/login.php");
         throw new Exception("Utente non loggato");
     }
@@ -14,13 +14,12 @@ try {
     $id = json_decode(file_get_contents('php://input'), true);
     $idPartita = $id['idPartita'];
 
-    $sql = "SELECT * FROM PartiteSalvate WHERE idSalvate = :id LIMIT 1";
-    $statement = $pdo->prepare($sql);
-    $statement->bindParam(':id', $idPartita);
-    $statement->execute();
-    $result = $statement->fetch(PDO::FETCH_ASSOC);
-    // se result è vuoto non esiste la partita
-    if ($result == null) {
+    $sql = "SELECT * FROM PartiteSalvate WHERE idSalvate = ? LIMIT 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(1, $idPartita);
+    $stmt->execute();
+
+    if ($stmt->rowCount() == 0) {
         echo "Partita non trovata";
         throw new Exception("Partita non trovata");
     } else {

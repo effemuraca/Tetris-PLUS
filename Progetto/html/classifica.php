@@ -22,13 +22,13 @@
                 </a>
             </li>
             <li>
-                <a href="login.html">
+                <a href="login.php">
                     Gioca
                     <img src="../images/modalità.png" alt="joypad">
                 </a>
             </li>
             <li class="active">
-                <a href="classifica.html">
+                <a href="classifica.php">
                     Classifica
                     <img src="../images/classifica.png" alt="medaglia">
                 </a>

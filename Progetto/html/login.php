@@ -9,7 +9,6 @@
     <link rel="icon" href="../images/tetris.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/tetris.css" type="text/css">
     <link rel="stylesheet" href="../css/login.css" type="text/css">
-    <script src="../js/login.js"></script>
 </head>
 
 <body>
@@ -22,7 +21,7 @@
 
     </nav>
     <main>
-        <form action="../php/login.php" method="post" autocomplete="on">
+        <form action="#" method="post" autocomplete="on" id="richiedi_login">
             <fieldset>
                 <legend>
                     Login:
@@ -41,32 +40,16 @@
                     <br>
                     <input type="password" id="pwd" name="pwd" required minlength="8" maxlength="20">
                 </p>
-                <p id="errore">
-                    Username o password errati,
-                    <a href="recupera.html">
-                        reimposta password
-                    </a>
-                </p>
-                <p>
-                    <?php
-                        if (isset($_POST['username']) && $userErr) {
-                            echo $userErr;
-                        }
-                        if ($pwdErr && isset($_POST['pwd'])) {
-                            echo $pwdErr;
-                        }
-                        if ($loginErr && isset($_POST['username']) && isset($_POST['pwd'])) {
-                            echo $loginErr;
-                        }  
-                    ?>
+                <p id="errore_login">
                 </p>
                 <input type="submit" value="Conferma">
-                <a href="registrati.html">
+                <a href="registrati.php">
                     Non hai un account? Registrati
                 </a>
             </fieldset>
         </form>
     </main>
+    <script src="../js/login.js"></script>
 </body>
 
 </html>

@@ -10,37 +10,35 @@ function TestaPassword() {
     const daAppendere = document.getElementsByClassName('password')[0];
     const nuovoP = document.createElement('p');
     nuovoP.style.fontSize = '1vw';
-    let testoP;
 
     if (pw.length < 8) {
-        testoP = document.createTextNode('La password deve contenere almeno 8 caratteri');
+        nuovoP.textContent = 'La password deve contenere almeno 8 caratteri';
         nuovoP.id = 'errore';
     }
     else if (pw.length > 20) {
-        testoP = document.createTextNode('La password deve contenere al massimo 20 caratteri');
+        nuovoP.textContent = 'La password deve contenere al massimo 20 caratteri';
         nuovoP.id = 'errore';
     }
     else if (!/[a-z]/.test(pw)) {
-        testoP = document.createTextNode('La password deve contenere almeno una lettera minuscola');
+        nuovoP.textContent = 'La password deve contenere almeno una lettera minuscola';
         nuovoP.id = 'errore';
     }
     else if (!/[A-Z]/.test(pw)) {
-        testoP = document.createTextNode('La password deve contenere almeno una lettera maiuscola');
+        nuovoP.textContent = 'La password deve contenere almeno una lettera maiuscola';
         nuovoP.id = 'errore';
     }
     else if (!/[0-9]/.test(pw)) {
-        testoP = document.createTextNode('La password deve contenere almeno un numero');
+        nuovoP.textContent = 'La password deve contenere almeno un numero';
         nuovoP.id = 'errore';
     }
     else if (!/[^a-zA-Z0-9]/.test(pw)) {
-        testoP = document.createTextNode('La password deve contenere almeno un carattere speciale');
+        nuovoP.textContent = 'La password deve contenere almeno un carattere speciale';
         nuovoP.id = 'errore';
     }
     if (/[ ]/.test(pw)) {
-        testoP = document.createTextNode('La password non deve contenere spazi');
+        nuovoP.textContent = 'La password non deve contenere spazi';
         nuovoP.id = 'errore';
     }
-    nuovoP.appendChild(testoP);
     daAppendere.appendChild(nuovoP);
 }
 
@@ -53,23 +51,22 @@ function testaUsername() {
     const daAppendere = document.getElementsByClassName('username')[0];
     const nuovoP = document.createElement('p');
     nuovoP.style.fontSize = '1vw';
-    let testoP = null;
+    nuovoP.textContent = null;
 
     if (username.length < 3) {
-        testoP = document.createTextNode('Lo username deve contenere almeno 5 caratteri');
+        nuovoP.textContent = 'Lo username deve contenere almeno 5 caratteri';
         nuovoP.id = 'errore';
     }
     else if (username.length > 20) {
-        testoP = document.createTextNode('Lo username deve contenere al massimo 20 caratteri');
+        nuovoP.textContent = 'Lo username deve contenere al massimo 20 caratteri';
         nuovoP.id = 'errore';
     }
     else if (/[ ]/.test(username)) {
-        testoP = document.createTextNode('Lo username non deve contenere spazi');
+        nuovoP.textContent = 'Lo username non deve contenere spazi';
         nuovoP.id = 'errore';
     }
-    nuovoP.appendChild(testoP);
     daAppendere.appendChild(nuovoP);
-    if (testoP === null) {
+    if (nuovoP.textContent === null) {
         sessionStorage.setItem('username', username);
     }
 }
@@ -83,17 +80,15 @@ function testaRisposta() {
     const daAppendere = document.getElementsByClassName('risposta')[0];
     const nuovoP = document.createElement('p');
     nuovoP.style.fontSize = '1vw';
-    let testoP;
 
     if (risposta.length < 3) {
-        testoP = document.createTextNode('La risposta deve contenere almeno 5 caratteri');
+        nuovoP.textContent = 'La risposta deve contenere almeno 5 caratteri';
         nuovoP.id = 'errore';
     }
     else if (risposta.length > 30) {
-        testoP = document.createTextNode('La risposta deve contenere al massimo 20 caratteri');
+        nuovoP.textContent = 'La risposta deve contenere al massimo 20 caratteri';
         nuovoP.id = 'errore';
     }
-    nuovoP.appendChild(testoP);
     daAppendere.appendChild(nuovoP);
 }
 
@@ -106,36 +101,97 @@ function testaMail() {
     const daAppendere = document.getElementsByClassName('mail')[0];
     const nuovoP = document.createElement('p');
     nuovoP.style.fontSize = '1vw';
-    let testoP;
 
     if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(mail)) {
-        testoP = document.createTextNode('Inserire una mail valida');
+        nuovoP.textContent = 'Inserire una mail valida';
         nuovoP.id = 'errore';
     }
     else if (mail.length < 6) {
-        testoP = document.createTextNode('La mail deve contenere almeno 5 caratteri');
+        nuovoP.textContent = 'La mail deve contenere almeno 5 caratteri';
         nuovoP.id = 'errore';
     }
     else if (mail.length > 30) {
-        testoP = document.createTextNode('La mail deve contenere al massimo 30 caratteri');
+        nuovoP.textContent = 'La mail deve contenere al massimo 30 caratteri';
         nuovoP.id = 'errore';
     }
-    nuovoP.appendChild(testoP);
     daAppendere.appendChild(nuovoP);
-
-
-
 }
 
 const testPW = document.getElementById('pwd');
-testPW.addEventListener('change', TestaPassword);
+if (testPW != null)
+    testPW.addEventListener('change', TestaPassword);
 
 const testUsername = document.getElementById('username');
-testUsername.addEventListener('change', testaUsername);
+if (testUsername != null)
+    testUsername.addEventListener('change', testaUsername);
 
 const testDomanda = document.getElementById('risposta');
-testDomanda.addEventListener('change', testaRisposta);
+if (testDomanda != null)
+    testDomanda.addEventListener('change', testaRisposta);
 
 const testMail = document.getElementById('mail');
-testMail.addEventListener('change', testaMail);
+if (testMail != null)
+    testMail.addEventListener('change', testaMail);
+
+/*
+const loginForm = document.getElementById("richiedi_login");
+loginForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(loginForm);
+
+    fetch('../php/login.php', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.stato) {
+                // Login riuscito, reindirizza alla pagina di successo
+                window.location.href = "modalità.html";
+            } else {
+                // Login fallito, mostra un messaggio di errore sullaq pagina di login
+                const errore = document.getElementById("errore_login");
+                errore.textContent = data.messaggio;
+            }
+        })
+        .catch(error => {
+            console.error("Errore durante la richiesta: " + error);
+        });
+});
+
+
+const registrazioneForm = document.getElementById("richiedi_registrazione");
+registrazioneForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(registrazioneForm);
+
+    if (formData.get('pwd') !== formData.get('pwd2')) {
+        const errore = document.getElementById("errore_registrazione");
+        errore.textContent = "Le password non coincidono";
+        return;
+    }
+
+    fetch('../php/registrazione.php', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.stato) {
+                // Registrazione riuscita, reindirizza alla pagina di successo
+                alert(data.messaggio);
+                window.location.href = "login.php";
+            } else {
+                // Registrazione fallita, mostra un messaggio di errore sullaq pagina di login
+                const errore = document.getElementById("errore_registrazione");
+                errore.textContent = data.messaggio;
+            }
+        })
+        .catch(error => {
+            console.error("Errore durante la richiesta: " + error);
+        });
+});
+*/
 

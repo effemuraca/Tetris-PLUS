@@ -20,7 +20,7 @@
         </a>
     </nav>
     <main>
-        <form action="../php/registrazione.php" method="post" autocomplete="on">
+        <form action="#" method="post" autocomplete="on" id="richiedi_registrazione">
             <fieldset>
                 <legend>
                     Registrati:
@@ -46,11 +46,18 @@
                     <br>
                     <input type="password" id="pwd" name="pwd" required minlength="8" maxlength="20">
                 </p>
+                <p class="password">
+                    <label for="pwd2">
+                        Inaerisci nuovamente la password:
+                    </label>
+                    <br>
+                    <input type="password" id="pwd2" name="pwd2" required minlength="8" maxlength="20">
+                </p>
                 <p class="domanda">
                     <label for="domanda">
                         Scegli una domanda di sicurezza:
                     </label>
-                    <select id="domanda">
+                    <select id="domanda" name="domanda" required>
                         <option value="nonno materno">
                             Qual &egrave; il nome del tuo nonno materno?
                         </option>
@@ -69,24 +76,10 @@
                     <br>
                     <input type="text" id="risposta" name="risposta" required minlength="3" maxlength="30">
                 </p>
-                <p>
-                    <?php
-                        if ($userErr) {
-                            echo $userErr;
-                        }
-                        if ($mailErr) {
-                            echo $mailErr;
-                        }
-                        if ($pwdErr) {
-                            echo $pwdErr;
-                        }
-                        if ($domandaErr) {
-                            echo $domandaErr;
-                        }
-                    ?>
+                <p id="errore_registrazione">
                 </p>
                 <input type="submit" value="Conferma">
-                <a href="login.html">
+                <a href="login.php">
                     Hai gi&agrave; un account? Accedi
                 </a>
             </fieldset>

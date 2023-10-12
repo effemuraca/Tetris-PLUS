@@ -8,7 +8,7 @@ $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 try {
-    if (empty($_SESSION['username'])) {
+    if (isset($_SESSION['username']) == false) {
         header("Location:../html/login.php");
         throw new Exception("Utente non loggato");
     }
@@ -32,13 +32,13 @@ try {
         } else
             $tipoSalvataggio = $_GET['tipo_salvataggio'];
     }
-    $sql = "INSERT INTO PartiteSalvate (Username, StringaPartita, TipoSalvataggio, Data) VALUES (:user, :partita, :tipo, :data)";
+    $sql = "INSERT INTO PartiteSalvate(Username, StringaPartita, TipoSalvataggio, Data) VALUE (?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':user', $_SESSION['username']);
-    $stmt->bindParam(':partita', $_SESSION['stringaJSON']);
-    $stmt->bindParam(':tipo', $tipoSalvataggio);
+    $stmt->bindParam(1, $_SESSION['username']);
+    $stmt->bindParam(2, $_SESSION['stringaJSON']);
+    $stmt->bindParam(3, $tipoSalvataggio);
     $data = date("Y-m-d");
-    $stmt->bindParam(':data', $data);
+    $stmt->bindParam(4, $data);
     $stmt->execute();
     unset($_SESSION['stringaJSON']);
 } catch (PDOException | Exception $e) {
