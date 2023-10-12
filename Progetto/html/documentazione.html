@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li>
-                <a href="login.php">
+                <a href="login.html">
                     Gioca
                     <img src="../images/modalità.png" alt="joypad">
                 </a>

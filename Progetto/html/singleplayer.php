@@ -209,7 +209,10 @@
             </div>
         </div>
     </div>
-    <script src="../js/classi_gioco.js"></script>
+    <script src="../js/costanti.js"></script>
+    <script src="../js/partita.js"></script>
+    <script src="../js/tabellone.js"></script>
+    <script src="../js/tetromino.js"></script>
     <script src="../js/funzioni_gioco.js"></script>
     <script src="../js/handler_gioco.js"></script>
 </body>
