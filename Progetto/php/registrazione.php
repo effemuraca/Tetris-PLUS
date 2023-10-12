@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 $user = $mail = $pwd = $pwd2 = $domanda = $risposta = '';
-$userErr = $pwdErr = $pwd2Err = $rispostaErr = $loginErr = false;
+$userErr = $pwdErr = $pwd2Err = $rispostaErr = false;
 $c_str = "mysql:host=localhost;dbname=Muraca";
 $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -81,7 +81,6 @@ try {
     }
 
     if (empty($_POST['pwd2'])) {
-        $pwd2Err = 'La password è richiesta';
         throw new Exception("Password richiesta");
     } else {
         $pwd2 = $_POST['pwd2'];
@@ -124,7 +123,6 @@ try {
     }
 
     if (empty($_POST['risposta'])) {
-        $rispostaErr = 'La risposta alla domanda di sicurezza è richiesta';
         throw new Exception("Risposta alla domanda di sicurezza richiesta");
     } else {
         $risposta = $_POST['risposta'];
@@ -150,11 +148,6 @@ try {
     $stmt->execute();
 
     if ($stmt->fetch(pdo::FETCH_ASSOC) == false) {
-        $sql = "SELECT * FROM Utente WHERE Mail = ? LIMIT 1";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(1, $mail);
-        $stmt->execute();
-
         //oss: si è supposto possibile ci possano essere più utenti con la stessa mail
         $sql = "INSERT INTO Utente (Username, Mail, Password, Domanda, Risposta) VALUES (?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);

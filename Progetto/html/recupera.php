@@ -21,7 +21,7 @@
 
     </nav>
     <main>
-        <form action="../php/recupera.php" method="post" autocomplete="on">
+        <form action="#" method="post" autocomplete="on" richiedi_recupero>
             <fieldset>
                 <legend>
                     Recupera account:
@@ -47,10 +47,7 @@
                     <br>
                     <input type="password" id="pwd2" name="pwd2" required minlength="8" maxlength="20">
                 </p>
-                <p>
-                    <?php
-                    echo $domanda;
-                    ?>
+                <p id="domanda_personale">
                 </p>
                 <p class="risposta_account">
                     <label for="risposta_account">
@@ -60,27 +57,7 @@
                     <input type="text" id="risposta_account" name="risposta_account" required minlength="3"
                         maxlength="30">
                 </p>
-                <p>
-                    <?php
-                    if (isset($_POST['username']) && $userErr) {
-                        echo $userErr;
-                    }
-                    if (isset($_POST['pwd']) && $pwdErr) {
-                        echo $pwdErr;
-                    }
-                    if (isset($_POST['pwd2']) && $pwd2Err) {
-                        echo $pwd2Err;
-                    }
-                    if (isset($_POST['domanda']) && $domandaErr) {
-                        echo $domandaErr;
-                    }
-                    if (isset($_POST['username']) && isset($_POST['pwd']) && isset($_POST['domanda']) && $loginErr) {
-                        echo $loginErr;
-                    }
-                    if (isset($_POST['pwd']) && isset($_POST['pwd2']) && $passErr) {
-                        echo $passErr;
-                    }
-                    ?>
+                <p id="errore_recupero">
                 </p>
                 <input type="submit" value="Conferma">
             </fieldset>
