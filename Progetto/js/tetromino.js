@@ -13,7 +13,7 @@ class Tetromino {
     checkCollisione(tabellone) {
         for (let i = 0; i < this.tetMatrice.length; i++) {
             for (let j = 0; j < this.tetMatrice[i].length; j++) {
-                if ((i + this.y) * nCol + j + this.x < 0 || (i + this.y) * nCol + j + this.x >= nRow * nCol)
+                if (this.tetMatrice[i][j] !== 0 && ((i + this.y) * nCol + j + this.x < 0 || (i + this.y) * nCol + j + this.x >= nRow * nCol))
                     return false;
                 if (this.tetMatrice[i][j] == 1 && tabellone.tabelloneAttuale[i + this.y][j + this.x] !== 0) {
                     // se il pezzo è nella posizione iniziale e non è possibile inserirlo, la partita è finita

@@ -132,7 +132,8 @@ partitaG1.iniziaPartita();
 if (nGiocatori === '2') {
     const classeMP = document.getElementById('container_tabellone');
     classeMP.classList.add('multiplayer');
-    const nomeGiocatore2 = prompt('Inserisci il nome del secondo giocatore', 'Giocatore 2');
+    // la scelta del nome utente per il giocatore ospite è fatta in automatico e non tramite un secondo login (si suppone che il giocatore ospite spesso non abbia un account su cui giocare, essendo che il gioco viene eseguito in locale sulla macchina dell'altro giocatore)
+    const nomeGiocatore2 = 'Giocatore ospite';
     if (sessionStorage.getItem('partita') !== null) {
         const partita = JSON.parse(sessionStorage.getItem('partita'));
         partitaG2 = partita;

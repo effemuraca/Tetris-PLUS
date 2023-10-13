@@ -41,7 +41,7 @@
             </li>
         </ul>
         <footer>
-            Ferdinando Muraca, A.A. 2022/23
+            Ferdinando Muraca, A.A. 2023/24
         </footer>
     </nav>
     <br>
