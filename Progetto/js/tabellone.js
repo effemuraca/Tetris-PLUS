@@ -31,6 +31,9 @@ class Tabellone {
     cancellaRighe(tetromino) {
         console.log('cancellaRighe');
         let riga = tetromino.y + tetromino.tetMatrice.length - 1;
+        // gestione del caso matrice ingrandita per via della rotazione (una riga di soli zeri in fondo alla matrice del tetromino)
+        if (riga >= nRow)
+            riga = nRow - 1;
         let righeCancellate = 0;
 
         while (riga >= tetromino.y) {
