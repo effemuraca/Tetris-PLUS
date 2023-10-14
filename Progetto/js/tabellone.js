@@ -1,7 +1,6 @@
 'use strict';
 class Tabellone {
     constructor(statoTabellone, punteggio) {
-        // manca il caso in cui il tabellone non è vuoto e viene preso dal db (statoTabellone rappresenta il tabellone della partita presa dal db)
         this.tabelloneAttuale = [];
         for (let i = 0; i < nRow; i++) {
             this.tabelloneAttuale[i] = [];
@@ -9,12 +8,11 @@ class Tabellone {
                 this.tabelloneAttuale[i][j] = 0;
             }
         }
-        // manca il caso in cui il tabellone non è vuoto e viene preso dal db (punteggio rappresenta il punteggio della partita presa dal db)
         this.punteggio = 0;
         this.statoPartita = statoGioco.inCorso;
         // statoGravita rappresenta quanto effetto ha la gravità sul tetromino attivo
         this.statoGravita = 1;
-        // è utile tenere nel tabellone una reference a quale giocatore appartiene, per evitare di passare a molte funzioni come parametro l'intero oggetto partita
+        // è utile tenere nel tabellone una reference a quale giocatore appartiene, per evitare di passare ad alcune funzioni l'intero oggetto partita come parametro
         this.qualeGiocatore = 0;
     }
 

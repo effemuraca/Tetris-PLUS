@@ -7,16 +7,23 @@ $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 try {
+    $userJSON = json_decode(file_get_contents('php://input'), true);
+    $user = $userJSON['username'];
+    $mail = $userJSON['mail'];
+    $pwd = $userJSON['pwd'];
+    $pwd2 = $userJSON['pwd2'];
+    $domanda = $userJSON['domanda'];
+    $risposta = $userJSON['risposta'];
 
-    if (empty($_POST['username'])) {
+    if (empty($user)) {
         throw new Exception("Username richiesto");
-    } else {
-        $user = $_POST['username'];
-
+    } 
+    else {
         // validazione dell'username (almeno 3 caratteri)
         if (strlen($user) < 3) {
             $userErr = true;
-        } else if (strlen($user) > 20) {
+        } 
+        else if (strlen($user) > 20) {
             $userErr = true;
         }
         // validazione dell'username (nessuno spazio)
@@ -32,23 +39,19 @@ try {
             throw new Exception("Username non valido");
     }
 
-    if (empty($_POST['mail'])) {
+    if (empty($mail)) {
         throw new Exception("Mail richiesta");
-    } else {
-        $mail = $_POST['mail'];
-
-        // validazione della mail
-        if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-            throw new Exception("Mail non valida");
-        }
-
     }
 
-    if (empty($_POST['pwd'])) {
-        throw new Exception("Password richiesta");
-    } else {
-        $pwd = $_POST['pwd'];
+    // validazione della mail
+    if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+        throw new Exception("Mail non valida");
+    }
 
+    if (empty($pwd)) {
+        throw new Exception("Password richiesta");
+    } 
+    else {
         // validazione della password (almeno 8 caratteri)
         if (strlen($pwd) < 8) {
             $pwdErr = true;
@@ -80,11 +83,9 @@ try {
             throw new Exception("Password non valida");
     }
 
-    if (empty($_POST['pwd2'])) {
+    if (empty($pwd2)) {
         throw new Exception("Password richiesta");
     } else {
-        $pwd2 = $_POST['pwd2'];
-
         // validazione della password (almeno 8 caratteri)
         if (strlen($pwd2) < 8) {
             $pwd2Err = true;
@@ -116,21 +117,18 @@ try {
             throw new Exception("Password non valida");
     }
 
-    if (empty($_POST['domanda'])) {
+    if (empty($domanda)) {
         throw new Exception("Domanda di sicurezza richiesta");
-    } else {
-        $domanda = $_POST['domanda'];
-    }
-
-    if (empty($_POST['risposta'])) {
+    } 
+    if (empty($risposta)) {
         throw new Exception("Risposta alla domanda di sicurezza richiesta");
-    } else {
-        $risposta = $_POST['risposta'];
-
+    } 
+    else {
         // validazione della domanda di sicurezza (almeno 3 caratteri)
         if (strlen($risposta) < 3) {
             $rispostaErr = true;
-        } else if (strlen($risposta) > 20) {
+        } 
+        else if (strlen($risposta) > 20) {
             $rispostaErr = true;
         }
         // validazione della domanda di sicurezza (nessun carattere speciale)
@@ -142,14 +140,14 @@ try {
             throw new Exception("Risposta alla domanda di sicurezza non valida");
     }
 
-    $sql = "SELECT * FROM Utente WHERE Username = ? LIMIT 1";
+    $sql = "SELECT * FROM utente WHERE Username = ? LIMIT 1";
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(1, $user);
     $stmt->execute();
 
     if ($stmt->fetch(pdo::FETCH_ASSOC) == false) {
         //oss: si è supposto possibile ci possano essere più utenti con la stessa mail
-        $sql = "INSERT INTO Utente (Username, Mail, Password, Domanda, Risposta) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO utente (Username, Mail, Password, Domanda, Risposta) VALUES (?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(1, $user);
         $stmt->bindValue(2, $mail);
@@ -161,19 +159,18 @@ try {
             'stato' => true,
             'messaggio' => 'Registrazione effettuata con successo'
         ];
-    } else {
-        $response = [
-            'stato' => false,
-            // stampa come messaggio la riga del database che contiene l'username inserito dall'utente
-            'messaggio' => 'Username già in uso'
-        ];
+    } 
+    else {
+        throw new Exception("Username già in uso");
     }
-    echo json_encode($response);
-    $pdo = null;
-} catch (PDOException | Exception $e) {
-    echo "Errore: " . $e->getMessage();
-    die();
+} 
+catch (PDOException | Exception $e) {
+    $response = [
+        'stato' => false,
+        'messaggio' => $e->getMessage()
+    ];
 }
 
-
+echo json_encode($response);
+$pdo = null;
 ?>

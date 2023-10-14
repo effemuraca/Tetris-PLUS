@@ -10,24 +10,27 @@ try {
     // nel login non mi interessa cosa l'utente inserisce nei campi, perche tanto io controllo solo se il suo user e 
     // la sua pw coincidono con quelli nel db
     session_start();
+
     if (isset($_SESSION['username'])) {
         header('Location: ../html/modalità.html');
         throw new Exception("Utente già loggato");
     }
 
-    if (empty($_POST['username'])) {
-        throw new Exception("Username richiesto");
-    } else
-        $user = $_POST['username'];
+    $loginJSON = json_decode(file_get_contents('php://input'), true);
+    $user = $loginJSON['username'];
+    $pwd = $loginJSON['password'];
 
-    if (empty($_POST['pwd'])) {
+    if (empty($user)) {
+        throw new Exception("Username richiesto");
+    }
+
+    if (empty($pwd)) {
         throw new Exception("Password richiesta");
-    } else
-        $pwd = $_POST['pwd'];
-                
-    $sql = "SELECT * FROM Utente WHERE Username = ?";
+    }
+
+    $sql = "SELECT * FROM utente WHERE Username = ? LIMIT 1";
     $stmt = $pdo->prepare($sql);
-    $stmt-> bindValue(1, $user);
+    $stmt->bindValue(1, $user);
     $stmt->execute();
 
 
@@ -44,25 +47,24 @@ try {
                 'stato' => true,
                 'messaggio' => 'Login effettuato con successo'
             ];
-        } else {
+        } 
+        else {
             // login fallito
-            $response = [
-                'stato' => false,
-                'messaggio' => 'Password errata, riprova'
-            ];
+            throw new Exception("Password errata, riprova");
         }
-    } else {
+    } 
+    else {
         // login fallito
-        $response = [
-            'stato' => false,
-            'messaggio' => 'Username non trovato, riprova'
-        ];
+        throw new Exception("Username errato, riprova");
     }
-    echo json_encode($response);
-    //chiusura della connessione con il database
-    $pdo = null;
-} catch (PDOException | Exception $e) {
-    echo "Errore: " . $e->getMessage();
-    die();
+} 
+catch (PDOException | Exception $e) {
+    $response = [
+        'stato' => false,
+        'messaggio' => 'Errore: ' . $e->getMessage()
+    ];
 }
+echo json_encode($response);
+//chiusura della connessione con il database
+$pdo = null;
 ?>

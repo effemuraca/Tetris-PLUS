@@ -5,13 +5,14 @@ $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 try {
-    $sql = "SELECT Username, Data, Punteggio FROM PartiteSalvate  WHERE StringaPartita IS NULL ORDER BY Punteggio DESC LIMIT 20";
+    $sql = "SELECT Username, Data, Punteggio FROM partitesalvate  WHERE StringaPartita IS NULL ORDER BY Punteggio DESC LIMIT 20";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $i = 1;
     if ($stmt->rowCount() == 0) {
-        echo "<p>Non ci sono partite in classifica</p>";
-    } else {
+        echo "<p class='db_vuoto'>Non ci sono partite in classifica</p>";
+    } 
+    else {
         echo '<table id="classifica">';
         echo "<thead><tr><td>Posizione</td><td>Username</td><td>Data Partita</td><td>Punteggio</td></tr></thead>";
         echo '<tbody id="body_classifica">';
@@ -22,11 +23,10 @@ try {
         echo "</table>";
     }
     echo "</tbody>";
-    $pdo = null;
-} catch (PDOException | Exception $e) {
+} 
+catch (PDOException | Exception $e) {
     echo $e->getMessage();
-    die();
 }
 
-
+$pdo = null;
 ?>

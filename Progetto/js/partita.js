@@ -31,8 +31,7 @@ class Partita {
         nodePunteggio.className = 'punteggioAttuale';
         nodePunteggio.style.marginBlockEnd = '0rem';
         nodePunteggio.style.fontSize = '3vw';
-        const textnodePunteggio = document.createTextNode(this.punteggio);
-        nodePunteggio.appendChild(textnodePunteggio);
+        nodePunteggio.textContent = this.punteggio;
         document.getElementById('punteggio').appendChild(nodePunteggio);
 
         //creazione dell'interfaccia per la scelta del tetromino successivo
@@ -51,8 +50,7 @@ class Partita {
         // inserimento del nome utente
         const nodeUtente = document.createElement('p');
         nodeUtente.style.marginBlockEnd = '0rem';
-        const textnodeUtente = document.createTextNode(sessionStorage.getItem('username'));
-        nodeUtente.appendChild(textnodeUtente);
+        nodeUtente.textContent = sessionStorage.getItem('username');
         document.getElementById('nome_giocatore').appendChild(nodeUtente);
     }
 
@@ -78,14 +76,13 @@ class Partita {
     }
 
     salvaPartitaFinita() {
-        let promise = fetch('../php/salva_classifica.php', {
+        fetch('../php/salva_classifica.php', {
             method: 'POST',
             body: JSON.stringify(this.punteggio),
             headers: {
                 'Content-Type': 'application/json'
             }
-        });
-        promise
+        })
             .then((response) => {
                 if (response.ok) {
                     console.log('Richiesta di salvataggio della partita terminata inoltrata correttamente al server');
@@ -99,14 +96,13 @@ class Partita {
     }
 
     salvaPartita() {
-        let promise = fetch('../php/salva.php', {
+        fetch('../php/salva.php', {
             method: 'POST',
             body: JSON.stringify(this),
             headers: {
                 'Content-Type': 'application/json'
             }
-        });
-        promise
+        })
             .then((response) => {
                 if (response.ok) {
                     console.log('Richiesta di salvataggio della partita in corso inoltrata correttamente al server');

@@ -18,6 +18,7 @@ function loopGioco(partitaG1, partitaG2) {
     }
 }
 
+// la funzione si occupa dell'aggiornamento dell'intervallo con cui viene chiamato gioco, che dipende dallo stato attuale della gravità
 function aggiornaInterval(gioco, partita1, partita2 = null) {
     clearInterval(gioco);
     gioco = setInterval(() => {
@@ -94,6 +95,7 @@ function checkCollisione(matrice, x, y, tabellone) {
     return true;
 }
 
+// la funzione serve a restituire un valore casuale che determina se il prossimo tetromino sarà speciale o meno
 function getPossibilita() {
     const possibilita = Math.floor(Math.random() * 14);
     if (possibilita === 0)
@@ -102,6 +104,7 @@ function getPossibilita() {
         return false;
 }
 
+// funzioni che forniscono un elemento casuale tra quelli possibili
 function getSpeciale() {
     const spec = speciale[Math.floor(Math.random() * speciale.length)];
     return spec;
@@ -118,14 +121,7 @@ function getColore() {
     return col;
 }
 
-function stampaTabellone(tabellone) {
-    for (let i = 0; i < nRow; i++) {
-        const stringaRiga = tabellone.tabelloneAttuale[i].join(' ');
-        console.log(stringaRiga);
-    }
-    console.log('\n');
-}
-
+// la funzione si occupa della creazione di un nuovo tetromino, che viene scelto in modo casuale
 function scegliTetromino(partita) {
     let tipoTet = getTetromino();
     if (getPossibilita() === true)
@@ -161,6 +157,7 @@ function scegliTetromino(partita) {
     return tet;
 }
 
+// la funzione si occupa di aggiornare la gravità del gioco, che aumenta ogni volta che un tetromino viene inserito nel tabellone
 function aggiornaGravita(gioco, partita1, partita2 = null) {
     partita1.tabellone.statoGravita -= 0.025;
     if (partita1.tabellone.statoGravita < 0.2)
@@ -238,7 +235,7 @@ function nuovoTetrominoDOM(qualeTet, giocatore) {
                 if (prossimoTet.tipoT === 'I')
                     i--;
                 if (qualeTet === 'Speciale')
-                    elemDOM.style.backgroundColor = 'gold';
+                    elemDOM.style.backgroundColor = 'rgb(255, 255, 255)';
                 else
                     elemDOM.style.backgroundColor = 'rgb(177, 221, 241)';
             }
@@ -247,8 +244,11 @@ function nuovoTetrominoDOM(qualeTet, giocatore) {
     const letteraTet = document.getElementById('prossimo_tetromino_nome');
     letteraTet.textContent = prossimoTet.tipoT;
     letteraTet.style.fontSize = '3vw';
+    if (qualeTet === 'Speciale')
+        letteraTet.style.display = 'block';
 }
 
+// la funzione si occupa di aggiornare il popup di salvataggio, nel caso di partita multiplayer
 function aggiornaSalvataggio() {
     const form = document.getElementById('form_salvataggio');
     const select = document.createElement('select');
@@ -265,6 +265,7 @@ function aggiornaSalvataggio() {
     form.appendChild(select);
 }
 
+// la funzione serve, nel caso di partita a due giocatori, a scegliere quale partita salvare
 function scegliPartita(partita1, partita2) {
     const select = document.getElementById('partita_da_salvare');
     if (select.value === 'partita1')

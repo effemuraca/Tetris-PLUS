@@ -35,7 +35,8 @@ class Tetromino {
             for (let j = 0; j < this.tetMatrice[i].length; j++) {
                 if (this.tetMatrice[i][j] === 1) {
                     tabellone.tabelloneAttuale[i + this.y][j + this.x] = this.colore;
-                    let elemDOM
+                    // inserimento del tetromino nel DOM
+                    let elemDOM;
                     if (tabellone.qualeGiocatore === 1)
                         elemDOM = document.getElementsByClassName('elem_tabellone')[200 + (i + this.y) * nCol + j + this.x];
                     else
@@ -52,7 +53,8 @@ class Tetromino {
             for (let j = 0; j < this.tetMatrice[i].length; j++) {
                 if (this.tetMatrice[i][j] === 1) {
                     tabellone.tabelloneAttuale[i + this.y][j + this.x] = 0;
-                    let elemDOM
+                    // cancellazione del tetromino nel DOM
+                    let elemDOM;
                     if (tabellone.qualeGiocatore === 1)
                         elemDOM = document.getElementsByClassName('elem_tabellone')[200 + (i + this.y) * nCol + j + this.x];
                     else
@@ -72,11 +74,9 @@ class Tetromino {
         this.x++;
         if (this.checkCollisione(tabellone) === false) {
             this.x--;
-            console.log('inserisci da tMuoviDx');
             this.inserisci(tabellone);
             return;
         }
-        console.log('inserisci da tMuoviDx');
         this.inserisci(tabellone);
     }
 
@@ -89,11 +89,9 @@ class Tetromino {
         this.x--;
         if (this.checkCollisione(tabellone) === false) {
             this.x++;
-            console.log('inserisci da tMuoviSx');
             this.inserisci(tabellone);
             return;
         }
-        console.log('inserisci da tMuoviSx');
         this.inserisci(tabellone);
     }
 
@@ -106,13 +104,11 @@ class Tetromino {
         this.y++;
         if (this.checkCollisione(tabellone) === false) {
             this.y--;
-            console.log('inserisci da tMuoviGiu caso fallito');
             this.inserisci(tabellone);
             return false;
         }
         tabellone.punteggio += 10;
         updatePunteggioDOM(tabellone);
-        console.log('inserisci da tMuoviGiu caso riuscito');
         this.inserisci(tabellone);
         return true;
     }
@@ -152,7 +148,6 @@ class Tetromino {
             return;
         }
         this.tetMatrice = matriceTemp;
-        console.log('inserisci da tRuotaDx');
         this.inserisci(tabellone);
     }
 
@@ -178,7 +173,6 @@ class Tetromino {
                 const dY = j - this.polo[1];
                 const nX = this.polo[0] + dY;
                 let nY = this.polo[1] - dX;
-                console.log(nX, nY);
                 if (nY < 0)
                     nY = Math.abs(nY);
                 matriceTemp[nX][nY] = this.tetMatrice[i][j];
@@ -200,12 +194,13 @@ class Tetromino {
         if (this.tipoT === 'destroyer' || this.tipoT === 'dinamite' || this.tipoT === 'resetter' || this.tipoT === 'accelerator' || this.tipoT === 'mist') {
             console.log('tMuoviGiu caso speciale');
             switch (this.tipoT) {
+                // il destroyer distrugge la riga dove si è posato il tetromino
                 case 'destroyer':
                     tabellone.tabelloneAttuale.splice(this.y + 1, 1);
                     tabellone.tabelloneAttuale.unshift(new Array(nCol).fill(0));
                     tabellone.riscriviTabelloneDOM(tabellone.qualeGiocatore);
                     break;
-
+                // la dinamite distrugge un quadrato 5x5 centrato sul tetromino
                 case 'dinamite':
                     for (let i = this.y - 2; i <= this.y + 2; i++) {
                         for (let j = this.x - 2; j <= this.x + 2; j++) {
@@ -217,11 +212,12 @@ class Tetromino {
                         }
                     }
                     break;
-
+                // il resetter riporta la gravità al valore iniziale
                 case 'resetter':
                     tabellone.statoGravita = 1;
                     break;
 
+                // l'accelerator diminuisce la gravità
                 case 'accelerator':
                     tabellone.statoGravita -= 0.2;
                     break;

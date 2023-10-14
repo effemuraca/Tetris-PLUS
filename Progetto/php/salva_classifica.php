@@ -7,14 +7,14 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 try {
     session_start();
     if (isset($_SESSION['username']) == false) {
-        header("Location:../html/login.php");
+        header("Location:../html/login.html");
         throw new Exception("Utente non loggato");
     }
 
     $punt = json_decode(file_get_contents('php://input'), true);
     $punteggio = $punt['punteggio'];
 
-    $sql = "INSERT INTO PartiteSalvate(Username, Data, Punteggio) VALUE (?, ?, ?)";
+    $sql = "INSERT INTO partitesalvate(Username, Data, Punteggio) VALUE (?, ?, ?)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(1, $_SESSION['username']);
     $data = date("Y-m-d");
@@ -22,8 +22,9 @@ try {
     $stmt->bindParam(3, $punteggio);
     $stmt->execute();
 
-} catch (PDOException | Exception $e) {
+} 
+catch (PDOException | Exception $e) {
     echo "Errore: " . $e->getMessage();
-    die();
 }
+$pdo = null;
 ?>

@@ -6,10 +6,10 @@ function logout()
         session_start();
         session_regenerate_id();
         session_destroy();
-        header("Location:../html/login.php");
+        header("Location:../html/login.html");
     }
     else
-        header("Location:../html/login.php");
+        header("Location:../html/login.html");
 }
 
 logout();

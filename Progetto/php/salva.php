@@ -9,7 +9,7 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 try {
     if (isset($_SESSION['username']) == false) {
-        header("Location:../html/login.php");
+        header("Location:../html/login.html");
         throw new Exception("Utente non loggato");
     }
 
@@ -25,14 +25,16 @@ try {
                 $_SESSION['stringaJSON'] = $json_data;
 
         }
-    } else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    } 
+    else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if (empty($GET['tipo_salvataggio'])) {
             $tipoSalvataggioErr = "La scelta del tipo di salvataggio è richiesto";
             throw new Exception("La scelta del tipo di salvataggio richiesto");
-        } else
+        } 
+        else
             $tipoSalvataggio = $_GET['tipo_salvataggio'];
     }
-    $sql = "INSERT INTO PartiteSalvate(Username, StringaPartita, TipoSalvataggio, Data) VALUE (?, ?, ?, ?)";
+    $sql = "INSERT INTO partitesalvate(Username, StringaPartita, TipoSalvataggio, Data) VALUE (?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(1, $_SESSION['username']);
     $stmt->bindParam(2, $_SESSION['stringaJSON']);
@@ -41,8 +43,9 @@ try {
     $stmt->bindParam(4, $data);
     $stmt->execute();
     unset($_SESSION['stringaJSON']);
-} catch (PDOException | Exception $e) {
+} 
+catch (PDOException | Exception $e) {
     echo "Errore: " . $e->getMessage();
-    die();
 }
+$pdo = null;
 ?>

@@ -48,6 +48,12 @@ td.bottone {
     padding: 0rem;
 }
 
+.db_vuoto {
+    width: 100vw;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
 @media screen and (max-width: 1000px) {
     nav {
         z-index: 1;

@@ -1,25 +1,41 @@
+'use strict';
 const loginForm = document.getElementById("richiedi_login");
-loginForm.addEventListener("submit", function (event) {
+loginForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    const formData = new FormData(loginForm);
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("pwd").value;
+    const myJSON = { username: username, password: password };
 
     fetch('../php/login.php', {
         method: 'POST',
-        body: formData
+        body: JSON.stringify(myJSON),
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
-        .then(response => response.json())
-        .then(data => {
-            if (data.stato) {
-                // Login riuscito, reindirizza alla pagina di successo
-                window.location.href = "modalità.html";
-            } else {
-                // Login fallito, mostra un messaggio di errore sullaq pagina di login
-                const errore = document.getElementById("errore_login");
-                errore.textContent = data.messaggio;
+
+        .then(response => {
+            if (response.ok) {
+                console.log('Richiesta di login al server effettuata con successo');
+                return response.json();
+            }
+            else {
+                console.log('Errore nella richiesta di login al server');
             }
         })
-        .catch(error => {
-            console.error("Errore durante la richiesta: " + error);
-        });
+    .then(data => {
+        if (data.stato) {
+            // Login riuscito, reindirizza alla pagina di successo
+            alert(data.messaggio);
+            window.location.href = "modalità.html";
+        } else {
+            // Login fallito, mostra un messaggio di errore sullaq pagina di login
+            const errore = document.getElementById("errore_login");
+            errore.textContent = data.messaggio;
+        }
+    })
+    .catch(error => {
+        console.error("Errore durante la richiesta: " + error);
+    });
 });

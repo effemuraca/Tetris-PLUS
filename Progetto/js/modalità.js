@@ -30,7 +30,7 @@ function TipoPartita(tipo_partita) {
         window.alert('non hai selezionato una modalità');
     }
     else
-        window.location.href = '../html/singleplayer.html';
+        window.location.href = '../html/singleplayer.php';
 }
 
 const singleplayer = document.getElementById('partita_singleplayer');

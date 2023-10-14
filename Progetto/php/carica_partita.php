@@ -11,10 +11,10 @@ try {
         throw new Exception("Utente non loggato");
     }
 
-    $id = json_decode(file_get_contents('php://input'), true);
-    $idPartita = $id['idPartita'];
+    $idJSON = json_decode(file_get_contents('php://input'), true);
+    $idPartita = $idJSON['idPartita'];
 
-    $sql = "SELECT * FROM PartiteSalvate WHERE idSalvate = ? LIMIT 1";
+    $sql = "SELECT * FROM partitesalvate WHERE idSalvate = ? LIMIT 1";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(1, $idPartita);
     $stmt->execute();
@@ -22,14 +22,17 @@ try {
     if ($stmt->rowCount() == 0) {
         echo "Partita non trovata";
         throw new Exception("Partita non trovata");
-    } else {
+    } 
+    else {
         $stringaJSON = $result['StringaPartita'];
         echo $stringaJSON;
 
     }
 
-} catch (PDOException | Exception $e) {
+} 
+catch (PDOException | Exception $e) {
     echo "Errore: " . $e->getMessage();
-    die();
 }
+
+$pdo = null;
 ?>

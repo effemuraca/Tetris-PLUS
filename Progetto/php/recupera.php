@@ -7,21 +7,27 @@ $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 try {
-    // il controllo sulla presenza di username e password è già stato fatto in html, ma è qui ugualmente per sicurezza
-    if (empty($_POST['username'])) {
-        throw new Exception("Username richiesto");
-    } else
-        $user = $_POST['username'];
 
-    if (empty($_POST['pwd'])) {
+    $recuperaJSON = json_decode(file_get_contents('php://input'), true);
+    $user = $recuperaJSON['username'];
+    $pwd = $recuperaJSON['pwd'];
+    $pwd2 = $recuperaJSON['pwd2'];
+    $risposta = $recuperaJSON['risposta_account'];
+    
+    // il controllo sulla presenza di username e password è già stato fatto in html, ma è qui ugualmente per sicurezza
+    if (empty($user)) {
+        throw new Exception("Username richiesto");
+    } 
+
+    if (empty($pwd)) {
         throw new Exception("Password richiesta");
-    } else {
-        $pwd = $_POST['pwd'];
+    } 
 
         // validazione della password (almeno 8 caratteri)
         if (strlen($pwd) < 8) {
             $pwdErr = true;
-        } else if (strlen($pwd) > 20) {
+        } 
+        else if (strlen($pwd) > 20) {
             $pwdErr = true;
         }
         // validazione della password (almeno un numero)
@@ -47,18 +53,16 @@ try {
 
         if ($pwdErr)
             throw new Exception("Password non valida");
-    }
 
-    if (empty($_POST['pwd2'])) {
+    if (empty($pwd2)) {
         $pwd2Err = 'La password è richiesta';
         throw new Exception("Password richiesta");
-    } else {
-        $pwd2 = $_POST['pwd2'];
-
+    } 
         // validazione della password (almeno 8 caratteri)
         if (strlen($pwd2) < 8) {
             $pwd2Err = true;
-        } else if (strlen($pwd2) > 20) {
+        } 
+        else if (strlen($pwd2) > 20) {
             $pwd2Err = true;
         }
         // validazione della password (almeno un numero)
@@ -84,18 +88,16 @@ try {
 
         if ($pwd2Err)
             throw new Exception("Password non valida");
-    }
 
-    if (empty($_POST['risposta_account'])) {
+    if (empty($risposta)) {
         throw new Exception("Risposta alla domanda di sicurezza richiesta");
-    } else
-        $risposta = $_POST['risposta_account'];
+    } 
 
     // controllo se la risposta alla domanda di sicurezza inserita dall'utente coincide con quella nel database
     $row = $stmt->fetch(pdo::FETCH_ASSOC);
     if (password_verify($risposta, $row['Risposta'])) {
         // aggiornamento della password
-        $sql = "UPDATE Utente SET Password = ? WHERE Username = ?";
+        $sql = "UPDATE utente SET Password = ? WHERE Username = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(1, $user);
         $stmt->bindValue(2, password_hash($pwd, PASSWORD_DEFAULT));
@@ -106,17 +108,19 @@ try {
             'stato' => true,
             'messaggio' => 'Passwors ripristinata con successo'
         ];
-    } else {
+    } 
+    else {
         // risposta alla domanda di sicurezza errata
-        $response = [
-            'stato' => false,
-            'messaggio' => 'Risposta alla domanda di sicurezza errata, riprova'
-        ];
+        throw new Exception("Risposta alla domanda di sicurezza errata");
     }
-    echo json_encode($response);
-    $pdo = null;
-} catch (PDOException | Exception $e) {
-    echo "Errore: " . $e->getMessage();
-    die();
 }
+catch (PDOException | Exception $e) {
+    $response = [
+        'stato' => false,
+        'messaggio' => 'Errore: ' . $e->getMessage()
+    ];
+}
+
+echo json_encode($response);
+$pdo = null;
 ?>
