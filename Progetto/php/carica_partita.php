@@ -4,8 +4,11 @@ $c_str = "mysql:host=localhost;dbname=Muraca_635455";
 $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-try {
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
+}
+
+try {
     if (isset($_SESSION['username']) == false) {
         header("Location:../html/login.php");
         throw new Exception("Utente non loggato");
@@ -20,19 +23,24 @@ try {
     $stmt->execute();
 
     if ($stmt->rowCount() == 0) {
-        echo "Partita non trovata";
         throw new Exception("Partita non trovata");
     } 
     else {
-        $stringaJSON = $result['StringaPartita'];
-        echo $stringaJSON;
-
+        $response = [
+            'stato' => true,
+            'messaggio' => $stmt->fetch(pdo::FETCH_ASSOC)['StringaPartita']
+        ];
     }
 
 } 
 catch (PDOException | Exception $e) {
-    echo "Errore: " . $e->getMessage();
+    $response = [
+        'stato' => false,
+        'error' => $e->getMessage()
+    ];
 }
 
+header('Content-Type: application/json');
+echo json_encode($response);
 $pdo = null;
 ?>

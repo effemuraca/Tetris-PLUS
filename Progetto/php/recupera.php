@@ -121,6 +121,7 @@ catch (PDOException | Exception $e) {
     ];
 }
 
+header('Content-Type: application/json');
 echo json_encode($response);
 $pdo = null;
 ?>

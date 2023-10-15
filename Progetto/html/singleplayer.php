@@ -101,7 +101,7 @@
                 <br>
                 <p>
                     <?php
-                        if ($tipoSalvataggioErr) {
+                        if ( isset($tipoSalvataggio) && $tipoSalvataggioErr) {
                             echo $tipoSalvataggioErr;
                         }
                     ?>

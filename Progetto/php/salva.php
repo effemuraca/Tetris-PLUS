@@ -14,17 +14,9 @@ try {
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // salva il json della partita in sessione sotto forma di stringa
         $json_data = file_get_contents('php://input');
-        if ($json_data === false)
-            throw new Exception("Errore nella lettura della stringa JSON");
-        else {
-            $decodifica = json_decode($json_data, true);
-            if ($decodifica === null)
-                throw new Exception("Errore nella decodifica della stringa JSON");
-            else
-                $_SESSION['stringaJSON'] = $json_data;
-
-        }
+        $_SESSION['stringaJSON'] = $json_data;
     } 
     else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if (empty($GET['tipo_salvataggio'])) {

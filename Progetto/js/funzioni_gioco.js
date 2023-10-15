@@ -22,6 +22,11 @@ function loopGioco(partitaG1, partitaG2) {
 function aggiornaInterval(gioco, partita1, partita2 = null) {
     clearInterval(gioco);
     gioco = setInterval(() => {
+        if (window.innerWidth < 1001 && nGiocatori === '2') {
+            alert('Il gioco non è ottimizzato per giocare in modalità multiplayer su uno schermo cosi, piccolo, ridimensiona lo schermo o potresti visualizzare dei problemi grafici')
+            pausaMobile(partita1.tabellone);
+            pausaMobile(partita2.tabellone);
+        }
         if (partita1.tabellone.statoPartita === statoGioco.inPausa) {
             return;
         }

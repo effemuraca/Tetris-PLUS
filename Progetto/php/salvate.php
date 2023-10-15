@@ -1,37 +1,40 @@
 <?php declare(strict_types=1);
 
-session_start();
 $c_str = "mysql:host=localhost;dbname=Muraca_635455";
 $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 try {
     $sql = "SELECT idSalvate, Username, Data, TipoSalvataggio, Punteggio FROM partitesalvate ORDER BY Punteggio DESC";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     if ($stmt->rowCount() == 0) {
-        echo "<p class='db_vuoto'>Non ci sono partite salvate</p>";
+        $response = [
+            'length' => 0,
+            'messaggio' => 'Non ci sono partite salvate'
+        ];
     } 
     else {
-        echo '<table">';
-        echo "<thead><tr><td>Username</td><td>Data Partita</td><td>Tipo Salvataggio</td><td>Punteggio</td><td>Gioca Partita</td></tr></thead>";
-        echo '<tbody>';
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            if ($row["TipoSalvataggio"] == "pubblica") {
-                echo "<tr><td id='" . $index . "'>" . $row["idSalvate"] . "</td><td>" . $row["Username"] . "</td><td>" . $row["Data"] . "</td><td>" . $row["TipoSalvataggio"] . "</td><td>" . $row["Punteggio"] . "<td class='bottone'><button class='bot_partita' value='" . $index . "'>Gioca</button></td></tr>";
-            } 
-            else if ($row["Username"] == $_SESSION["username"]) {
-                echo "<tr><td id='" . $index . "'>" . $row["idSalvate"] . "</td><td>" . $row["Username"] . "</td><td>" . $row["Data"] . "</td><td>" . $row["TipoSalvataggio"] . "</td><td>" . $row["Punteggio"] . "<td class='bottone'><button class='bot_partita' value='" . $index . "'>Gioca</button></td></tr>";
-                $index++;
-            }
-        }
-        echo "</tbody>";
-        echo "</table>";
+        $response = [
+            'length' => $stmt->rowCount(),
+            'messaggio' => 'Partite salvate caricate con successo',
+            'salvate' => $stmt->fetchAll(PDO::FETCH_ASSOC)
+        ];
     }
 } 
 catch (PDOException | Exception $e) {
-    echo $e->getMessage();
+    $response = [
+        'length' => 0,
+        'messaggio' => 'Errore: ' . $e->getMessage()
+    ];
 }
+
+header('Content-Type: application/json');
+echo json_encode($response);
 $pdo = null;
 
 ?>

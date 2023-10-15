@@ -4,8 +4,11 @@ $c_str = "mysql:host=localhost;dbname=Muraca_635455";
 $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-try {
+if (session_status() == PHP_SESSION_NONE) {
     session_start();
+}
+
+try {
     $userJSON = json_decode(file_get_contents('php://input'), true);
     $user = $userJSON['username'];
 
@@ -31,6 +34,7 @@ catch (PDOException | Exception $e) {
         'messaggio' => "Errore: " . $e->getMessage()
     ];
 }
+header('Content-Type: application/json');
 echo json_encode($response);
 $pdo = null;
 ?>

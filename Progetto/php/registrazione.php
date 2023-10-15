@@ -10,8 +10,8 @@ try {
     $userJSON = json_decode(file_get_contents('php://input'), true);
     $user = $userJSON['username'];
     $mail = $userJSON['mail'];
-    $pwd = $userJSON['pwd'];
-    $pwd2 = $userJSON['pwd2'];
+    $pwd = $userJSON['password'];
+    $pwd2 = $userJSON['password2'];
     $domanda = $userJSON['domanda'];
     $risposta = $userJSON['risposta'];
 
@@ -171,6 +171,7 @@ catch (PDOException | Exception $e) {
     ];
 }
 
+header('Content-Type: application/json');
 echo json_encode($response);
 $pdo = null;
 ?>

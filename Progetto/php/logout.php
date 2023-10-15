@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 function logout()
-{   
-    session_start();
-    if (isset($_SESSION['username'])) {
+{
+    if (session_status() == PHP_SESSION_NONE)
         session_start();
-        session_regenerate_id();
+
+    if (isset($_SESSION['username'])) {
         session_destroy();
         header("Location:../html/login.html");
-    }
+    } 
     else
         header("Location:../html/login.html");
 }

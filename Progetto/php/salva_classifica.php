@@ -4,8 +4,12 @@ $c_str = "mysql:host=localhost;dbname=Muraca_635455";
 $pdo = new PDO($c_str, 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-try {
+if (session_status() == PHP_SESSION_NONE) {
     session_start();
+}
+
+try {
+
     if (isset($_SESSION['username']) == false) {
         header("Location:../html/login.html");
         throw new Exception("Utente non loggato");

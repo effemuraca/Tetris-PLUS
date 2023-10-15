@@ -11,6 +11,7 @@ registrazioneForm.addEventListener("submit", function (event) {
     const myJSON = JSON.stringify({
         username: username,
         password: password,
+        password2: password2,
         mail: mail,
         domanda: domanda,
         risposta: risposta

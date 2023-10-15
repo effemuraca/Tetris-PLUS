@@ -18,7 +18,13 @@ bottoni.forEach((bottone) => {
                 }
             })
             .then((data) => {
+                if (data.stato) {   
                 sessionStorage.setItem('partita', JSON.stringify(data));
+                window.location.href = '../html/singleplayer.php';
+                }
+                else {
+                    alert(data.messaggio);
+                }
             })
             .catch((error) => {
                 console.error('Errore durante la richiesta: ' + error);

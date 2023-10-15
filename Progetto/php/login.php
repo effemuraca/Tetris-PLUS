@@ -9,8 +9,6 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 try {
     // nel login non mi interessa cosa l'utente inserisce nei campi, perche tanto io controllo solo se il suo user e 
     // la sua pw coincidono con quelli nel db
-    session_start();
-
     if (isset($_SESSION['username'])) {
         header('Location: ../html/modalità.html');
         throw new Exception("Utente già loggato");
@@ -47,23 +45,21 @@ try {
                 'stato' => true,
                 'messaggio' => 'Login effettuato con successo'
             ];
-        } 
-        else {
+        } else {
             // login fallito
             throw new Exception("Password errata, riprova");
         }
-    } 
-    else {
+    } else {
         // login fallito
         throw new Exception("Username errato, riprova");
     }
-} 
-catch (PDOException | Exception $e) {
+} catch (PDOException | Exception $e) {
     $response = [
         'stato' => false,
         'messaggio' => 'Errore: ' . $e->getMessage()
     ];
 }
+header('Content-Type: application/json');
 echo json_encode($response);
 //chiusura della connessione con il database
 $pdo = null;
