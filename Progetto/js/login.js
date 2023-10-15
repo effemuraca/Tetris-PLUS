@@ -1,6 +1,6 @@
 'use strict';
 const loginForm = document.getElementById("richiedi_login");
-loginForm.addEventListener("submit", async function (event) {
+loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const username = document.getElementById("username").value;
