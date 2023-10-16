@@ -20,7 +20,7 @@ bottoni.forEach((bottone) => {
             .then((data) => {
                 if (data.stato) {   
                 sessionStorage.setItem('partita', JSON.stringify(data));
-                window.location.href = '../html/singleplayer.php';
+                window.location.href = '../html/gioca.php';
                 }
                 else {
                     alert(data.messaggio);

@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
             if (data.length == 0) {
                 const p = document.createElement('p');
-                p.classList.add('db_vuoto');
+                p.style.textAlign = 'center';
+                p.style.fontSize = '2.5rem';
                 p.textContent = data.messaggio;
                 salvate.parentNode.replaceChild(p, salvate);
                 return;
