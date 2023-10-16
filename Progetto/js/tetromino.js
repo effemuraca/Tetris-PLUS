@@ -344,7 +344,7 @@ class tetSpec extends Tetromino {
     constructor() {
         super();
         this.tipoT = getSpeciale();
-        this.colore = 'gold';
+        this.colore = 'white';
         this.tetMatrice = [
             [1, 1],
             [1, 1]

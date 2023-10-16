@@ -240,7 +240,7 @@ function nuovoTetrominoDOM(qualeTet, giocatore) {
                 if (prossimoTet.tipoT === 'I')
                     i--;
                 if (qualeTet === 'Speciale')
-                    elemDOM.style.backgroundColor = 'rgb(255, 255, 255)';
+                    elemDOM.style.backgroundColor = 'gold';
                 else
                     elemDOM.style.backgroundColor = 'rgb(177, 221, 241)';
             }
@@ -249,8 +249,12 @@ function nuovoTetrominoDOM(qualeTet, giocatore) {
     const letteraTet = document.getElementById('prossimo_tetromino_nome');
     letteraTet.textContent = prossimoTet.tipoT;
     letteraTet.style.fontSize = '3vw';
+    if (window.innerWidth > 1000){ 
     if (qualeTet === 'Speciale')
         letteraTet.style.display = 'block';
+    else 
+        letteraTet.style.display = 'none';
+    }
 }
 
 // la funzione si occupa di aggiornare il popup di salvataggio, nel caso di partita multiplayer
