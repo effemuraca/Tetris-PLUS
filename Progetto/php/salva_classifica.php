@@ -15,8 +15,7 @@ try {
         throw new Exception("Utente non loggato");
     }
 
-    $punt = json_decode(file_get_contents('php://input'), true);
-    $punteggio = $punt['punteggio'];
+    $punteggio = file_get_contents('php://input');
 
     $sql = "INSERT INTO partitesalvate(Username, Data, Punteggio) VALUE (?, ?, ?)";
     $stmt = $pdo->prepare($sql);

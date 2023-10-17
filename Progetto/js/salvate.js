@@ -47,32 +47,37 @@ document.addEventListener('DOMContentLoaded', function () {
                 table.appendChild(thead);
                 const tbody = document.createElement('tbody');
                 for (let i = 0; i < data.length; i++) {
-                    const tr = document.createElement('tr');
-                    tr.setAttribute('id', i);
-                    const td1 = document.createElement('td');
-                    td1.textContent = data.salvate[i].idSalvate;
-                    const td2 = document.createElement('td');
-                    td2.textContent = data.salvate[i].Username;
-                    const td3 = document.createElement('td');
-                    td3.textContent = data.salvate[i].Data;
-                    const td4 = document.createElement('td');
-                    td4.textContent = data.salvate[i].TipoSalvataggio;
-                    const td5 = document.createElement('td');
-                    td5.textContent = data.salvate[i].Punteggio;
-                    const td6 = document.createElement('td');
-                    td6.classList.add('bottone');
-                    const bottone = document.createElement('button');
-                    bottone.classList.add('bot_partita');
-                    bottone.textContent = 'Gioca';
-                    bottone.value = i;
-                    td6.appendChild(bottone);
-                    tr.appendChild(td1);
-                    tr.appendChild(td2);
-                    tr.appendChild(td3);
-                    tr.appendChild(td4);
-                    tr.appendChild(td5);
-                    tr.appendChild(td6);
-                    tbody.appendChild(tr);
+                    if (data.salvate[i].TipoSalvataggio === 'pubblico' || (data.salvate[i].TipoSalvataggio === 'privato' && data.salvate[i].Username === sessionStorage.getItem('username'))) {
+                        const tr = document.createElement('tr');
+                        tr.setAttribute('id', i);
+                        const td1 = document.createElement('td');
+                        td1.textContent = data.salvate[i].idSalvate;
+                        const td2 = document.createElement('td');
+                        td2.textContent = data.salvate[i].Username;
+                        const td3 = document.createElement('td');
+                        td3.textContent = data.salvate[i].Data;
+                        const td4 = document.createElement('td');
+                        td4.textContent = data.salvate[i].TipoSalvataggio;
+                        const td5 = document.createElement('td');
+                        td5.textContent = data.salvate[i].Punteggio;
+                        const td6 = document.createElement('td');
+                        td6.classList.add('bottone');
+                        const bottone = document.createElement('button');
+                        bottone.classList.add('bot_partita');
+                        bottone.textContent = 'Gioca';
+                        bottone.value = i;
+                        td6.appendChild(bottone);
+                        tr.appendChild(td1);
+                        tr.appendChild(td2);
+                        tr.appendChild(td3);
+                        tr.appendChild(td4);
+                        tr.appendChild(td5);
+                        tr.appendChild(td6);
+                        tbody.appendChild(tr);
+                    }
+                    else {
+                        continue;
+                    }
                 }
                 table.appendChild(tbody);
                 salvate.parentNode.replaceChild(table, salvate);

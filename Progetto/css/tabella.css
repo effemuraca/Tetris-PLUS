@@ -2,7 +2,7 @@ body {
     font-size: 1rem;
 }
 
-thead td {
+th {
     font-weight: bold;
     background-color: rgba(23, 36, 126, 0.9);
 }

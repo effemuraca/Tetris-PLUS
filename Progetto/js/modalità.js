@@ -29,7 +29,9 @@ function TipoPartita(tipo_partita) {
         // da sostituire con un p che compare
         window.alert('non hai selezionato una modalità');
     }
-    else
+    else if (tipo_partita === 'salvata') 
+        window.location.href = '../html/salvate.html';
+    else if (tipo_partita === 'nuova') 
         window.location.href = '../html/gioca.php';
 }
 

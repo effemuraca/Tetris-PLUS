@@ -6,7 +6,7 @@ loginForm.addEventListener("submit", function (event) {
     const username = document.getElementById("username").value;
     const password = document.getElementById("pwd").value;
     const myJSON = { username: username, password: password };
-
+    
     fetch('../php/login.php', {
         method: 'POST',
         body: JSON.stringify(myJSON),
@@ -28,6 +28,7 @@ loginForm.addEventListener("submit", function (event) {
         if (data.stato) {
             // Login riuscito, reindirizza alla pagina di successo
             alert(data.messaggio);
+            sessionStorage.setItem('username', username);
             window.location.href = "modalità.html";
         } else {
             // Login fallito, mostra un messaggio di errore sullaq pagina di login

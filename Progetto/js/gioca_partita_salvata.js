@@ -20,6 +20,7 @@ bottoni.forEach((bottone) => {
             .then((data) => {
                 if (data.stato) {   
                 sessionStorage.setItem('partita', JSON.stringify(data));
+                sessionStorage.setItem('tipo_partita', 'salvata');
                 window.location.href = '../html/gioca.php';
                 }
                 else {

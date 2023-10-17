@@ -90,11 +90,11 @@
                     </label>
                     <br>
                     <select id="tipo_salvataggio" required>
-                        <option value="privata">
-                            Partita privata
+                        <option value="privato">
+                            Salvataggio privato
                         </option>
-                        <option value="pubblica">
-                            Partita pubblica
+                        <option value="pubblico">
+                            Salvataggio pubblico
                         </option>
                     </select>
                 </p>
