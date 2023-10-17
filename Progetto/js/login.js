@@ -1,10 +1,10 @@
 'use strict';
-const loginForm = document.getElementById("richiedi_login");
-loginForm.addEventListener("submit", function (event) {
+const loginForm = document.getElementById('richiedi_login');
+loginForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("pwd").value;
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('pwd').value;
     const myJSON = { username: username, password: password };
     
     fetch('../php/login.php', {
@@ -29,14 +29,17 @@ loginForm.addEventListener("submit", function (event) {
             // Login riuscito, reindirizza alla pagina di successo
             alert(data.messaggio);
             sessionStorage.setItem('username', username);
-            window.location.href = "modalità.html";
+            window.location.href = 'modalità.html';
         } else {
             // Login fallito, mostra un messaggio di errore sullaq pagina di login
-            const errore = document.getElementById("errore_login");
+            const errore = document.getElementById('errore_login');
             errore.textContent = data.messaggio;
+            const recupera = document.getElementById('recupera');
+            recupera.textContent = 'Recupera password:';
+            recupera.href = '../html/recupera.html';
         }
     })
     .catch(error => {
-        console.error("Errore durante la richiesta: " + error);
+        console.error('Errore durante la richiesta: ' + error);
     });
 });
