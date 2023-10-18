@@ -6,7 +6,7 @@ recuperaForm.addEventListener('submit', function (event) {
     const username = document.getElementById('username').value;
     const password = document.getElementById('pwd').value;
     const password2 = document.getElementById('pwd2').value;
-    const risposta = document.getElementById('risposta').value;
+    const risposta = document.getElementById('risposta_account').value;
     const myJSON = { username: username, password: password, password2: password2, risposta: risposta };
 
     if (password !== password2) {

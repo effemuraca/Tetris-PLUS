@@ -9,7 +9,7 @@
     <link rel="icon" href="../images/tetris.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/tetris.css" type="text/css">
     <link rel="stylesheet" href="../css/login.css" type="text/css">
-    <link rel="stylesheet" href="../css/singleplayer.css" type="text/css">
+    <link rel="stylesheet" href="../css/gioca.css" type="text/css">
 </head>
 
 <body>
@@ -42,28 +42,29 @@
             </div>
         </aside>
         <main id="container_tabellone">
+            <div id="comandi">
+                <button id="muovi_sx">
+                    <img src="../images/left-arrow.png">
+                </button>
+                <button id="muovi_dx">
+                    <img src="../images/right-arrow.png">
+                </button>
+                <button id="muovi_giu">
+                    <img src="../images/arrow-down.png">
+                </button>
+                <button id="ruota_sx">
+                    <img src="../images/rotate-left.png">
+                </button>
+                <button id="ruota_dx">
+                    <img src="../images/rotate-right.png">
+                </button>
+                <button id="pausa">
+                    <img src="../images/pause.png" id="immagine_pausa">
+                    <img src="../images/play.png" id="immagine_riprendi">
+                </button>
+            </div>
         </main>
-        <div id="comandi">
-            <button id="muovi_sx">
-                <img src="../images/left-arrow.png">
-            </button>
-            <button id="muovi_dx">
-                <img src="../images/right-arrow.png">
-            </button>
-            <button id="muovi_giu">
-                <img src="../images/arrow-down.png">
-            </button>
-            <button id="ruota_sx">
-                <img src="../images/rotate-left.png">
-            </button>
-            <button id="ruota_dx">
-                <img src="../images/rotate-right.png">
-            </button>
-            <button id="pausa">
-                <img src="../images/pause.png" id="immagine_pausa">
-                <img src="../images/play.png" id="immagine_riprendi">
-            </button>
-        </div>
+
         <aside>
             <div id="punteggio">
                 <p>
@@ -73,7 +74,7 @@
         </aside>
     </div>
     <div id="container">
-    <form action="../php/salva.php" method="get" autocomplete="on" id="salvataggio_popup">
+        <form action="#" method="post" autocomplete="on" id="salvataggio_popup">
             <fieldset id="form_salvataggio">
                 <legend>
                     Salva la partita
@@ -215,6 +216,7 @@
     <script src="../js/tetromino.js"></script>
     <script src="../js/funzioni_gioco.js"></script>
     <script src="../js/handler_gioco.js"></script>
+    <script src="../js/salva.js"></script>
 </body>
 
 </html>

@@ -1,4 +1,5 @@
-@media screen and (min-width: 1001px) {
+/* visualizzazione per pc */
+@media screen and (min-width: 751px) {
     #core {
         display: flex;
         align-items: center;
@@ -133,22 +134,8 @@
         height: 3rem;
     }
 }
-
-@media screen and (max-width: 1301px) and (min-width: 1000px) {
-    .multiplayer td {
-        width: 2.5vmin;
-        height: 2.5vmin;
-    }
-}
-
-@media screen and (max-width: 1500px) and (min-width: 1300px) {
-    .multiplayer td {
-        width: 2.5vmin;
-        height: 2.5vmin;
-    }
-}
-
-@media screen and (max-width: 1000px) {
+/* elementi css standard per display mobile*/
+@media screen and (max-width: 750px) {
     nav {
         z-index: 1;
         position: relative;
@@ -183,6 +170,7 @@
 
     main {
         padding-top: 0.5rem;
+        flex-direction: column-reverse;
     }
 
     table {
@@ -194,8 +182,8 @@
 
     td {
         float: left;
-        width: 5.5vmin;
-        height: 5.5vmin;
+        width: 4.5vmin;
+        height: 4.5vmin;
         background-color: rgba(23, 36, 126, 0.9);
         border: 0.1vw solid rgba(245, 245, 245, 0.2);
     }
@@ -311,13 +299,56 @@
     }
 }
 
-@media screen and (min-width: 501px) and (max-width: 1000px) {
+/* visualizzazione per tablet */
+@media screen and (min-width: 751px) and (max-width: 1000px) {
+    main {
+        flex-direction: column-reverse;
+    }
     td {
         float: left;
-        width: 4.5vmin;
-        height: 4.5vmin;
+        width: 3.5vmin;
+        height: 3.5vmin;
         background-color: rgba(23, 36, 126, 0.9);
         border: 0.1vw solid rgba(245, 245, 245, 0.2);
+    }
+
+    #comandi button {
+        background-color: rgba(23, 36, 126, 0.9);
+        display: block;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 0.2rem;
+        margin: 0.25rem;
+        float: left;
+        border: 0.1vh solid rgb(245, 245, 245);
+        z-index: 1;
+    }
+
+    #comandi button > img {
+        width: 1.5rem;
+        height: 1.5rem;
+        vertical-align: middle;
+        padding: 0rem;
+    }
+
+    button#pausa {
+        background-color: rgba(23, 36, 126, 0.9);
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 100%;
+        border: 0.1vh solid rgb(245, 245, 245);
+    }
+
+    #pausa > img {
+        padding: 0rem;
+        margin: 0rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        vertical-align: middle;
+    }
+
+    div#nome_giocatore {
+        display: none;
     }
 }
 

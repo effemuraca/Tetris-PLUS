@@ -35,7 +35,7 @@ loginForm.addEventListener('submit', function (event) {
             const errore = document.getElementById('errore_login');
             errore.textContent = data.messaggio;
             const recupera = document.getElementById('recupera');
-            recupera.textContent = 'Recupera password:';
+            recupera.textContent = 'Recupera password';
             recupera.href = '../html/recupera.html';
             recupera.style.display = 'block';
         }

@@ -10,9 +10,9 @@ try {
 
     $recuperaJSON = json_decode(file_get_contents('php://input'), true);
     $user = $recuperaJSON['username'];
-    $pwd = $recuperaJSON['pwd'];
-    $pwd2 = $recuperaJSON['pwd2'];
-    $risposta = $recuperaJSON['risposta_account'];
+    $pwd = $recuperaJSON['password'];
+    $pwd2 = $recuperaJSON['password2'];
+    $risposta = $recuperaJSON['risposta'];
     
     // il controllo sulla presenza di username e password è già stato fatto in html, ma è qui ugualmente per sicurezza
     if (empty($user)) {
@@ -93,8 +93,18 @@ try {
         throw new Exception("Risposta alla domanda di sicurezza richiesta");
     } 
 
+    if ($pwd != $pwd2) {
+        throw new Exception("Le password non coincidono");
+    }
+
+    // prendo la risposta alla domanda di sicurezza dal database
+    $sql = "SELECT Risposta FROM utente WHERE Username = ? LIMIT 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(1, $user);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
     // controllo se la risposta alla domanda di sicurezza inserita dall'utente coincide con quella nel database
-    $row = $stmt->fetch(pdo::FETCH_ASSOC);
     if (password_verify($risposta, $row['Risposta'])) {
         // aggiornamento della password
         $sql = "UPDATE utente SET Password = ? WHERE Username = ?";

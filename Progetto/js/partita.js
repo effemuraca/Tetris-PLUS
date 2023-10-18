@@ -95,10 +95,16 @@ class Partita {
             });
     }
 
-    salvaPartita() {
+    salvaPartita(tipoSal) {
+        this.punteggio = this.tabellone.punteggio;
+        const partitaJSON = {
+            stringaPartita : JSON.stringify(this),
+            tipoSalvataggio : tipoSal,
+            punteggio : this.punteggio
+        }
         fetch('../php/salva.php', {
             method: 'POST',
-            body: JSON.stringify(this),
+            body: JSON.stringify(partitaJSON),
             headers: {
                 'Content-Type': 'application/json'
             }

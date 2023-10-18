@@ -131,36 +131,36 @@ function scegliTetromino(partita) {
     let tipoTet = getTetromino();
     if (getPossibilita() === true)
         tipoTet = 'Speciale';
-    nuovoTetrominoDOM(tipoTet, partita.tabellone.qualeGiocatore);
-    let tet;
+    let prossimoTet;
     switch (tipoTet) {
         case 'I':
-            tet = new tetI();
+            prossimoTet = new tetI();
             break;
         case 'T':
-            tet = new tetT();
+            prossimoTet = new tetT();
             break;
         case 'O':
-            tet = new tetO();
+            prossimoTet = new tetO();
             break;
         case 'L':
-            tet = new tetL();
+            prossimoTet = new tetL();
             break;
         case 'J':
-            tet = new tetJ();
+            prossimoTet = new tetJ();
             break;
         case 'S':
-            tet = new tetS();
+            prossimoTet = new tetS();
             break;
         case 'Z':
-            tet = new tetZ();
+            prossimoTet = new tetZ();
             break;
         case 'Speciale':
-            tet = new tetSpec();
-            tet.tipoT = getSpeciale();
+            prossimoTet = new tetSpec();
+            prossimoTet.tipoT = getSpeciale();
             break;
     }
-    return tet;
+    nuovoTetrominoDOM(prossimoTet, partita.tabellone.qualeGiocatore)
+    return prossimoTet;
 }
 
 // la funzione si occupa di aggiornare la gravità del gioco, che aumenta ogni volta che un tetromino viene inserito nel tabellone
@@ -203,47 +203,21 @@ function updatePunteggioDOM(tab) {
     nodePunteggio.textContent = tab.punteggio;
 }
 
-function nuovoTetrominoDOM(qualeTet, giocatore) {
-    let prossimoTet;
-    switch (qualeTet) {
-        case 'I':
-            prossimoTet = new tetI();
-            break;
-        case 'T':
-            prossimoTet = new tetT();
-            break;
-        case 'O':
-            prossimoTet = new tetO();
-            break;
-        case 'L':
-            prossimoTet = new tetL();
-            break;
-        case 'J':
-            prossimoTet = new tetJ();
-            break;
-        case 'S':
-            prossimoTet = new tetS();
-            break;
-        case 'Z':
-            prossimoTet = new tetZ();
-            break;
-        case 'Speciale':
-            prossimoTet = new tetSpec();
-            break;
-    }
+function nuovoTetrominoDOM(tet, giocatore) {
+    console.log(tet, giocatore);
     for (let i = 0; i < 25; i++) {
         let elemDOM = document.getElementsByClassName('elem_prossimo')[i + giocatore * 25];
         elemDOM.style.backgroundColor = 'transparent';
     }
-    for (let i = 0; i < prossimoTet.tetMatrice.length; i++) {
-        for (let j = 0; j < prossimoTet.tetMatrice[i].length; j++) {
-            if (prossimoTet.tetMatrice[i][j] === 1) {
-                if (prossimoTet.tipoT === 'I')
+    for (let i = 0; i < tet.tetMatrice.length; i++) {
+        for (let j = 0; j < tet.tetMatrice[i].length; j++) {
+            if (tet.tetMatrice[i][j] === 1) {
+                if (tet.tipoT === 'I')
                     i++;
                 let elemDOM = document.getElementsByClassName('elem_prossimo')[(i + 1) * 5 + (j + 1) + giocatore * 25];
-                if (prossimoTet.tipoT === 'I')
+                if (tet.tipoT === 'I')
                     i--;
-                if (qualeTet === 'Speciale')
+                if (tet.colore === 'white')
                     elemDOM.style.backgroundColor = 'gold';
                 else
                     elemDOM.style.backgroundColor = 'rgb(177, 221, 241)';
@@ -251,10 +225,10 @@ function nuovoTetrominoDOM(qualeTet, giocatore) {
         }
     }
     const letteraTet = document.getElementById('prossimo_tetromino_nome');
-    letteraTet.textContent = prossimoTet.tipoT;
+    letteraTet.textContent = tet.tipoT;
     letteraTet.style.fontSize = '3vw';
     if (window.innerWidth > 1000) {
-        if (qualeTet === 'Speciale') {
+        if (tet.colore === 'white') {
             letteraTet.style.display = 'block';
             letteraTet.style.color = 'gold';
             letteraTet.style.fontSize = '2vw';

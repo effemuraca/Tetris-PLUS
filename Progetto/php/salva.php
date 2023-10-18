@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 
-$tipoSalvataggio = '';
-$tipoSalvataggioErr = '';
+$tipoSalvataggio = $boolSalvataggio = $partita = $punteggio = '';
 
 $c_str = "mysql:host=localhost;dbname=Muraca_635455";
 $pdo = new PDO($c_str, 'root', '');
@@ -13,26 +12,39 @@ try {
         throw new Exception("Utente non loggato");
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // salva il json della partita in sessione sotto forma di stringa
-        $json_data = file_get_contents('php://input');
-        $_SESSION['stringaJSON'] = $json_data;
-    } 
-    else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        if (empty($GET['tipo_salvataggio'])) {
-            $tipoSalvataggioErr = "La scelta del tipo di salvataggio è richiesto";
-            throw new Exception("La scelta del tipo di salvataggio richiesto");
-        } 
-        else
-            $tipoSalvataggio = $_GET['tipo_salvataggio'];
+    $salvaJSON = json_decode(file_get_contents('php://input'), true);
+    $tipoSalvataggio = $salvaJSON['tipoSalvataggio'];
+    $partita = $salvaJSON['stringaPartita'];
+    $punteggio = $salvaJSON['punteggio'];
+
+    if (empty($tipoSalvataggio)) {
+        throw new Exception("Tipo di salvataggio richiesto");
     }
+
+    if ($tipoSalvataggio == "privato") {
+        $boolSalvataggio = 0;
+    } 
+    else if ($tipoSalvataggio == "pubblico") {
+        $boolSalvataggio = 1;
+    } 
+    else {
+        throw new Exception("Tipo di salvataggio non valido");
+    }
+
+    if (empty($partita)) {
+        throw new Exception("Partita richiesta");
+    }
+
+    if (empty($punteggio)) {
+        throw new Exception("Punteggio richiesto");
+    }
+
     $sql = "INSERT INTO partitesalvate(Username, StringaPartita, TipoSalvataggio, Data) VALUE (?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(1, $_SESSION['username']);
-    $stmt->bindParam(2, $_SESSION['stringaJSON']);
-    $stmt->bindParam(3, $tipoSalvataggio);
-    $data = date("Y-m-d");
-    $stmt->bindParam(4, $data);
+    $stmt->bindValue(1, $_SESSION['username']);
+    $stmt->bindValue(2, $partita);
+    $stmt->bindValue(3, $boolSalvataggio);
+    $stmt->bindValue(4, date("Y-m-d"));
     $stmt->execute();
     unset($_SESSION['stringaJSON']);
 } 

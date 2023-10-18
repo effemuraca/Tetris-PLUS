@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
             table.appendChild(thead);
             const tbody = document.createElement('tbody');
             for (let i = 0; i < data.length; i++) {
-                if (data.salvate[i].TipoSalvataggio === 'pubblico' || (data.salvate[i].TipoSalvataggio === 'privato' && data.salvate[i].Username === sessionStorage.getItem('username'))) {
+                if (data.salvate[i].TipoSalvataggio === 'pubblico' || data.salvate[i].Username === 'Giocatore ospite' || (data.salvate[i].TipoSalvataggio === 'privato' && data.salvate[i].Username === sessionStorage.getItem('username'))) {
                     const tr = document.createElement('tr');
                     tr.setAttribute('id', i);
                     const td1 = document.createElement('td');
