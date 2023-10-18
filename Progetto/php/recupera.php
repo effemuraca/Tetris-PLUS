@@ -109,14 +109,12 @@ try {
         // aggiornamento della password
         $sql = "UPDATE utente SET Password = ? WHERE Username = ?";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(1, $user);
-        $stmt->bindValue(2, password_hash($pwd, PASSWORD_DEFAULT));
+        $stmt->bindValue(1, password_hash($pwd, PASSWORD_DEFAULT));
+        $stmt->bindValue(2, $user);
         $stmt->execute();
-        // inizializzazione della sessione
-        session_start();
         $response = [
             'stato' => true,
-            'messaggio' => 'Passwors ripristinata con successo'
+            'messaggio' => 'Password ripristinata con successo'
         ];
     } 
     else {

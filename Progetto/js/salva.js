@@ -1,5 +1,5 @@
-const salvataggio = document.getElementById('salvataggio_popup');
-salvataggio.addEventListener('click', function () {
+const popupSalva = document.getElementById('salvataggio_popup');
+popupSalva.addEventListener('click', function () {
     let valoreSalvataggio = document.getElementById('tipo_salvataggio').value;
     let tipoSalvataggio;
     if (valoreSalvataggio === '0')

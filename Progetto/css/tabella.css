@@ -6,6 +6,7 @@ th {
     font-weight: bold;
     background-color: rgba(23, 36, 126, 0.9);
     font-size: 1.25rem;
+    padding: 0.5rem 2rem;
 }
 
 table {
@@ -55,5 +56,6 @@ td.bottone {
     nav {
         z-index: 1;
         position: relative;
+        float: left;
     }
 }

@@ -1,5 +1,5 @@
 /* visualizzazione per pc */
-@media screen and (min-width: 751px) {
+@media screen and (min-width: 501px) {
     #core {
         display: flex;
         align-items: center;
@@ -135,7 +135,7 @@
     }
 }
 /* elementi css standard per display mobile*/
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 500px) {
     nav {
         z-index: 1;
         position: relative;
@@ -185,7 +185,7 @@
         width: 4.5vmin;
         height: 4.5vmin;
         background-color: rgba(23, 36, 126, 0.9);
-        border: 0.1vw solid rgba(245, 245, 245, 0.2);
+        border: 0.1vw solid rgba(245, 245, 245, 0.1);
     }
 
     div p {
@@ -300,50 +300,55 @@
 }
 
 /* visualizzazione per tablet */
-@media screen and (min-width: 751px) and (max-width: 1000px) {
+@media screen and (min-width: 501px) and (max-width: 1000px) {
     main {
         flex-direction: column-reverse;
     }
+
+    aside div {
+        max-width: 22vw;
+    }
+
     td {
         float: left;
         width: 3.5vmin;
         height: 3.5vmin;
         background-color: rgba(23, 36, 126, 0.9);
-        border: 0.1vw solid rgba(245, 245, 245, 0.2);
+        border: 0.1vw solid rgba(245, 245, 245, 0.1);
     }
 
     #comandi button {
         background-color: rgba(23, 36, 126, 0.9);
         display: block;
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 0.2rem;
-        margin: 0.25rem;
+        width: 3vw;
+        height: 3vw;
+        border-radius: 0.2vw;
+        margin: 0.25vw;
         float: left;
         border: 0.1vh solid rgb(245, 245, 245);
         z-index: 1;
     }
 
     #comandi button > img {
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 3vw;
+        height: auto;
         vertical-align: middle;
-        padding: 0rem;
+        padding: 0vw;
     }
 
     button#pausa {
         background-color: rgba(23, 36, 126, 0.9);
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 3vw;
+        height: 3vw;
         border-radius: 100%;
         border: 0.1vh solid rgb(245, 245, 245);
     }
 
     #pausa > img {
-        padding: 0rem;
-        margin: 0rem;
-        width: 1.5rem;
-        height: 1.5rem;
+        padding: 0vw;
+        margin: 0vw;
+        width: 1.5vw;
+        height: 1.5vw;
         vertical-align: middle;
     }
 
