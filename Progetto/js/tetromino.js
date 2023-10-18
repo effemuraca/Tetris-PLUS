@@ -191,60 +191,7 @@ class Tetromino {
     }
 
     checkSpeciale(tabellone) {
-        if (this.tipoT === 'destroyer' || this.tipoT === 'dinamite' || this.tipoT === 'resetter' || this.tipoT === 'accelerator' || this.tipoT === 'mist') {
-            console.log('tMuoviGiu caso speciale');
-            switch (this.tipoT) {
-                // il destroyer distrugge la riga dove si è posato il tetromino
-                case 'destroyer':
-                    tabellone.tabelloneAttuale.splice(this.y + 1, 1);
-                    tabellone.tabelloneAttuale.unshift(new Array(nCol).fill(0));
-                    tabellone.riscriviTabelloneDOM(tabellone.qualeGiocatore);
-                    break;
-                // la dinamite distrugge un quadrato 5x5 centrato sul tetromino
-                case 'dinamite':
-                    for (let i = this.y - 2; i <= this.y + 2; i++) {
-                        for (let j = this.x - 2; j <= this.x + 2; j++) {
-                            if (i >= 0 && i < nRow && j >= 0 && j < nCol) {
-                                tabellone.tabelloneAttuale[i][j] = 0;
-                                let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j + tabellone.qualeGiocatore * 200];
-                                elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
-                            }
-                        }
-                    }
-                    break;
-                // il resetter riporta la gravità al valore iniziale
-                case 'resetter':
-                    tabellone.statoGravita = 1;
-                    break;
-
-                // l'accelerator diminuisce la gravità
-                case 'accelerator':
-                    tabellone.statoGravita -= 0.2;
-                    break;
-
-                case 'mist':
-                    // nasconde per 15 secondi le tre righe più in basso del tabellone
-                    for (let i = nRow - 3; i < nRow; i++) {
-                        for (let j = 0; j < nCol; j++) {
-                            let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j + tabellone.qualeGiocatore * 200];
-                            elemDOM.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-                        }
-                    }
-                    setTimeout(() => {
-                        for (let i = nRow - 3; i < nRow; i++) {
-                            for (let j = 0; j < nCol; j++) {
-                                let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j + tabellone.qualeGiocatore * 200];
-                                if (tabellone.tabelloneAttuale[i][j] !== 0)
-                                    elemDOM.style.backgroundColor = tabellone.tabelloneAttuale[i][j];
-                                else
-                                    elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
-                            }
-                        }
-                    }, 15000);
-                    break;
-            }
-            return;
-        }
+        return;
     }
 }
 
@@ -343,7 +290,6 @@ class tetZ extends Tetromino {
 class tetSpec extends Tetromino {
     constructor() {
         super();
-        this.tipoT = getSpeciale();
         this.colore = 'white';
         this.tetMatrice = [
             [1, 1],
@@ -357,4 +303,59 @@ class tetSpec extends Tetromino {
     tRuotaSx(tabellone) {
         return;
     }
+
+    checkSpeciale(tabellone) {
+        console.log('tMuoviGiu caso speciale');
+        switch (this.tipoT) {
+            // il destroyer distrugge la riga dove si è posato il tetromino
+            case 'destroyer':
+                tabellone.tabelloneAttuale.splice(this.y + 1, 1);
+                tabellone.tabelloneAttuale.unshift(new Array(nCol).fill(0));
+                tabellone.riscriviTabelloneDOM(tabellone.qualeGiocatore);
+                break;
+            // la dinamite distrugge un quadrato 5x5 centrato sul tetromino
+            case 'dinamite':
+                for (let i = this.y - 2; i <= this.y + 2; i++) {
+                    for (let j = this.x - 2; j <= this.x + 2; j++) {
+                        if (i >= 0 && i < nRow && j >= 0 && j < nCol) {
+                            tabellone.tabelloneAttuale[i][j] = 0;
+                            let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j + tabellone.qualeGiocatore * 200];
+                            elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
+                        }
+                    }
+                }
+                break;
+            // il resetter riporta la gravità al valore iniziale
+            case 'resetter':
+                tabellone.statoGravita = 1;
+                break;
+
+            // l'accelerator diminuisce la gravità
+            case 'accelerator':
+                tabellone.statoGravita -= 0.2;
+                break;
+
+            case 'mist':
+                // nasconde per 15 secondi le tre righe più in basso del tabellone
+                for (let i = nRow - 3; i < nRow; i++) {
+                    for (let j = 0; j < nCol; j++) {
+                        let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j + tabellone.qualeGiocatore * 200];
+                        elemDOM.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                    }
+                }
+                setTimeout(() => {
+                    for (let i = nRow - 3; i < nRow; i++) {
+                        for (let j = 0; j < nCol; j++) {
+                            let elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j + tabellone.qualeGiocatore * 200];
+                            if (tabellone.tabelloneAttuale[i][j] !== 0)
+                                elemDOM.style.backgroundColor = tabellone.tabelloneAttuale[i][j];
+                            else
+                                elemDOM.style.backgroundColor = 'rgba(23, 36, 126, 0.9)';
+                        }
+                    }
+                }, 15000);
+                break;
+        }
+    }
 }
+

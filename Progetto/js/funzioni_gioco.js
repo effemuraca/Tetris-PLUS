@@ -23,7 +23,7 @@ function aggiornaInterval(gioco, partita1, partita2 = null) {
     clearInterval(gioco);
     gioco = setInterval(() => {
         if (window.innerWidth < 1001 && nGiocatori === '2') {
-            alert('Il gioco non è ottimizzato per giocare in modalità multiplayer su uno schermo cosi, piccolo, ridimensiona lo schermo o potresti visualizzare dei problemi grafici')
+            alert('Il gioco non è ottimizzato per giocare in modalità multiplayer su uno schermo cosi piccolo, ridimensiona lo schermo o potresti visualizzare dei problemi grafici')
             pausaMobile(partita1.tabellone);
             pausaMobile(partita2.tabellone);
         }
@@ -73,11 +73,11 @@ function Apri(da_aprire, tab1, tab2 = null) {
     const controllaRegole = document.getElementById('regolamento_popup');
     const controllaGo = document.getElementById('game_over');
     if ((da_aprire === 'salvataggio_popup' && controllaRegole.className === 'aperto') || (da_aprire === 'salvataggio_popup' && controllaGo.className === 'aperto')) {
-        window.alert("Non si può aprire il popup di salvataggio finché il regolamento o la schermata di game over sono aperto"); //magari sistema gli alert in qualche modo
+        window.alert('Non si può aprire il popup di salvataggio finché il regolamento o la schermata di game over sono aperto'); //magari sistema gli alert in qualche modo
         return;
     }
     else if ((da_aprire === 'regolamento_popup' && controllaSalva.className === 'aperto') || (da_aprire === 'regolamento_popup' && controllaGo.className === 'aperto')) {
-        window.alert("Non si può aprire il regolamento finché il popup di salvataggio o la schermata di game over sono aperto");
+        window.alert('Non si può aprire il regolamento finché il popup di salvataggio o la schermata di game over sono aperto');
         return;
     }
     daAprire.classList.add('aperto');
@@ -157,6 +157,7 @@ function scegliTetromino(partita) {
             break;
         case 'Speciale':
             tet = new tetSpec();
+            tet.tipoT = getSpeciale();
             break;
     }
     return tet;
@@ -164,7 +165,10 @@ function scegliTetromino(partita) {
 
 // la funzione si occupa di aggiornare la gravità del gioco, che aumenta ogni volta che un tetromino viene inserito nel tabellone
 function aggiornaGravita(gioco, partita1, partita2 = null) {
-    partita1.tabellone.statoGravita -= 0.025;
+    if (partita1.tabellone.statoGravita > 0.5)
+        partita1.tabellone.statoGravita -= 0.025;
+    else
+        partita1.tabellone.statoGravita -= 0.01;
     if (partita1.tabellone.statoGravita < 0.2)
         partita1.tabellone.statoGravita = 0.2;
     aggiornaInterval(gioco, partita1, partita2);
@@ -249,11 +253,14 @@ function nuovoTetrominoDOM(qualeTet, giocatore) {
     const letteraTet = document.getElementById('prossimo_tetromino_nome');
     letteraTet.textContent = prossimoTet.tipoT;
     letteraTet.style.fontSize = '3vw';
-    if (window.innerWidth > 1000){ 
-    if (qualeTet === 'Speciale')
-        letteraTet.style.display = 'block';
-    else 
-        letteraTet.style.display = 'none';
+    if (window.innerWidth > 1000) {
+        if (qualeTet === 'Speciale') {
+            letteraTet.style.display = 'block';
+            letteraTet.style.color = 'gold';
+            letteraTet.style.fontSize = '2vw';
+        }
+        else
+            letteraTet.style.display = 'none';
     }
 }
 

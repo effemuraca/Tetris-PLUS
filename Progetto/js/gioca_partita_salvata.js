@@ -1,12 +1,12 @@
-const bottoni = document.querySelectorAll(".bot_partita");
+const bottoni = document.querySelectorAll('.bot_partita');
 bottoni.forEach((bottone) => {
-    bottone.addEventListener("click", () => {
+    bottone.addEventListener('click', () => {
         const id = document.getElementById(bottone.value).textContent;
-        fetch("../php/carica_partita.php", {
-            method: "POST",
+        fetch('../php/carica_partita.php', {
+            method: 'POST',
             body: JSON.stringify({ idPartita: id }),
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
             }
         })
             .then((response) => {

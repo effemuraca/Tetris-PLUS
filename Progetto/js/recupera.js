@@ -10,8 +10,8 @@ recuperaForm.addEventListener('submit', function (event) {
     const myJSON = { username: username, password: password, password2: password2, risposta: risposta };
 
     if (password !== password2) {
-        const errore = document.getElementById("errore_registrazione");
-        errore.textContent = "Le password non coincidono";
+        const errore = document.getElementById('errore_registrazione');
+        errore.textContent = 'Le password non coincidono';
         return;
     }
 

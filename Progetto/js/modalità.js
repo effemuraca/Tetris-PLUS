@@ -54,3 +54,9 @@ const nuova = document.getElementById('nuova_partita');
 nuova.addEventListener('click', function () {
     TipoPartita('nuova');
 });  
+
+const logout = document.getElementById('logout');
+logout.addEventListener('click', function () {
+    sessionStorage.clear();
+    window.location.href = '../php/logout.php';
+});

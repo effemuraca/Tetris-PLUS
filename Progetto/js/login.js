@@ -37,6 +37,7 @@ loginForm.addEventListener('submit', function (event) {
             const recupera = document.getElementById('recupera');
             recupera.textContent = 'Recupera password:';
             recupera.href = '../html/recupera.html';
+            recupera.style.display = 'block';
         }
     })
     .catch(error => {

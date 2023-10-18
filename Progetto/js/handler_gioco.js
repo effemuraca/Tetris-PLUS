@@ -46,8 +46,12 @@ pausaListener.addEventListener('click', function () {
 
 const salvataggio = document.getElementById('bottone_salvataggio');
 salvataggio.addEventListener('click', function () {
+    if (nGiocatori === '2') {
     const daInviare = scegliPartita(partitaG1, partitaG2);
     daInviare.salvaPartita();
+    }
+    else
+        partitaG1.salvaPartita();
 });
 
 // creazione eventi per il controllo dei tasti da mobile

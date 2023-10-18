@@ -1,13 +1,13 @@
-const registrazioneForm = document.getElementById("richiedi_registrazione");
-registrazioneForm.addEventListener("submit", function (event) {
+const registrazioneForm = document.getElementById('richiedi_registrazione');
+registrazioneForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("pwd").value;
-    const password2 = document.getElementById("pwd2").value;
-    const mail = document.getElementById("mail").value;
-    const domanda = document.getElementById("domanda").value;
-    const risposta = document.getElementById("risposta").value;
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('pwd').value;
+    const password2 = document.getElementById('pwd2').value;
+    const mail = document.getElementById('mail').value;
+    const domanda = document.getElementById('domanda').value;
+    const risposta = document.getElementById('risposta').value;
     const myJSON = JSON.stringify({
         username: username,
         password: password,
@@ -18,8 +18,8 @@ registrazioneForm.addEventListener("submit", function (event) {
     });
 
     if (password !== password2) {
-        const errore = document.getElementById("errore_registrazione");
-        errore.textContent = "Le password non coincidono";
+        const errore = document.getElementById('errore_registrazione');
+        errore.textContent = 'Le password non coincidono';
         return;
     }
 
@@ -42,14 +42,14 @@ registrazioneForm.addEventListener("submit", function (event) {
             if (data.stato) {
                 // Registrazione riuscita, reindirizza alla pagina di successo
                 alert(data.messaggio);
-                window.location.href = "login.html";
+                window.location.href = 'login.html';
             } else {
                 // Registrazione fallita, mostra un messaggio di errore sullaq pagina di login
-                const errore = document.getElementById("errore_registrazione");
+                const errore = document.getElementById('errore_registrazione');
                 errore.textContent = data.messaggio;
             }
         })
         .catch(error => {
-            console.error("Errore durante la richiesta: " + error);
+            console.error('Errore durante la richiesta: ' + error);
         });
 });

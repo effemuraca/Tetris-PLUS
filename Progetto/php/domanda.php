@@ -16,14 +16,15 @@ try {
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(1, $user);
     $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($stmt->fetch(pdo::FETCH_ASSOC) == false) {
+    if ($result == false) {
         throw new Exception('Domanda non trovata, controlla di aver inserito correttamente lo username');
     } 
     else {
         $response = [
             'stato' => true,
-            'messaggio' => $stmt->fetch(pdo::FETCH_ASSOC)['Domanda']
+            'messaggio' => $result['Domanda']
         ];
     }
 
