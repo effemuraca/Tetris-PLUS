@@ -1,21 +1,23 @@
-const popupSalva = document.getElementById('salvataggio_popup');
-popupSalva.addEventListener('click', function () {
-    let valoreSalvataggio = document.getElementById('tipo_salvataggio').value;
-    let tipoSalvataggio;
-    if (valoreSalvataggio === '0')
-        tipoSalvataggio = 'privato';
+const bottoneSalva = document.getElementById('salvataggio_popup');
+bottoneSalva.addEventListener('submit', function (event) {
+    event.preventDefault();
+    
+    const tipoSalvataggio = document.getElementById('tipo_salvataggio').value;
+    let valoreSalvataggio;
+    if (tipoSalvataggio === 'privato')
+        valoreSalvataggio = 0;
     else
-        tipoSalvataggio = 'pubblico';
+        valoreSalvataggio = 1;
     if (nGiocatori === 2) {
         const qualeSalvare  = document.getElementById('partita_da_salvare').value;
         if (qualeSalvare === '0') {
-            partitaG1.salvaPartita(tipoSalvataggio);
+            partitaG1.salvaPartita(valoreSalvataggio);
         } else {
-            partitaG2.salvaPartita(tipoSalvataggio);
+            partitaG2.salvaPartita(valoreSalvataggio);
         }
     }
     else {
-        partitaG1.salvaPartita(tipoSalvataggio);
+        partitaG1.salvaPartita(valoreSalvataggio);
     }
 
 

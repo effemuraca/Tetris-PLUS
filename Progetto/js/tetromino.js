@@ -186,7 +186,6 @@ class Tetromino {
             return;
         }
         this.tetMatrice = matriceTemp;
-        console.log('inserisci da tRuotaSx');
         this.inserisci(tabellone);
     }
 
@@ -305,7 +304,6 @@ class tetSpec extends Tetromino {
     }
 
     checkSpeciale(tabellone) {
-        console.log('tMuoviGiu caso speciale');
         switch (this.tipoT) {
             // il destroyer distrugge la riga dove si è posato il tetromino
             case 'destroyer':

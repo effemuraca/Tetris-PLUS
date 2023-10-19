@@ -27,7 +27,6 @@ class Tabellone {
 
     //funzione che cancella una riga piena e sposta le righe sopra di essa di una posizione verso il basso
     cancellaRighe(tetromino) {
-        console.log('cancellaRighe');
         let riga = tetromino.y + tetromino.tetMatrice.length - 1;
         // gestione del caso matrice ingrandita per via della rotazione (una riga di soli zeri in fondo alla matrice del tetromino)
         if (riga >= nRow)

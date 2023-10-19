@@ -95,11 +95,11 @@ class Partita {
             });
     }
 
-    salvaPartita(tipoSal) {
+    salvaPartita(valSal) {
         this.punteggio = this.tabellone.punteggio;
         const partitaJSON = {
             stringaPartita : JSON.stringify(this),
-            tipoSalvataggio : tipoSal,
+            tipoSalvataggio : valSal,
             punteggio : this.punteggio
         }
         fetch('../php/salva.php', {
@@ -109,14 +109,19 @@ class Partita {
                 'Content-Type': 'application/json'
             }
         })
-            .then((response) => {
+            .then(response => {
                 if (response.ok) {
                     console.log('Richiesta di salvataggio della partita in corso inoltrata correttamente al server');
-                } else {
+                    return response.json();
+                } 
+                else {
                     console.log('Errore nella richiesta di salvataggio della partita in corso al server');
                 }
             })
-            .catch((error) => {
+            .then(data => {   
+                alert(data.messaggio);
+            })
+            .catch(error => {
                 console.error('Errore durante la richiesta: ' + error);
             });
     }

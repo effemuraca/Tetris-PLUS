@@ -175,7 +175,6 @@ function aggiornaGravita(gioco, partita1, partita2 = null) {
 }
 
 function pausa(tabellone) {
-    console.log('pausa');
     if (tabellone.statoPartita === statoGioco.inCorso)
         tabellone.statoPartita = statoGioco.inPausa;
     else
@@ -204,7 +203,6 @@ function updatePunteggioDOM(tab) {
 }
 
 function nuovoTetrominoDOM(tet, giocatore) {
-    console.log(tet, giocatore);
     for (let i = 0; i < 25; i++) {
         let elemDOM = document.getElementsByClassName('elem_prossimo')[i + giocatore * 25];
         elemDOM.style.backgroundColor = 'transparent';

@@ -37,8 +37,15 @@ recuperaForm.addEventListener('submit', function (event) {
                 window.location.href = 'login.html';
             }
             else {
-                // Recupero fallito, mostra un messaggio di errore sullaq pagina di login
+                // Recupero fallito, mostra un messaggio di errore sulla pagina di login
                 const errore = document.getElementById('errore_recupero');
+                let domanda;
+                if (data.messaggio === '0')
+                    domanda = 'Qual è il nome del tuo nonno materno?'
+                else if (data.messaggio === '1')
+                    domanda = 'Qual è il nome della tua prima auto?'
+                else
+                    domanda = 'Qual è il nome delle tue scuole superiori?'
                 errore.textContent = data.messaggio;
             }
         })

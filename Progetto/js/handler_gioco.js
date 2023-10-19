@@ -44,16 +44,6 @@ pausaListener.addEventListener('click', function () {
     pausaMobile(partitaG1.tabellone);
 });
 
-const salvataggio = document.getElementById('bottone_salvataggio');
-salvataggio.addEventListener('click', function () {
-    if (nGiocatori === '2') {
-    const daInviare = scegliPartita(partitaG1, partitaG2);
-    daInviare.salvaPartita();
-    }
-    else
-        partitaG1.salvaPartita();
-});
-
 // creazione eventi per il controllo dei tasti da mobile
 const rotazioneDx = document.getElementById('ruota_dx');
 rotazioneDx.addEventListener('click', function () {

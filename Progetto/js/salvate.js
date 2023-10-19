@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
             table.appendChild(thead);
             const tbody = document.createElement('tbody');
             for (let i = 0; i < data.length; i++) {
-                if (data.salvate[i].TipoSalvataggio === 'pubblico' || data.salvate[i].Username === 'Giocatore ospite' || (data.salvate[i].TipoSalvataggio === 'privato' && data.salvate[i].Username === sessionStorage.getItem('username'))) {
+                if (data.salvate[i].TipoSalvataggio === 1 || data.salvate[i].Username === 'Giocatore ospite' || (data.salvate[i].TipoSalvataggio === 0 && data.salvate[i].Username === sessionStorage.getItem('username'))) {
                     const tr = document.createElement('tr');
                     tr.setAttribute('id', i);
                     const td1 = document.createElement('td');
@@ -50,7 +50,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     const td3 = document.createElement('td');
                     td3.textContent = data.salvate[i].Data;
                     const td4 = document.createElement('td');
-                    td4.textContent = data.salvate[i].TipoSalvataggio;
+                    if (data.salvate[i].TipoSalvataggio === '0')
+                        td4.textContent = 'Privato';
+                    else
+                        td4.textContent = 'Pubblico';
                     const td5 = document.createElement('td');
                     td5.textContent = data.salvate[i].Punteggio;
                     const td6 = document.createElement('td');
@@ -67,13 +70,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     tr.appendChild(td5);
                     tr.appendChild(td6);
                     tbody.appendChild(tr);
+                    }
+                    else {
+                        continue;
+                    }
                 }
-                else {
-                    continue;
-                }
-            }
-            table.appendChild(tbody);
-            salvate.parentNode.replaceChild(table, salvate);
-        })
+                table.appendChild(tbody);
+                salvate.parentNode.replaceChild(table, salvate);
+            })
         .catch(error => console.log(error));
 });

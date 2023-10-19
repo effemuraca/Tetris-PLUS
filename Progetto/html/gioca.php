@@ -77,7 +77,7 @@
         <form action="#" method="post" autocomplete="on" id="salvataggio_popup">
             <fieldset id="form_salvataggio">
                 <legend>
-                    Salva la partita
+                    Salva
                     <button id="chiudi_salvataggio" class="bottone_x">
                         X
                     </button>

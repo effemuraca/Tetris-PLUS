@@ -1,7 +1,7 @@
-const bottoni = document.querySelectorAll('.bot_partita');
-bottoni.forEach((bottone) => {
-    bottone.addEventListener('click', () => {
-        const id = document.getElementById(bottone.value).textContent;
+const bottoni = document.getElementsByClassName('bot_partita');
+for (let i = 0; i < bottoni.length; i++) {
+    bottoni[i].addEventListener('click', () => {
+        const id = document.getElementById(bottoni[i].value).textContent;
         fetch('../php/carica_partita.php', {
             method: 'POST',
             body: JSON.stringify({ idPartita: id }),
@@ -17,10 +17,10 @@ bottoni.forEach((bottone) => {
                     console.log('Errore nella richiesta di caricamento della partita salvata al server');
                 }
             })
-            .then((data) => {
-                if (data.stato) {   
-                sessionStorage.setItem('partita', JSON.stringify(data));
-                window.location.href = '../html/gioca.php';
+            .then((data) => {   
+                if (data.stato) {
+                    sessionStorage.setItem('partita', JSON.stringify(data));
+                    window.location.href = '../html/gioca.php';
                 }
                 else {
                     alert(data.messaggio);
@@ -30,4 +30,4 @@ bottoni.forEach((bottone) => {
                 console.error('Errore durante la richiesta: ' + error);
             });
     });
-});
+}
