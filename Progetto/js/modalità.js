@@ -32,7 +32,7 @@ function TipoPartita(tipo_partita) {
     else if (tipo_partita === 'salvata') 
         window.location.href = '../html/salvate.html';
     else if (tipo_partita === 'nuova') 
-        window.location.href = '../html/gioca.php';
+        window.location.href = '../html/gioca.html';
 }
 
 const singleplayer = document.getElementById('partita_singleplayer');

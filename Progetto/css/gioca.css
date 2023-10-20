@@ -399,7 +399,7 @@ legend {
 }
 
 #comandi {
-    margin-top: 1rem;   
+    margin-top: 1rem;
 }
 
 div#regolamento_popup {
@@ -427,5 +427,9 @@ a {
 }
 
 img#immagine_riprendi {
+    display: none;
+}
+
+.quale_salvataggio {
     display: none;
 }

@@ -8,9 +8,9 @@ bottoneSalva.addEventListener('submit', function (event) {
         valoreSalvataggio = 0;
     else
         valoreSalvataggio = 1;
-    if (nGiocatori === 2) {
+    if (nGiocatori === '2') {
         const qualeSalvare  = document.getElementById('partita_da_salvare').value;
-        if (qualeSalvare === '0') {
+        if (qualeSalvare === 'partita1') {
             partitaG1.salvaPartita(valoreSalvataggio);
         } else {
             partitaG2.salvaPartita(valoreSalvataggio);

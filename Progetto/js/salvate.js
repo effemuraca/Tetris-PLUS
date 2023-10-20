@@ -40,10 +40,10 @@ document.addEventListener('DOMContentLoaded', function () {
             table.appendChild(thead);
             const tbody = document.createElement('tbody');
             for (let i = 0; i < data.length; i++) {
-                if (data.salvate[i].TipoSalvataggio === 1 || data.salvate[i].Username === 'Giocatore ospite' || (data.salvate[i].TipoSalvataggio === 0 && data.salvate[i].Username === sessionStorage.getItem('username'))) {
+                if (data.salvate[i].TipoSalvataggio == 1 || data.salvate[i].Username === 'Giocatore ospite' || (data.salvate[i].TipoSalvataggio == 0 && data.salvate[i].Username === sessionStorage.getItem('username'))) {
                     const tr = document.createElement('tr');
-                    tr.setAttribute('id', i);
                     const td1 = document.createElement('td');
+                    td1.setAttribute('id', i);
                     td1.textContent = data.salvate[i].idSalvate;
                     const td2 = document.createElement('td');
                     td2.textContent = data.salvate[i].Username;
@@ -60,6 +60,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     td6.classList.add('bottone');
                     const bottone = document.createElement('button');
                     bottone.classList.add('bot_partita');
+                    bottone.addEventListener('click', () => {
+                        giocaPartitaSalvata(bottone.value)
+                    });
                     bottone.textContent = 'Gioca';
                     bottone.value = i;
                     td6.appendChild(bottone);
@@ -70,13 +73,47 @@ document.addEventListener('DOMContentLoaded', function () {
                     tr.appendChild(td5);
                     tr.appendChild(td6);
                     tbody.appendChild(tr);
-                    }
-                    else {
-                        continue;
-                    }
                 }
-                table.appendChild(tbody);
-                salvate.parentNode.replaceChild(table, salvate);
-            })
+                else {
+                    continue;
+                }
+            }
+            table.appendChild(tbody);
+            salvate.parentNode.replaceChild(table, salvate);
+        })
         .catch(error => console.log(error));
+
+
 });
+
+function giocaPartitaSalvata(qualeBottone) {
+    // id prende il valore del contenuto del td con id = qualeBottone per passare al server l'id della partita da caricare
+    const id = document.getElementById(qualeBottone).textContent;
+    fetch('../php/carica_partita.php', {
+        method: 'POST',
+        body: JSON.stringify({ idPartita: id }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then((response) => {
+            if (response.ok) {
+                console.log('Richiesta di caricamento della partita salvata al server effettuata con successo');
+                return response.json();
+            } else {
+                console.log('Errore nella richiesta di caricamento della partita salvata al server');
+            }
+        })
+        .then((data) => {
+            if (data.stato) {
+                sessionStorage.setItem('partita', data.partita);
+                window.location.href = '../html/gioca.html';
+            }
+            else {
+                alert(data.messaggio);
+            }
+        })
+        .catch((error) => {
+            console.error('Errore durante la richiesta: ' + error);
+        });
+}

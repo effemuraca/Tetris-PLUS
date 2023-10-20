@@ -113,12 +113,11 @@ document.addEventListener('keydown', function (event) {
 
 let partitaG1
 let partitaG2;
-if (sessionStorage.getItem('partita') !== null) {
+let salvata = sessionStorage.getItem('partita') !== null;
+if (salvata === true) {
     const partita = JSON.parse(sessionStorage.getItem('partita'));
-    partitaG1 = partita;
-    partitaG1.username = sessionStorage.getItem('username');
+    partitaG1 = new Partita(partita.tabellone, partita.tetromino, partita.prosTetromino, partita.punteggio, 1, partita.username);
 }
-
 else
     partitaG1 = new Partita();
 
@@ -128,11 +127,9 @@ if (nGiocatori === '2') {
     classeMP.classList.add('multiplayer');
     // la scelta del nome utente per il giocatore ospite è fatta in automatico e non tramite un secondo login (si suppone che il giocatore ospite spesso non abbia un account su cui giocare, essendo che il gioco viene eseguito in locale sulla macchina dell'altro giocatore)
     const nomeGiocatore2 = 'Giocatore ospite';
-    if (sessionStorage.getItem('partita') !== null) {
+    if (salvata === true) {
         const partita = JSON.parse(sessionStorage.getItem('partita'));
-        partitaG2 = partita;
-        partitaG2.username = nomeGiocatore2;  
-        partitaG2.nUtente = 2;
+        partitaG2 = new Partita(partita.tabellone, partita.tetromino, partita.prosTetromino, partita.punteggio, 2, nomeGiocatore2);
     }
     else
         partitaG2 = new Partita(2, nomeGiocatore2);
@@ -140,4 +137,5 @@ if (nGiocatori === '2') {
     aggiornaSalvataggio();
 }
 
-loopGioco(partitaG1, partitaG2);
+sessionStorage.removeItem('partita'); 
+loopGioco(partitaG1, partitaG2, salvata);

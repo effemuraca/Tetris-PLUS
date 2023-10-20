@@ -1,19 +1,25 @@
 'use strict';
 class Tabellone {
-    constructor(statoTabellone, punteggio) {
-        this.tabelloneAttuale = [];
-        for (let i = 0; i < nRow; i++) {
-            this.tabelloneAttuale[i] = [];
-            for (let j = 0; j < nCol; j++) {
-                this.tabelloneAttuale[i][j] = 0;
+    constructor(tabelloneAttuale = null, punteggio = 0, statoGravita = 1, qualeGiocatore = 0) {
+        this.tabelloneAttuale = tabelloneAttuale;
+        if (this.tabelloneAttuale == null) {
+            this.tabelloneAttuale = [];
+            for (let i = 0; i < nRow; i++) {
+                this.tabelloneAttuale[i] = [];
+                for (let j = 0; j < nCol; j++) {
+                    this.tabelloneAttuale[i][j] = 0;
+                }
             }
         }
-        this.punteggio = 0;
+        else {
+            this.tabelloneAttuale = tabelloneAttuale;
+        }
+        this.punteggio = punteggio;
         this.statoPartita = statoGioco.inCorso;
         // statoGravita rappresenta quanto effetto ha la gravità sul tetromino attivo
-        this.statoGravita = 1;
+        this.statoGravita = statoGravita;
         // è utile tenere nel tabellone una reference a quale giocatore appartiene, per evitare di passare ad alcune funzioni l'intero oggetto partita come parametro
-        this.qualeGiocatore = 0;
+        this.qualeGiocatore = qualeGiocatore;
     }
 
     //funzione che controlla se una riga è piena

@@ -11,16 +11,17 @@ if (session_status() == PHP_SESSION_NONE)
 try {
     $salvaJSON = json_decode(file_get_contents('php://input'), true);
     $tipoSalvataggio = $salvaJSON['tipoSalvataggio'];
-    $partita = $salvaJSON['stringaPartita'];
+    $partita = $salvaJSON['partita'];
     $punteggio = $salvaJSON['punteggio'];
 
-    if (empty($tipoSalvataggio)) {
+    if ($tipoSalvataggio != 0 && $tipoSalvataggio != 1) {
         throw new Exception("Tipo di salvataggio richiesto");
     }
 
     if (empty($partita)) {
         throw new Exception("Partita richiesta");
     }
+    $partitaStringa = json_encode($partita);
 
     if (empty($punteggio)) {
         throw new Exception("Punteggio richiesto");
@@ -34,7 +35,7 @@ try {
     $sql = "INSERT INTO partitesalvate(Username, StringaPartita, TipoSalvataggio, Data, Punteggio) VALUE (?, ?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(1, $user);
-    $stmt->bindValue(2, $partita);
+    $stmt->bindValue(2, $partitaStringa);
     $stmt->bindValue(3, $tipoSalvataggio);
     $stmt->bindValue(4, date("Y-m-d"));
     $stmt->bindValue(5, $punteggio);

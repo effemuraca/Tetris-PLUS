@@ -1,12 +1,21 @@
 'use strict';
 class Partita {
-    constructor(nutente = 1, username = sessionStorage.getItem('username')) {
+    // i parametri default servono ad avere "virtualmente" due costruttori, uno con i parametri già inseriti per il caso nuova partita e uno senza per il caso partita salvata
+    // lo stesso approccio viene ripresentato per la classe Tabellone e la classe Tetromino
+    constructor(tabellone = [], tetromino = [], prossimoTet = [], punteggio = 0, nutente = 1, username = sessionStorage.getItem('username')) {
         this.username = username;
         this.nUtente = nutente;
-        this.punteggio = 0;
+        this.punteggio = punteggio;
         this.tabellone = new Tabellone();
-        this.tetromino = [];
-        this.prosTetromino = [];
+        this.tetromino = tetromino;
+        this.prosTetromino = prossimoTet;
+        // se la partita è stata caricata da una partita salvata, i tetromini e il tabellone vengono costruiti a partire dai dati salvati
+        if (this.tetromino != []) {
+            this.tabellone = new Tabellone(tabellone.tabelloneAttuale, tabellone.punteggio, tabellone.statoGravita, tabellone.qualeGiocatore);
+            // si fanno due switch sul tipo di tetromino che creano al posto di new tetromino, new tet? con ? tipo del pezzo corretto (magari fallo in una funzione)
+            costruisciTetEsistente(this.tetromino, tetromino);
+            costruisciTetEsistente(this.prosTetromino, prossimoTet);
+        }
     }
 
     iniziaPartita() {
@@ -26,6 +35,7 @@ class Partita {
                 riga.appendChild(elementoTabellone);
             }
         }
+        this.tabellone.riscriviTabelloneDOM(this.tabellone.qualeGiocatore);
         // inserimento del punteggio iniziale
         const nodePunteggio = document.createElement('p');
         nodePunteggio.className = 'punteggioAttuale';
@@ -50,7 +60,7 @@ class Partita {
         // inserimento del nome utente
         const nodeUtente = document.createElement('p');
         nodeUtente.style.marginBlockEnd = '0rem';
-        nodeUtente.textContent = sessionStorage.getItem('username');
+        nodeUtente.textContent = this.username;
         document.getElementById('nome_giocatore').appendChild(nodeUtente);
     }
 
@@ -98,9 +108,9 @@ class Partita {
     salvaPartita(valSal) {
         this.punteggio = this.tabellone.punteggio;
         const partitaJSON = {
-            stringaPartita : JSON.stringify(this),
-            tipoSalvataggio : valSal,
-            punteggio : this.punteggio
+            partita: this,
+            tipoSalvataggio: valSal,
+            punteggio: this.punteggio
         }
         fetch('../php/salva.php', {
             method: 'POST',
@@ -113,12 +123,12 @@ class Partita {
                 if (response.ok) {
                     console.log('Richiesta di salvataggio della partita in corso inoltrata correttamente al server');
                     return response.json();
-                } 
+                }
                 else {
                     console.log('Errore nella richiesta di salvataggio della partita in corso al server');
                 }
             })
-            .then(data => {   
+            .then(data => {
                 alert(data.messaggio);
             })
             .catch(error => {

@@ -100,12 +100,11 @@
                     </select>
                 </p>
                 <br>
-                <p>
-                    <?php
-                        if ( isset($tipoSalvataggio) && $tipoSalvataggioErr) {
-                            echo $tipoSalvataggioErr;
-                        }
-                    ?>
+                <p class="quale_salvataggio">
+                    <label for="quale_salvataggio">
+                        Quale delle due partite vuoi salvare?
+                    </label>
+                    <br>
                 </p>
                 <input type="submit" value="Conferma" id="bottone_salvataggio">
             </fieldset>

@@ -28,8 +28,7 @@ try {
     else {
         $response = [
             'stato' => true,
-            'messaggio' => 
-            $stmt->fetch(pdo::FETCH_ASSOC)['StringaPartita']
+            'partita' => $stmt->fetch(pdo::FETCH_ASSOC)['StringaPartita']
         ];
     }
 

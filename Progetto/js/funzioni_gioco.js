@@ -1,8 +1,12 @@
-function loopGioco(partitaG1, partitaG2) {
-    partitaG1.prosTetromino = scegliTetromino(partitaG1);
-    partitaG1.prosTetromino.inserisci(partitaG1.tabellone);
-    partitaG1.tetromino = partitaG1.prosTetromino;
-    partitaG1.prosTetromino = scegliTetromino(partitaG1);
+function loopGioco(partitaG1, partitaG2, salvata = false) {
+    if (salvata === false) {
+        partitaG1.prosTetromino = scegliTetromino(partitaG1);
+        partitaG1.prosTetromino.inserisci(partitaG1.tabellone);
+        partitaG1.tetromino = partitaG1.prosTetromino;
+        partitaG1.prosTetromino = scegliTetromino(partitaG1);
+    }
+    else
+        partitaG1.tetromino.inserisci(partitaG1.tabellone);
     let gioco1;
     let gioco2;
 
@@ -10,10 +14,14 @@ function loopGioco(partitaG1, partitaG2) {
 
     if (nGiocatori === '2') {
         partitaG2.tabellone.qualeGiocatore = 1;
-        partitaG2.prosTetromino = scegliTetromino(partitaG2);
-        partitaG2.prosTetromino.inserisci(partitaG2.tabellone);
-        partitaG2.tetromino = partitaG2.prosTetromino;
-        partitaG2.prosTetromino = scegliTetromino(partitaG2);
+        if (salvata === false) {
+            partitaG2.prosTetromino = scegliTetromino(partitaG2);
+            partitaG2.prosTetromino.inserisci(partitaG2.tabellone);
+            partitaG2.tetromino = partitaG2.prosTetromino;
+            partitaG2.prosTetromino = scegliTetromino(partitaG2);
+        }
+        else
+            partitaG2.tetromino.inserisci(partitaG2.tabellone);
         gioco2 = aggiornaInterval(gioco2, partitaG2, partitaG1);
     }
 }
@@ -238,7 +246,8 @@ function nuovoTetrominoDOM(tet, giocatore) {
 
 // la funzione si occupa di aggiornare il popup di salvataggio, nel caso di partita multiplayer
 function aggiornaSalvataggio() {
-    const form = document.getElementById('form_salvataggio');
+    const daSalvare = document.getElementsByClassName('quale_salvataggio')[0];
+    daSalvare.style.display = 'block';
     const select = document.createElement('select');
     select.id = 'partita_da_salvare';
     select.required = true;
@@ -250,7 +259,7 @@ function aggiornaSalvataggio() {
     option2.textContent = 'Partita 2';
     select.appendChild(option1);
     select.appendChild(option2);
-    form.appendChild(select);
+    daSalvare.appendChild(select);
 }
 
 // la funzione serve, nel caso di partita a due giocatori, a scegliere quale partita salvare
@@ -260,4 +269,33 @@ function scegliPartita(partita1, partita2) {
         return partita1;
     else
         return partita2;
+}
+
+// la funzione serve a ricostruire un tetromino a partire dai dati salvati
+function costruisciTetEsistente(questoTet, tetromino) {
+    switch (tetromino.tipoT) {
+        case 'I':
+            questoTet = new tetI(tetromino.tetMatrice, tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
+            break;
+        case 'J':
+            questoTet = new tetJ(tetromino.tetMatrice, tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
+            break;
+        case 'L':
+            questoTet = new tetL(tetromino.tetMatrice, tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
+            break;
+        case 'O':
+            questoTet = new tetO(tetromino.tetMatrice, tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
+            break;
+        case 'S':
+            questoTet = new tetS(tetromino.tetMatrice, tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
+            break;
+        case 'T':
+            questoTet = new tetT(tetromino.tetMatrice, tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
+            break;
+        case 'Z':
+            questoTet = new tetZ(tetromino.tetMatrice, tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
+            break;
+        default:
+            questoTet = new tetSpec(tetromino.tetMatrice, tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo, tetromino.tipoT);
+    }
 }

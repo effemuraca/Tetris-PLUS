@@ -1,13 +1,13 @@
 'use strict';
 class Tetromino {
-    constructor(matrice = []) {
-        this.colore = getColore();
-        this.rotazione = 0;
+    constructor(matrice = [], colore = getColore(), rotazione = 0, x = 3, y = 0, attivo = true) {
+        this.colore = colore;
+        this.rotazione = rotazione;
         this.tetMatrice = matrice;
-        this.x = 3;
-        this.y = 0;
+        this.x = x;
+        this.y = y;
         // this.attivo serve per evitare eventuali incosistenze del tipo: il tetromino si è fermato, ma è ancora attivo e quindi può essere mosso
-        this.attivo = true;
+        this.attivo = attivo;
     }
 
     checkCollisione(tabellone) {
