@@ -133,6 +133,7 @@ if (nGiocatori === '2') {
     }
     else
         partitaG2 = new Partita(2, nomeGiocatore2);
+    partitaG2.tabellone.qualeGiocatore = 1;
     partitaG2.iniziaPartita();
     aggiornaSalvataggio();
 }

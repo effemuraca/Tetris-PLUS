@@ -1,6 +1,6 @@
 'use strict';
 class Tetromino {
-    constructor(matrice = [], colore = getColore(), rotazione = 0, x = 3, y = 0, attivo = true) {
+    constructor(colore = getColore(), rotazione = 0, x = 3, y = 0, attivo = true, matrice = []) {
         this.colore = colore;
         this.rotazione = rotazione;
         this.tetMatrice = matrice;
@@ -195,8 +195,8 @@ class Tetromino {
 }
 
 class tetI extends Tetromino {
-    constructor() {
-        super();
+    constructor(colore, rotazione, x, y, attivo) {
+        super(colore, rotazione, x, y, attivo);
         this.tipoT = 'I';
         this.tetMatrice = [
             [1, 1, 1, 1]
@@ -207,8 +207,8 @@ class tetI extends Tetromino {
 }
 
 class tetT extends Tetromino {
-    constructor() {
-        super();
+    constructor(colore, rotazione, x, y, attivo) {
+        super(colore, rotazione, x, y, attivo);
         this.tipoT = 'T';
         this.tetMatrice = [
             [0, 1, 0],
@@ -219,8 +219,8 @@ class tetT extends Tetromino {
 }
 
 class tetO extends Tetromino {
-    constructor() {
-        super();
+    constructor(colore, rotazione, x, y, attivo) {
+        super(colore, rotazione, x, y, attivo);
         this.tipoT = 'O';
         this.tetMatrice = [
             [1, 1],
@@ -239,8 +239,8 @@ class tetO extends Tetromino {
 }
 
 class tetL extends Tetromino {
-    constructor() {
-        super();
+    constructor(colore, rotazione, x, y, attivo) {
+        super(colore, rotazione, x, y, attivo);
         this.tipoT = 'L';
         this.tetMatrice = [
             [0, 0, 1],
@@ -251,8 +251,8 @@ class tetL extends Tetromino {
 }
 
 class tetJ extends Tetromino {
-    constructor() {
-        super();
+    constructor(colore, rotazione, x, y, attivo) {
+        super(colore, rotazione, x, y, attivo);
         this.tipoT = 'J';
         this.tetMatrice = [
             [1, 0, 0],
@@ -263,8 +263,8 @@ class tetJ extends Tetromino {
 }
 
 class tetS extends Tetromino {
-    constructor() {
-        super();
+    constructor(colore, rotazione, x, y, attivo) {
+        super(colore, rotazione, x, y, attivo);
         this.tipoT = 'S';
         this.tetMatrice = [
             [0, 1, 1],
@@ -275,8 +275,8 @@ class tetS extends Tetromino {
 }
 
 class tetZ extends Tetromino {
-    constructor() {
-        super();
+    constructor(colore, rotazione, x, y, attivo) {
+        super(colore, rotazione, x, y, attivo);
         this.tipoT = 'Z';
         this.tetMatrice = [
             [1, 1, 0],
@@ -287,8 +287,8 @@ class tetZ extends Tetromino {
 }
 
 class tetSpec extends Tetromino {
-    constructor() {
-        super();
+    constructor(colore, rotazione, x, y, attivo) {
+        super(colore, rotazione, x, y, attivo);
         this.colore = 'white';
         this.tetMatrice = [
             [1, 1],

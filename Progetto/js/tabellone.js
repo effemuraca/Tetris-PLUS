@@ -60,6 +60,7 @@ class Tabellone {
     }
 
     riscriviTabelloneDOM(giocatore) {
+        console.log(giocatore);
         for (let i = 0; i < nRow; i++) {
             for (let j = 0; j < nCol; j++) {
                 const elemDOM = document.getElementsByClassName('elem_tabellone')[i * nCol + j + giocatore * 200];

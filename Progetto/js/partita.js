@@ -7,14 +7,16 @@ class Partita {
         this.nUtente = nutente;
         this.punteggio = punteggio;
         this.tabellone = new Tabellone();
-        this.tetromino = tetromino;
-        this.prosTetromino = prossimoTet;
+        if (tetromino == []) {
+            this.tetromino = tetromino;
+            this.prosTetromino = prossimoTet;
+        }
         // se la partita è stata caricata da una partita salvata, i tetromini e il tabellone vengono costruiti a partire dai dati salvati
-        if (this.tetromino != []) {
-            this.tabellone = new Tabellone(tabellone.tabelloneAttuale, tabellone.punteggio, tabellone.statoGravita, tabellone.qualeGiocatore);
+        else {
+            this.tabellone = new Tabellone(tabellone.tabelloneAttuale, tabellone.punteggio, tabellone.statoGravita);
             // si fanno due switch sul tipo di tetromino che creano al posto di new tetromino, new tet? con ? tipo del pezzo corretto (magari fallo in una funzione)
-            costruisciTetEsistente(this.tetromino, tetromino);
-            costruisciTetEsistente(this.prosTetromino, prossimoTet);
+            this.tetromino = costruisciTetEsistente(tetromino);
+            this.prosTetromino = costruisciTetEsistente(prossimoTet);
         }
     }
 
@@ -35,7 +37,6 @@ class Partita {
                 riga.appendChild(elementoTabellone);
             }
         }
-        this.tabellone.riscriviTabelloneDOM(this.tabellone.qualeGiocatore);
         // inserimento del punteggio iniziale
         const nodePunteggio = document.createElement('p');
         nodePunteggio.className = 'punteggioAttuale';
@@ -56,7 +57,6 @@ class Partita {
                 riga.appendChild(elementoProssimo);
             }
         }
-
         // inserimento del nome utente
         const nodeUtente = document.createElement('p');
         nodeUtente.style.marginBlockEnd = '0rem';

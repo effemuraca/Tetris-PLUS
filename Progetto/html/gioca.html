@@ -28,7 +28,7 @@
     </nav>
     <div id="core">
         <aside>
-            <div id="prossimo_tetronimo">
+            <div id="prossimo_tetromino">
                 <p>
                     Prossimo tetromino:
                 </p>
@@ -121,16 +121,21 @@
             </h2>
             <p>
                 Lo scopo del gioco è totalizzare il punteggio maggiore possibile, cio è possibile completando righe di
-                tetronimi, ovvero dei "pezzi" che cadono nel tabellone e sono muovibili a destra, sinistra e in basso
+                tetromini, che cadono nel tabellone e sono muovibili a destra, sinistra e in basso
                 dal giocatore utilizzando i tasti
                 <strong>
                     D, A, S
                 </strong>.
                 <br>
-                Inoltre, è possibile ruotare i tetronimi in senso orario o antiorario, rispettivamente con i tasti
+                Inoltre, è possibile ruotare i tetromini in senso orario o antiorario, rispettivamente con i tasti
                 <strong>
                     E, Q
                 </strong>.
+                Nel caso di partita multiplayer, invece, il secondo giocatore utilizzerà le
+                <strong>
+                    frecce
+                </strong>
+                per muovere il proprio pezzo.
                 Durante la partita, è sempre possibile mettere in pausa il gioco, utilizzando la
                 <strong>
                     barra spaziatrice
@@ -141,7 +146,7 @@
                 Novità
             </h2>
             <p>
-                Tetris Plus aggiunge ai classici tetronimi anche dei blocchi speciali, ognuno con diverse funzioni e
+                Tetris Plus aggiunge ai classici tetromini anche dei blocchi speciali, ognuno con diverse funzioni e
                 indicati da un blocco quadrato di dimensione 2x2 con sopra un'icona che li distingue.
                 Qui di seguito vengono listati tutti i blocchi speciali e le loro funzioni:
             </p>
@@ -165,9 +170,8 @@
                         Time Resetter
                     </strong>
                     <img src="../images/time_resetter.png">
-                    : Un blocco che all'impatto con altri tetromini o con il terreno interrompe per un tempo stabilito
-                    la
-                    naturale caduta dei tetromini, facendo in modo che questa sia legata solo al movimento del giocatore
+                    : Un blocco che all'impatto con altri tetromini o con il terreno resetta la variazione di gravità, portandola
+                    allo stadio iniziale.
                 </li>
                 <li>
                     <strong>

@@ -5,8 +5,13 @@ function loopGioco(partitaG1, partitaG2, salvata = false) {
         partitaG1.tetromino = partitaG1.prosTetromino;
         partitaG1.prosTetromino = scegliTetromino(partitaG1);
     }
-    else
-        partitaG1.tetromino.inserisci(partitaG1.tabellone);
+    else {
+        partitaG1.tabellone.riscriviTabelloneDOM(0);
+        partitaG2.tabellone.riscriviTabelloneDOM(1);
+        nuovoTetrominoDOM(partitaG1.prosTetromino, 0);
+        nuovoTetrominoDOM(partitaG2.prosTetromino, 1);
+
+    }
     let gioco1;
     let gioco2;
 
@@ -20,8 +25,7 @@ function loopGioco(partitaG1, partitaG2, salvata = false) {
             partitaG2.tetromino = partitaG2.prosTetromino;
             partitaG2.prosTetromino = scegliTetromino(partitaG2);
         }
-        else
-            partitaG2.tetromino.inserisci(partitaG2.tabellone);
+
         gioco2 = aggiornaInterval(gioco2, partitaG2, partitaG1);
     }
 }
@@ -211,6 +215,7 @@ function updatePunteggioDOM(tab) {
 }
 
 function nuovoTetrominoDOM(tet, giocatore) {
+    console.log(giocatore);
     for (let i = 0; i < 25; i++) {
         let elemDOM = document.getElementsByClassName('elem_prossimo')[i + giocatore * 25];
         elemDOM.style.backgroundColor = 'transparent';
@@ -272,30 +277,32 @@ function scegliPartita(partita1, partita2) {
 }
 
 // la funzione serve a ricostruire un tetromino a partire dai dati salvati
-function costruisciTetEsistente(questoTet, tetromino) {
+function costruisciTetEsistente(tetromino) {
+    let questoTet;
     switch (tetromino.tipoT) {
         case 'I':
-            questoTet = new tetI(tetromino.tetMatrice, tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
+            questoTet = new tetI(tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
             break;
         case 'J':
-            questoTet = new tetJ(tetromino.tetMatrice, tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
+            questoTet = new tetJ(tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
             break;
         case 'L':
-            questoTet = new tetL(tetromino.tetMatrice, tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
+            questoTet = new tetL(tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
             break;
         case 'O':
-            questoTet = new tetO(tetromino.tetMatrice, tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
+            questoTet = new tetO(tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
             break;
         case 'S':
-            questoTet = new tetS(tetromino.tetMatrice, tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
+            questoTet = new tetS(tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
             break;
         case 'T':
-            questoTet = new tetT(tetromino.tetMatrice, tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
+            questoTet = new tetT(tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
             break;
         case 'Z':
-            questoTet = new tetZ(tetromino.tetMatrice, tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
+            questoTet = new tetZ(tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo);
             break;
         default:
-            questoTet = new tetSpec(tetromino.tetMatrice, tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo, tetromino.tipoT);
+            questoTet = new tetSpec(tetromino.colore, tetromino.rotazione, tetromino.x, tetromino.y, tetromino.attivo, tetromino.tipoT);
     }
+    return questoTet;
 }
