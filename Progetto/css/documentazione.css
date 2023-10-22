@@ -10,17 +10,17 @@
     }
 
     summary {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
         padding: 1.5vw;
         padding-left: 2rem;
         font-weight: bold;
     }
 
     main {
-        background-color: rgba(104, 38, 162, 0.7);
+        background-color: rgba(104, 38, 162, 0.9);
         border-radius: 2%;
         height: 100%;
-        width: 80%;
+        width: 90%;
     }
 }
 
