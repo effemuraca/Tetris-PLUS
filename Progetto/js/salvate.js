@@ -42,12 +42,11 @@ document.addEventListener('DOMContentLoaded', function () {
             thead.appendChild(tr);
             table.appendChild(thead);
             const tbody = document.createElement('tbody');
-            // partitaDoppiaSecondaria serve ad evitare che una partita salvata con una partita secondaria (caso salvataggio di entrambe le partite) venga mostrata due volte
-            let partitaDoppiaSecondaria = 0;
             for (let i = 0; i < data.length; i++) {
                 if (data.salvate[i].TipoSalvataggio == 1 || data.salvate[i].Username === 'Giocatore ospite' ||
                     (data.salvate[i].TipoSalvataggio == 0 && data.salvate[i].Username === sessionStorage.getItem('username')) ||
-                    partitaDoppiaSecondaria === data.salvate[i].idSalvate) {
+                    (data.PartitaDoppia !== false && nGiocatori === '2')
+                    ) {
                     const tr = document.createElement('tr');
                     const td1 = document.createElement('td');
                     td1.setAttribute('id', i);
@@ -64,11 +63,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     const td5 = document.createElement('td');
                     td5.textContent = data.salvate[i].Punteggio;
                     const td6 = document.createElement('td');
-                    console.log(data.salvate[i].PartitaDoppia);
-                    if (data.salvate[i].PartitaDoppia != undefined && data.salvate[i].PartitaDoppia != null && data.salvate[i].PartitaDoppia != 0)
-                        td6.textContent = 'Sì';
-                    else
+                    if (data.salvate[i].PartitaDoppia === 'false')
                         td6.textContent = 'No';
+                    else
+                        td6.textContent = 'Si';
                     const td7 = document.createElement('td');
                     td7.classList.add('bottone');
                     const bottone = document.createElement('button');
@@ -120,11 +118,11 @@ function giocaPartitaSalvata(qualeBottone) {
         })
         .then((data) => {
             if (data.stato) {
-            /*    if (sessionStorage.getItem('partita') !== null)
-                    sessionStorage.setItem('partita2', data.partita);
-                else
-                    sessionStorage.setItem('partita', data.partita);*/
                 sessionStorage.setItem('partita', data.partita);
+                if (data.partitaDoppia !== false)
+                    sessionStorage.setItem('partitaDoppia', data.partitaDoppia);
+                else 
+                    sessionStorage.setItem('partitaDoppia', false);
                 window.location.href = '../html/gioca.html';
             }
             else {

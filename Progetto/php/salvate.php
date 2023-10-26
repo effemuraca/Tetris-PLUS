@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 try {
-    $sql = "SELECT idSalvate, Username, Data, TipoSalvataggio, Punteggio, idPartitaCompagno FROM partitesalvate WHERE TipoSalvataggio IS NOT NULL ORDER BY Punteggio DESC";
+    $sql = "SELECT * FROM partitesalvate WHERE TipoSalvataggio IS NOT NULL ORDER BY Punteggio DESC";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     if ($stmt->rowCount() == 0) {

@@ -129,10 +129,11 @@ if (nGiocatori === '2') {
     const nomeGiocatore2 = 'Giocatore ospite';
     if (salvata === true) {
         let partita;
-        if (sessionStorage.getItem('partita2') !== null)
-            partita = JSON.parse(sessionStorage.getItem('partita2'));
-        else
+        console.log(sessionStorage.getItem('partitaDoppia'));
+        if (sessionStorage.getItem('partitaDoppia') === false)
             partita = JSON.parse(sessionStorage.getItem('partita'));
+        else
+            partita = JSON.parse(sessionStorage.getItem('partitaDoppia'));
         partitaG2 = new Partita(nomeGiocatore2, partita.tabellone, partita.tetromino, partita.prosTetromino, partita.punteggio);
     }
     else
@@ -143,5 +144,5 @@ if (nGiocatori === '2') {
 }
 
 sessionStorage.removeItem('partita');
-sessionStorage.removeItem('partita2');
+sessionStorage.removeItem('partitaDoppia');
 loopGioco(partitaG1, partitaG2, salvata);

@@ -105,14 +105,18 @@ class Partita {
             });
     }
 
-    salvaPartita(valSal, salDoppio = false) {
+    salvaPartita(valSal, partitaG2 = false) {
         this.punteggio = this.tabellone.punteggio;
+        if (partitaG2 !== false)
+            partitaG2.punteggio = partitaG2.tabellone.punteggio;
+
         const partitaJSON = {
             partita: this,
-            tipoSalvataggio: valSal,
-            punteggio: this.punteggio, 
-            salvataggioDoppio : salDoppio
+            partitaDoppia: partitaG2,
+            punteggio: this.punteggio,
+            tipoSalvataggio: valSal
         }
+
         fetch('../php/salva.php', {
             method: 'POST',
             body: JSON.stringify(partitaJSON),

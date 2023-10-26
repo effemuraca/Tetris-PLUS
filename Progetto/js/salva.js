@@ -6,7 +6,7 @@ bottoneSalva.addEventListener('submit', function (event) {
     let valoreSalvataggio;
     if (tipoSalvataggio === 'privato')
         valoreSalvataggio = 0;
-    else if (tipoSalvataggio === 'pubblico')
+    else
         valoreSalvataggio = 1;
     if (nGiocatori === '2') {
         const qualeSalvare = document.getElementById('partita_da_salvare').value;
@@ -17,8 +17,7 @@ bottoneSalva.addEventListener('submit', function (event) {
             partitaG2.salvaPartita(valoreSalvataggio);
         }
         else {
-            partitaG1.salvaPartita(valoreSalvataggio);
-            partitaG2.salvaPartita(valoreSalvataggio, true);
+            partitaG1.salvaPartita(valoreSalvataggio, partitaG2);
         }
     }
     else {
