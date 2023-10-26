@@ -5,8 +5,8 @@ ul {
 
 a {
     color: rgb(245, 245, 245);
-    text-decoration: none;
 }
+
 #logout {
     text-decoration: underline;
     font-size: 1.5vw;
@@ -21,7 +21,7 @@ button {
     color: rgb(245, 245, 245);
 }
 
-button p {
+button span {
     display: none;
     border: 0.1rem solid rgb(245, 245, 245);
     font-size: 1.25rem;
@@ -30,7 +30,7 @@ button p {
     margin-block-start: 0rem;
 }
 
-button:hover p {
+button:hover span {
     position: fixed;
     display: block;
     left: 1vw;
@@ -38,8 +38,8 @@ button:hover p {
 }
 
 @media screen and (min-width: 1001px) {
-    button p {
-        width: 90vw;
+    button span {
+        width: 95vw;
         border-radius: 3rem;
     }
 
@@ -88,7 +88,7 @@ button:hover p {
 }
 
 @media screen and (max-width: 1000px) {
-    button p {
+    button span {
         width: 87vw;
         border-radius: 3rem;
     }

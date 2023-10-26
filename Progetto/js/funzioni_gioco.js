@@ -7,10 +7,11 @@ function loopGioco(partitaG1, partitaG2, salvata = false) {
     }
     else {
         partitaG1.tabellone.riscriviTabelloneDOM(0);
-        partitaG2.tabellone.riscriviTabelloneDOM(1);
         nuovoTetrominoDOM(partitaG1.prosTetromino, 0);
-        nuovoTetrominoDOM(partitaG2.prosTetromino, 1);
-
+        if (nGiocatori === '2') {
+            partitaG2.tabellone.riscriviTabelloneDOM(1);
+            nuovoTetrominoDOM(partitaG2.prosTetromino, 1);
+        }
     }
     let gioco1;
     let gioco2;
@@ -169,10 +170,27 @@ function scegliTetromino(partita) {
         case 'Speciale':
             prossimoTet = new tetSpec();
             prossimoTet.tipoT = getSpeciale();
+            prossimoTet.colore = associaColore(prossimoTet.tipoT);
             break;
     }
     nuovoTetrominoDOM(prossimoTet, partita.tabellone.qualeGiocatore)
     return prossimoTet;
+}
+
+// la funzione si occupa di associare un colore ad un tetromino speciale
+function associaColore(tipo) {
+    switch (tipo) {
+        case 'destroyer':
+            return 'LightSlateGrey';
+        case 'dinamite':
+            return 'IndianRed';
+        case 'resetter':
+            return 'LavenderBlush';
+        case 'accelerator':
+            return 'Khaki';
+        case 'mist':
+            return 'HoneyDew';
+    }
 }
 
 // la funzione si occupa di aggiornare la gravità del gioco, che aumenta ogni volta che un tetromino viene inserito nel tabellone
@@ -215,7 +233,6 @@ function updatePunteggioDOM(tab) {
 }
 
 function nuovoTetrominoDOM(tet, giocatore) {
-    console.log(giocatore);
     for (let i = 0; i < 25; i++) {
         let elemDOM = document.getElementsByClassName('elem_prossimo')[i + giocatore * 25];
         elemDOM.style.backgroundColor = 'transparent';
@@ -228,24 +245,40 @@ function nuovoTetrominoDOM(tet, giocatore) {
                 let elemDOM = document.getElementsByClassName('elem_prossimo')[(i + 1) * 5 + (j + 1) + giocatore * 25];
                 if (tet.tipoT === 'I')
                     i--;
-                if (tet.colore === 'white')
+                if (tet.tipoT === 'destroyer' || tet.tipoT === 'dinamite' || tet.tipoT === 'resetter' || tet.tipoT === 'accelerator' || tet.tipoT === 'mist')
                     elemDOM.style.backgroundColor = 'gold';
                 else
                     elemDOM.style.backgroundColor = 'rgb(177, 221, 241)';
             }
         }
     }
-    const letteraTet = document.getElementById('prossimo_tetromino_nome');
-    letteraTet.textContent = tet.tipoT;
-    letteraTet.style.fontSize = '3vw';
-    if (window.innerWidth > 1000) {
-        if (tet.colore === 'white') {
-            letteraTet.style.display = 'block';
-            letteraTet.style.color = 'gold';
-            letteraTet.style.fontSize = '2vw';
+    const letteraTet1 = document.getElementById('prossimo_tetromino_nome1');
+    const letteraTet2 = document.getElementById('prossimo_tetromino_nome2');
+    if (giocatore === 0) {
+        letteraTet1.textContent = tet.tipoT;
+        letteraTet1.style.fontSize = '3vw';
+        if (window.innerWidth > 1000) {
+            if (tet.tipoT === 'destroyer' || tet.tipoT === 'dinamite' || tet.tipoT === 'resetter' || tet.tipoT === 'accelerator' || tet.tipoT === 'mist') {
+                letteraTet1.style.display = 'block';
+                letteraTet1.style.color = 'gold';
+                letteraTet1.style.fontSize = '2vw';
+            }
+            else
+                letteraTet1.style.display = 'none';
         }
-        else
-            letteraTet.style.display = 'none';
+    }
+    else {
+        letteraTet2.textContent = tet.tipoT;
+        letteraTet2.style.fontSize = '3vw';
+        if (window.innerWidth > 1000) {
+            if (tet.tipoT === 'destroyer' || tet.tipoT === 'dinamite' || tet.tipoT === 'resetter' || tet.tipoT === 'accelerator' || tet.tipoT === 'mist') {
+                letteraTet2.style.display = 'block';
+                letteraTet2.style.color = 'gold';
+                letteraTet2.style.fontSize = '2vw';
+            }
+            else
+                letteraTet2.style.display = 'none';
+        }
     }
 }
 
@@ -253,6 +286,11 @@ function nuovoTetrominoDOM(tet, giocatore) {
 function aggiornaSalvataggio() {
     const daSalvare = document.getElementsByClassName('quale_salvataggio')[0];
     daSalvare.style.display = 'block';
+    const label = document.createElement('label');
+    label.for = 'quale_salvataggio';
+    label.textContent = 'Quale delle due partite vuoi salvare?';
+    daSalvare.appendChild(label);
+    daSalvare.appendChild(document.createElement('br'));
     const select = document.createElement('select');
     select.id = 'partita_da_salvare';
     select.required = true;
@@ -262,8 +300,12 @@ function aggiornaSalvataggio() {
     const option2 = document.createElement('option');
     option2.value = 'partita2';
     option2.textContent = 'Partita 2';
+    const option3 = document.createElement('option');
+    option3.value = 'Entrambe';
+    option3.textContent = 'Entrambe';
     select.appendChild(option1);
     select.appendChild(option2);
+    select.appendChild(option3);
     daSalvare.appendChild(select);
 }
 

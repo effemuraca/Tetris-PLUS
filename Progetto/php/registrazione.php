@@ -153,6 +153,8 @@ try {
         $stmt->bindValue(2, $mail);
         $stmt->bindValue(3, password_hash($pwd, PASSWORD_DEFAULT));
         $stmt->bindValue(4, $domanda);
+        // la risposta alla domanda di sicurezzia viene hashata per evitare che un utente malintenzionato possa, attraverso il recupero 
+        // della password, accedere ad un account qualunque, leggendo la risposta alla domanda di sicurezza in chiaro
         $stmt->bindValue(5, password_hash($risposta, PASSWORD_DEFAULT));
         $stmt->execute();
         $response = [

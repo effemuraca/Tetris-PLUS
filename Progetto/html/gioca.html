@@ -14,16 +14,14 @@
 
 <body>
     <nav>
-        <a href="modalità.html">
-            <button>
-                <img src="../images/modalità.png">
-            </button>
-        </a>
+        <button class="bottone_modalita">
+            <img src="../images/modalità.png" alt="Modalità">
+        </button>
         <button id="salvataggio">
-            <img src="../images/salva.png">
+            <img src="../images/salva.png" alt="Salvataggio">
         </button>
         <button id="regolamento">
-            <img src="../images/info.png" alt="info">
+            <img src="../images/info.png" alt="Regolamento">
         </button>
     </nav>
     <div id="core">
@@ -34,33 +32,35 @@
                 </p>
                 <table id="prossimo_tetromino_tabellone">
                 </table>
-                <p id="prossimo_tetromino_nome">
+                <p id="prossimo_tetromino_nome1">
+                </p>
+                <p id="prossimo_tetromino_nome2">
                 </p>
             </div>
             <div id="nome_giocatore">
-                <img src="../images/account.png" id="icona_giocatore">
+                <img src="../images/account.png" id="icona_giocatore" alt="Icona Giocatore">
             </div>
         </aside>
         <main id="container_tabellone">
             <div id="comandi">
                 <button id="muovi_sx">
-                    <img src="../images/left-arrow.png">
+                    <img src="../images/left-arrow.png" alt="Muovi a sinistra">
                 </button>
                 <button id="muovi_dx">
-                    <img src="../images/right-arrow.png">
+                    <img src="../images/right-arrow.png" alt="Muovi a destra">
                 </button>
                 <button id="muovi_giu">
-                    <img src="../images/arrow-down.png">
+                    <img src="../images/arrow-down.png" alt="Muovi giu">
                 </button>
                 <button id="ruota_sx">
-                    <img src="../images/rotate-left.png">
+                    <img src="../images/rotate-left.png" alt="Ruota a sinistra">
                 </button>
                 <button id="ruota_dx">
-                    <img src="../images/rotate-right.png">
+                    <img src="../images/rotate-right.png" alt="Ruota a destra">
                 </button>
                 <button id="pausa">
-                    <img src="../images/pause.png" id="immagine_pausa">
-                    <img src="../images/play.png" id="immagine_riprendi">
+                    <img src="../images/pause.png" id="immagine_pausa" alt="Pausa">
+                    <img src="../images/play.png" id="immagine_riprendi" alt="Riprendi">
                 </button>
             </div>
         </main>
@@ -90,7 +90,7 @@
                         </strong>
                     </label>
                     <br>
-                    <select id="tipo_salvataggio" required>
+                    <select id="tipo_salvataggio">
                         <option value="privato">
                             Salvataggio privato
                         </option>
@@ -101,12 +101,8 @@
                 </p>
                 <br>
                 <p class="quale_salvataggio">
-                    <label for="quale_salvataggio">
-                        Quale delle due partite vuoi salvare?
-                    </label>
-                    <br>
                 </p>
-                <input type="submit" value="Conferma" id="bottone_salvataggio">
+                <input type="submit" value="Conferma" class="bottone_salvataggio">
             </fieldset>
         </form>
         <div id="regolamento_popup">
@@ -155,29 +151,30 @@
                     <strong>
                         Block Destroyer
                     </strong>
-                    <img src="../images/block_destroyer.png">
+                    <img src="../images/block_destroyer.png" alt="Block Destroyer">
                     : Un blocco in grado di distruggere tutti i blocchi nella sua stessa riga.
                 </li>
                 <li>
                     <strong>
                         Dinamite
                     </strong>
-                    <img src="../images/dinamite.png">
+                    <img src="../images/dinamite.png" alt="Dinamite">
                     : Un blocco che elimina tutti i blocchi presenti fino a due blocchi di raggio dall'esplosione
                 </li>
                 <li>
                     <strong>
                         Time Resetter
                     </strong>
-                    <img src="../images/time_resetter.png">
-                    : Un blocco che all'impatto con altri tetromini o con il terreno resetta la variazione di gravità, portandola
+                    <img src="../images/time_resetter.png" alt="Time Resetter">
+                    : Un blocco che all'impatto con altri tetromini o con il terreno resetta la variazione di gravità,
+                    portandola
                     allo stadio iniziale.
                 </li>
                 <li>
                     <strong>
                         Time Accelerator
                     </strong>
-                    <img src="../images/time_accelerator.png">
+                    <img src="../images/time_accelerator.png" alt="Time Accelerator">
                     : Un blocco che all'impatto con altri tetromini o con il terreno velocizza la normale caduta al
                     terreno
                     dei tetromini
@@ -186,7 +183,7 @@
                     <strong>
                         Mist Block
                     </strong>
-                    <img src="../images/mist_block.png">
+                    <img src="../images/mist_block.png" alt="Mist Block">
                     : Un blocco che all'impatto con altri tetromini o con il terreno nasconde le ultime x file del
                     tabellone,
                     impedendo la visione della parte più bassa.
@@ -200,16 +197,12 @@
             <p id="info_go">
             </p>
             <div id="bottoni_fine_partita">
-                <a href="modalità.html">
-                    <button id="torna_modalità">
-                        <img src="../images/modalità.png">
-                    </button>
-                </a>
-                <a>
-                    <button id="riprova">
-                        <img src="../images/retry.png">
-                    </button>
-                </a>
+                <button id="torna_modalità">
+                    <img src="../images/modalità.png" alt="Modalità">
+                </button>
+                <button id="riprova">
+                    <img src="../images/retry.png" alt="Riprova">
+                </button>
             </div>
         </div>
     </div>
@@ -220,6 +213,7 @@
     <script src="../js/funzioni_gioco.js"></script>
     <script src="../js/handler_gioco.js"></script>
     <script src="../js/salva.js"></script>
+    <script src="../js/bottoni.js"></script>
 </body>
 
 </html>

@@ -2,9 +2,8 @@
 class Partita {
     // i parametri default servono ad avere "virtualmente" due costruttori, uno con i parametri già inseriti per il caso nuova partita e uno senza per il caso partita salvata
     // lo stesso approccio viene ripresentato per la classe Tabellone e la classe Tetromino
-    constructor(tabellone = [], tetromino = [], prossimoTet = [], punteggio = 0, nutente = 1, username = sessionStorage.getItem('username')) {
+    constructor(username = sessionStorage.getItem('username'), tabellone = [], tetromino = [], prossimoTet = [], punteggio = 0) {
         this.username = username;
-        this.nUtente = nutente;
         this.punteggio = punteggio;
         this.tabellone = new Tabellone();
         if (tetromino == []) {
@@ -82,7 +81,8 @@ class Partita {
             }, 5000);
         }
         this.punteggio = this.tabellone.punteggio;
-        this.salvaPartitaFinita();
+        if (this.tabellone.qualeGiocatore === 0)
+            this.salvaPartitaFinita();
     }
 
     salvaPartitaFinita() {
@@ -105,12 +105,13 @@ class Partita {
             });
     }
 
-    salvaPartita(valSal) {
+    salvaPartita(valSal, salDoppio = false) {
         this.punteggio = this.tabellone.punteggio;
         const partitaJSON = {
             partita: this,
             tipoSalvataggio: valSal,
-            punteggio: this.punteggio
+            punteggio: this.punteggio, 
+            salvataggioDoppio : salDoppio
         }
         fetch('../php/salva.php', {
             method: 'POST',

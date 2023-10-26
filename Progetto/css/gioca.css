@@ -125,7 +125,8 @@
         background-color: transparent;
     }
 
-    #prossimo_tetromino_nome {
+    #prossimo_tetromino_nome1,
+    #prossimo_tetromino_nome2 {
         display: none;
     }
 
@@ -420,10 +421,6 @@ div#game_over {
     padding: 2.5rem;
     flex-direction: column;
     align-items: center;
-}
-
-a {
-    text-decoration: none;
 }
 
 img#immagine_riprendi {

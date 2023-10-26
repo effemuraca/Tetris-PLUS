@@ -13,11 +13,9 @@
 
 <body>
     <nav>
-        <a href="index.html">
-            <button>
-                <img src="../images/home.png">
-            </button>
-        </a>
+        <button class="bottone_home">
+            <img src="../images/home.png" alt="Home">
+        </button>
     </nav>
     <main>
         <form action="#" method="post" autocomplete="on" id="richiedi_registrazione">
@@ -57,7 +55,7 @@
                     <label for="domanda">
                         Scegli una domanda di sicurezza:
                     </label>
-                    <select id="domanda" name="domanda" required>
+                    <select id="domanda" name="domanda">
                         <option value="nonno materno">
                             Qual &egrave; il nome del tuo nonno materno?
                         </option>
@@ -87,6 +85,7 @@
     </main>
     <script src="../js/login_handler.js"></script>
     <script src="../js/registrati.js"></script>
+    <script src="../js/bottoni.js"></script>
 </body>
 
 </html>

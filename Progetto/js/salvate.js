@@ -29,18 +29,25 @@ document.addEventListener('DOMContentLoaded', function () {
             const th5 = document.createElement('th');
             th5.textContent = 'Punteggio';
             const th6 = document.createElement('th');
-            th6.textContent = 'Gioca Partita';
+            th6.textContent = 'Partita Doppia';
+            const th7 = document.createElement('th');
+            th7.textContent = 'Gioca Partita';
             tr.appendChild(th1);
             tr.appendChild(th2);
             tr.appendChild(th3);
             tr.appendChild(th4);
             tr.appendChild(th5);
             tr.appendChild(th6);
+            tr.appendChild(th7);
             thead.appendChild(tr);
             table.appendChild(thead);
             const tbody = document.createElement('tbody');
+            // partitaDoppiaSecondaria serve ad evitare che una partita salvata con una partita secondaria (caso salvataggio di entrambe le partite) venga mostrata due volte
+            let partitaDoppiaSecondaria = 0;
             for (let i = 0; i < data.length; i++) {
-                if (data.salvate[i].TipoSalvataggio == 1 || data.salvate[i].Username === 'Giocatore ospite' || (data.salvate[i].TipoSalvataggio == 0 && data.salvate[i].Username === sessionStorage.getItem('username'))) {
+                if (data.salvate[i].TipoSalvataggio == 1 || data.salvate[i].Username === 'Giocatore ospite' ||
+                    (data.salvate[i].TipoSalvataggio == 0 && data.salvate[i].Username === sessionStorage.getItem('username')) ||
+                    partitaDoppiaSecondaria === data.salvate[i].idSalvate) {
                     const tr = document.createElement('tr');
                     const td1 = document.createElement('td');
                     td1.setAttribute('id', i);
@@ -57,7 +64,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     const td5 = document.createElement('td');
                     td5.textContent = data.salvate[i].Punteggio;
                     const td6 = document.createElement('td');
-                    td6.classList.add('bottone');
+                    console.log(data.salvate[i].PartitaDoppia);
+                    if (data.salvate[i].PartitaDoppia != undefined && data.salvate[i].PartitaDoppia != null && data.salvate[i].PartitaDoppia != 0)
+                        td6.textContent = 'Sì';
+                    else
+                        td6.textContent = 'No';
+                    const td7 = document.createElement('td');
+                    td7.classList.add('bottone');
                     const bottone = document.createElement('button');
                     bottone.classList.add('bot_partita');
                     bottone.addEventListener('click', () => {
@@ -65,13 +78,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                     bottone.textContent = 'Gioca';
                     bottone.value = i;
-                    td6.appendChild(bottone);
+                    td7.appendChild(bottone);
                     tr.appendChild(td1);
                     tr.appendChild(td2);
                     tr.appendChild(td3);
                     tr.appendChild(td4);
                     tr.appendChild(td5);
                     tr.appendChild(td6);
+                    tr.appendChild(td7);
                     tbody.appendChild(tr);
                 }
                 else {
@@ -106,6 +120,10 @@ function giocaPartitaSalvata(qualeBottone) {
         })
         .then((data) => {
             if (data.stato) {
+            /*    if (sessionStorage.getItem('partita') !== null)
+                    sessionStorage.setItem('partita2', data.partita);
+                else
+                    sessionStorage.setItem('partita', data.partita);*/
                 sessionStorage.setItem('partita', data.partita);
                 window.location.href = '../html/gioca.html';
             }

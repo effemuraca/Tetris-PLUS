@@ -41,8 +41,7 @@ class Tetromino {
                         elemDOM = document.getElementsByClassName('elem_tabellone')[200 + (i + this.y) * nCol + j + this.x];
                     else
                         elemDOM = document.getElementsByClassName('elem_tabellone')[(i + this.y) * nCol + j + this.x];
-                    if (this.tipoT)
-                        elemDOM.style.backgroundColor = this.colore;
+                    elemDOM.style.backgroundColor = this.colore;
                 }
             }
         }
@@ -289,7 +288,6 @@ class tetZ extends Tetromino {
 class tetSpec extends Tetromino {
     constructor(colore, rotazione, x, y, attivo) {
         super(colore, rotazione, x, y, attivo);
-        this.colore = 'white';
         this.tetMatrice = [
             [1, 1],
             [1, 1]

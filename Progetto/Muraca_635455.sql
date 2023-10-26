@@ -33,9 +33,13 @@ CREATE TABLE `partitesalvate` (
   `Data` varchar(20) NOT NULL,
   `TipoSalvataggio` tinyint(1) DEFAULT NULL,
   `Punteggio` int(11) DEFAULT NULL,
+  `idPartitaCompagno` int(11) DEFAULT NULL,
   PRIMARY KEY (`idSalvate`),
   UNIQUE KEY `idSalvate_UNIQUE` (`idSalvate`),
+  UNIQUE KEY `idPartitaCompagno_UNIQUE` (`idPartitaCompagno`),
   KEY `fk_Salvate_Utente1_idx` (`Username`),
+  KEY `fk_PartiteSalvate_PartiteSalvate1_idx` (`idPartitaCompagno`),
+  CONSTRAINT `fk_PartiteSalvate_PartiteSalvate1` FOREIGN KEY (`idPartitaCompagno`) REFERENCES `partitesalvate` (`idSalvate`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Salvate_Utente1` FOREIGN KEY (`Username`) REFERENCES `utente` (`Username`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -86,4 +90,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-12 18:34:24
+-- Dump completed on 2023-10-25 10:46:23

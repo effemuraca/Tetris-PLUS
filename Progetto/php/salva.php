@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-$tipoSalvataggio = $partita = $punteggio = '';
+$tipoSalvataggio = $partita = $punteggio = $salvataggioDoppio = '';
 
 $c_str = "mysql:host=localhost;dbname=Muraca_635455";
 $pdo = new PDO($c_str, 'root', '');
@@ -13,8 +13,9 @@ try {
     $tipoSalvataggio = $salvaJSON['tipoSalvataggio'];
     $partita = $salvaJSON['partita'];
     $punteggio = $salvaJSON['punteggio'];
+    $salvataggioDoppio = $salvaJSON['salvataggioDoppio'];
 
-    if ($tipoSalvataggio != 0 && $tipoSalvataggio != 1) {
+    if (($tipoSalvataggio != 0 && $tipoSalvataggio != 1)) {
         throw new Exception("Tipo di salvataggio richiesto");
     }
 
@@ -40,6 +41,41 @@ try {
     $stmt->bindValue(4, date("Y-m-d"));
     $stmt->bindValue(5, $punteggio);
     $stmt->execute();
+
+    if ($salvataggioDoppio == true) {
+        // si suppone che la partita associata a quella da salvare sia l'ultima salvata dall'utente loggato
+        $sql = "SELECT idSalvate FROM partitesalvate WHERE idSalvate = (SELECT MAX(idSalvate) FROM partitesalvate) AND Username = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(1, $user);
+        $stmt->execute();
+        $idSalvata = $stmt->fetch(PDO::FETCH_ASSOC)['idSalvate'];
+        if (empty($idSalvata)) {
+            throw new Exception("Errore nel salvataggio della partita");
+        }
+
+        // recupero l'id della partita che sto salvando
+        $sql = "SELECT idSalvate FROM partitesalvate WHERE StringaPartita = ? AND Username = ? AND TipoSalvataggio = ? AND Data = ? AND Punteggio = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(1, $partitaStringa);
+        $stmt->bindValue(2, $user);
+        $stmt->bindValue(3, $tipoSalvataggio);
+        $stmt->bindValue(4, date("Y-m-d"));
+        $stmt->bindValue(5, $punteggio);
+        $stmt->execute();
+        $partitaAttuale = $stmt->fetch(PDO::FETCH_ASSOC)['idSalvate'];
+        if (empty($partitaAttuale)) {
+            throw new Exception("Errore nel salvataggio della partita");
+        }
+     
+        
+        //inserisco nella nella partita che sto salvando l'id della partita salvata associata
+        $sql = "INSERT INTO partitesalvate(idPartitaCompagno) VALUE (?) WHERE idSalvate = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(1, $idSalvata);
+        $stmt->bindValue(2, $partitaAttuale);
+        $stmt->execute(); 
+    }
+
     $response = [
         'stato' => true,
         'messaggio' => 'Salvataggio effettuato con successo'

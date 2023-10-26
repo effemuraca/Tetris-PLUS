@@ -116,7 +116,7 @@ let partitaG2;
 let salvata = sessionStorage.getItem('partita') !== null;
 if (salvata === true) {
     const partita = JSON.parse(sessionStorage.getItem('partita'));
-    partitaG1 = new Partita(partita.tabellone, partita.tetromino, partita.prosTetromino, partita.punteggio, 1, partita.username);
+    partitaG1 = new Partita(partita.username, partita.tabellone, partita.tetromino, partita.prosTetromino, partita.punteggio, 1);
 }
 else
     partitaG1 = new Partita();
@@ -128,15 +128,20 @@ if (nGiocatori === '2') {
     // la scelta del nome utente per il giocatore ospite è fatta in automatico e non tramite un secondo login (si suppone che il giocatore ospite spesso non abbia un account su cui giocare, essendo che il gioco viene eseguito in locale sulla macchina dell'altro giocatore)
     const nomeGiocatore2 = 'Giocatore ospite';
     if (salvata === true) {
-        const partita = JSON.parse(sessionStorage.getItem('partita'));
-        partitaG2 = new Partita(partita.tabellone, partita.tetromino, partita.prosTetromino, partita.punteggio, 2, nomeGiocatore2);
+        let partita;
+        if (sessionStorage.getItem('partita2') !== null)
+            partita = JSON.parse(sessionStorage.getItem('partita2'));
+        else
+            partita = JSON.parse(sessionStorage.getItem('partita'));
+        partitaG2 = new Partita(nomeGiocatore2, partita.tabellone, partita.tetromino, partita.prosTetromino, partita.punteggio);
     }
     else
-        partitaG2 = new Partita(2, nomeGiocatore2);
+        partitaG2 = new Partita(nomeGiocatore2);
     partitaG2.tabellone.qualeGiocatore = 1;
     partitaG2.iniziaPartita();
     aggiornaSalvataggio();
 }
 
-sessionStorage.removeItem('partita'); 
+sessionStorage.removeItem('partita');
+sessionStorage.removeItem('partita2');
 loopGioco(partitaG1, partitaG2, salvata);
