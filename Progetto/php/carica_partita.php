@@ -17,7 +17,7 @@ try {
     $idJSON = json_decode(file_get_contents('php://input'), true);
     $idPartita = $idJSON['idPartita'];
 
-    $sql = "SELECT * FROM partitesalvate WHERE idSalvate = ? LIMIT 1";
+    $sql = "SELECT StringaPartita, PartitaDoppia FROM partitesalvate WHERE idSalvate = ? LIMIT 1";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(1, $idPartita);
     $stmt->execute();
@@ -26,9 +26,13 @@ try {
         throw new Exception("Partita non trovata");
     } 
     else {
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $partita = $row['StringaPartita'];
+        $partitaDoppia = $row['PartitaDoppia'];
         $response = [
             'stato' => true,
-            'partita' => $stmt->fetch(pdo::FETCH_ASSOC)['StringaPartita']
+            'partita' => $partita,
+            'partitaDoppia' => $partitaDoppia 
         ];
     }
 

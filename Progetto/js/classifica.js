@@ -12,8 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
         .then(data => {
-            if (data.length == 0)
-                alert('Non ci sono partite salvate in classifica');
             const table = document.createElement('table');
             table.setAttribute('id', 'classifica');
             const thead = document.createElement('thead');

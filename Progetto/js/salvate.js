@@ -12,8 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
         .then(data => {
-            if (data.length == 0)
-                alert('Non ci sono partite salvate');
             const table = document.createElement('table');
             table.setAttribute('id', 'salvate');
             const thead = document.createElement('thead');
@@ -45,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
             for (let i = 0; i < data.length; i++) {
                 if (data.salvate[i].TipoSalvataggio == 1 || data.salvate[i].Username === 'Giocatore ospite' ||
                     (data.salvate[i].TipoSalvataggio == 0 && data.salvate[i].Username === sessionStorage.getItem('username')) ||
-                    (data.PartitaDoppia !== false && nGiocatori === '2')
+                    (data.PartitaDoppia !== false && sessionStorage.getItem('numero_giocatori') === '2')
                     ) {
                     const tr = document.createElement('tr');
                     const td1 = document.createElement('td');
@@ -119,7 +117,7 @@ function giocaPartitaSalvata(qualeBottone) {
         .then((data) => {
             if (data.stato) {
                 sessionStorage.setItem('partita', data.partita);
-                if (data.partitaDoppia !== false)
+                if (data.partitaDoppia !== 'false')
                     sessionStorage.setItem('partitaDoppia', data.partitaDoppia);
                 else 
                     sessionStorage.setItem('partitaDoppia', false);

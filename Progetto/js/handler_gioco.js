@@ -129,8 +129,7 @@ if (nGiocatori === '2') {
     const nomeGiocatore2 = 'Giocatore ospite';
     if (salvata === true) {
         let partita;
-        console.log(sessionStorage.getItem('partitaDoppia'));
-        if (sessionStorage.getItem('partitaDoppia') === false)
+        if (sessionStorage.getItem('partitaDoppia') === 'false')
             partita = JSON.parse(sessionStorage.getItem('partita'));
         else
             partita = JSON.parse(sessionStorage.getItem('partitaDoppia'));
