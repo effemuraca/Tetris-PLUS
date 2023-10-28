@@ -70,45 +70,19 @@ muoviGiu.addEventListener('click', function () {
     partitaG1.tetromino.tMuoviGiu(partitaG1.tabellone);
 });
 
+// la creazione di keyObj è necessaria a fare in modo che nel caso ci siano due giocatori, entrambi i tetromini possano muoversi fluidamente
+// nel caso in cui si usi un event listener con switch case (event.key) la pressione di un tasto interrompe il movimento del tetromino dell'altro giocatore
+let keyObj = {};
 // creazione eventi per il controllo dei tasti da pc
 document.addEventListener('keydown', function (event) {
-    switch (event.key) {
-        case 'e':
-            partitaG1.tetromino.tRuotaDx(partitaG1.tabellone);
-            break;
-        case 'q':
-            partitaG1.tetromino.tRuotaSx(partitaG1.tabellone);
-            break;
-        case 's':
-            partitaG1.tetromino.tMuoviGiu(partitaG1.tabellone);
-            break;
-        case 'a':
-            partitaG1.tetromino.tMuoviSx(partitaG1.tabellone);
-            break;
-        case 'd':
-            partitaG1.tetromino.tMuoviDx(partitaG1.tabellone);
-            break;
-        case 'ArrowUp':
-            partitaG2.tetromino.tRuotaDx(partitaG2.tabellone);
-            break;
-        case 'Slash':
-            partitaG2.tetromino.tRuotaSx(partitaG2.tabellone);
-            break;
-        case 'ArrowDown':
-            partitaG2.tetromino.tMuoviGiu(partitaG2.tabellone);
-            break;
-        case 'ArrowLeft':
-            partitaG2.tetromino.tMuoviSx(partitaG2.tabellone);
-            break;
-        case 'ArrowRight':
-            partitaG2.tetromino.tMuoviDx(partitaG2.tabellone);
-            break;
-        case ' ':
-            pausa(partitaG1.tabellone);
-            if (nGiocatori === '2')
-                pausa(partitaG2.tabellone);
-            break;
-    }
+    keyObj[event.key] = true;
+    ControllaTasti(keyObj, partitaG1.tabellone, partitaG1.tetromino, 1);
+    if (nGiocatori === '2')
+        ControllaTasti(keyObj, partitaG2.tabellone, partitaG2.tetromino, 2);
+});
+
+document.addEventListener('keyup', function (event) {
+    delete keyObj[event.key];
 });
 
 let partitaG1
