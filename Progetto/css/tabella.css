@@ -42,10 +42,12 @@ tbody tr:nth-child(even) {
 
 tbody tr:nth-child(odd) button {
     color: rgba(120, 192, 224);
+    cursor: pointer;
 }
 
 tbody tr:nth-child(even) button {
     color: rgba(68, 157, 209);
+    cursor: pointer;
 }
 
 td.bottone {
@@ -57,5 +59,6 @@ td.bottone {
         z-index: 1;
         position: relative;
         float: left;
+        cursor: pointer;
     }
 }

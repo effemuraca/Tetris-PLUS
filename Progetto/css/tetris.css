@@ -18,6 +18,7 @@ nav {
     display: block;
     position: absolute;
     z-index: 9999;
+    cursor: pointer;
 }
 
 img {
@@ -44,6 +45,7 @@ nav img {
 nav button {
     background-color: transparent;
     border: 0rem;
+    cursor: pointer;
 }
 
 nav img:hover {

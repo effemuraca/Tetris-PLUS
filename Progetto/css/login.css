@@ -42,6 +42,7 @@ input[type="submit"] {
     font-size: 1.2rem;
     background-color: rgba(9, 151, 173, 0.9);
     color: rgb(245, 245, 245);
+    cursor: pointer;
 }
 
 a {
