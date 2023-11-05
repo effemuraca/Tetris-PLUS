@@ -6,30 +6,30 @@ const bottoneDocumentazione = document.getElementsByClassName("bottone_documenta
 
 if (bottoneHome !== undefined){
     bottoneHome.addEventListener("click", function(){
-        window.location.href = "index.html";
+        window.location.href = "../html/index.html";
     });
 }
 
 if (bottoneLogin !== undefined){
     bottoneLogin.addEventListener("click", function(){
-        window.location.href = "login.html";
+        window.location.href = "../html/login.html";
     });
 }
 
 if (bottoneModalita !== undefined){
     bottoneModalita.addEventListener("click", function(){
-        window.location.href = "modalità.html";
+        window.location.href = "../html/modalità.html";
     });
 }
 
 if (bottoneClassifica !== undefined){
     bottoneClassifica.addEventListener("click", function(){
-        window.location.href = "classifica.html";
+        window.location.href = "../html/classifica.html";
     });
 }
 
 if (bottoneDocumentazione !== undefined){
     bottoneDocumentazione.addEventListener("click", function(){
-        window.location.href = "documentazione.html";
+        window.location.href = "../html/documentazione.html";
     });
 }
