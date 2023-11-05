@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Titillium Web';
-    src: url(../fonts/Titillium_Web/TitilliumWeb-Regular.ttf) format("truetype");
+    src: url('../fonts/Titillium_Web/TitilliumWeb-Regular.ttf') format("truetype");
 }
 
 body {
     font-family: "Titillium Web", sans-serif;
-    background-image: url(../images/main_pattern.jpg);
+    background-image: url('../images/main_pattern.jpg');
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;

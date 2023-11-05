@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Eczar';
-    src: url(../fonts/Eczar/Eczar-Regular.ttf) format("truetype");
+    src: url('../fonts/Eczar/Eczar-Regular.ttf') format("truetype");
 }
 
 @media screen and (min-width: 1001px) {
