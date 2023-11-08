@@ -73,9 +73,25 @@ muoviGiu.addEventListener('click', function () {
 // la creazione di keyObj è necessaria a fare in modo che nel caso ci siano due giocatori, entrambi i tetromini possano muoversi fluidamente
 // nel caso in cui si usi un event listener con switch case (event.key) la pressione di un tasto interrompe il movimento del tetromino dell'altro giocatore
 let keyObj = {};
-// creazione eventi per il controllo dei tasti da pc
 document.addEventListener('keydown', function (event) {
-    keyObj[event.key] = true;
+    let key = event.key;
+    if (key === 'e' || key === 'q' || key === 's' || key === 'a' || key === 'd') {
+        for (let key in keyObj) {
+            if (key === 'e' || key === 'q' || key === 's' || key === 'a' || key === 'd')
+                delete keyObj[key];
+        }
+    }
+    else if (key === 'ArrowUp' || key === 'Slash' || key === 'ArrowDown' || key === 'ArrowLeft' || key === 'ArrowRight') {
+        for (let key in keyObj) {
+            if (key === 'ArrowUp' || key === 'Slash' || key === 'ArrowDown' || key === 'ArrowLeft' || key === 'ArrowRight')
+                delete keyObj[key];
+        }
+    }
+    else if (key === ' ') {
+        for (let key in keyObj)
+            delete keyObj[key];
+    }
+    keyObj[key] = true;
     ControllaTasti(keyObj, partitaG1.tabellone, partitaG1.tetromino, 1);
     if (nGiocatori === '2')
         ControllaTasti(keyObj, partitaG2.tabellone, partitaG2.tetromino, 2);

@@ -1,0 +1,63 @@
+
+div#container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0rem;
+    left: 0rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input#partecipazione_classifica {
+    width: auto;
+}
+
+button.bottone_x {
+    font-weight: bold;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    color: rgb(245, 245, 245);
+    float: right;
+    cursor: pointer;
+}
+
+legend {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+#comandi {
+    margin-top: 1rem;
+}
+
+div#regolamento_popup {
+    display: none;
+    background-color: rgba(23, 36, 126, 0.9);
+    border: 0.01rem solid rgb(245, 245, 245);
+    border-radius: 2rem;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    width: 80vw;
+    max-height: 70vh;
+    overflow: auto;
+}
+div#game_over {
+    display: none;
+    background-color: rgba(23, 36, 126, 0.9);
+    border: 0.01rem solid rgb(245, 245, 245);
+    border-radius: 2rem;
+    padding: 2.5rem;
+    flex-direction: column;
+    align-items: center;
+}
+
+img#immagine_riprendi {
+    display: none;
+}
+
+.quale_salvataggio {
+    display: none;
+}

@@ -1,0 +1,234 @@
+/* elementi css standard per display mobile*/
+@media screen and (max-width: 651px) {
+    nav {
+        z-index: 1;
+        position: relative;
+        cursor: pointer;
+    }
+
+    #core {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        height: 90vh;
+        width: 100%;
+    }
+
+    aside {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 2vw;
+        margin: 1rem 0rem;
+    }
+
+    aside div {
+        text-align: center;
+        vertical-align: middle;
+        font-size: 4vw;
+        border: 0.1vh solid rgb(245, 245, 245);
+        padding: 1vh;
+        background-color: rgba(23, 36, 126, 0.9);
+    }
+
+    main {
+        padding-top: 0.5rem;
+        flex-direction: column-reverse;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0rem;
+        border: solid 0.1rem rgb(245, 245, 245);
+        padding: 1rem;
+    }
+
+    td {
+        float: left;
+        width: 5vmin;
+        height: 5vmin;
+        background-color: rgba(23, 36, 126, 0.9);
+        border: 0.1vw solid rgba(245, 245, 245, 0.1);
+    }
+
+    div p {
+        margin-block: 0rem;
+        display: inline;
+    }
+
+    div#comandi {
+        display: flex;
+        justify-content: center;
+    }
+
+    ul img {
+        width: 2rem;
+        height: 2rem;
+        vertical-align: middle;
+    }
+
+    #comandi button {
+        background-color: rgba(23, 36, 126, 0.9);
+        display: block;
+        width: 6vw;
+        height: 6vw;
+        border-radius: 0.2vw;
+        margin: 0.25vw;
+        float: left;
+        border: 0.1vh solid rgb(245, 245, 245);
+        z-index: 1;
+    }
+
+    #comandi button > img {
+        width: 6vw;
+        height: auto;
+        vertical-align: middle;
+    }
+
+    button#pausa {
+        background-color: rgba(23, 36, 126, 0.9);
+        width: 6vw;
+        height: 6vw;
+        border-radius: 100%;
+        border: 0.1vh solid rgb(245, 245, 245);
+    }
+
+    #pausa > img {
+        padding: 0rem;
+        margin: 0rem;
+        width: 6vw;
+        height: 6vw;
+        vertical-align: middle;
+    }
+
+    div#nome_giocatore {
+        display: none;
+    }
+
+    p {
+        font-size: 3vw;
+    }
+
+    li {
+        font-size: 3vw;
+    }
+
+    h2 {
+        font-size: 4vw;
+    }
+
+    form#salvataggio_popup {
+        display: none;
+        width: 60vw;
+        font-size: 1.25rem;
+    }
+
+    h1 {
+        font-size: 5vw;
+        text-align: center;
+        margin-block-start: 0rem;
+        margin-block-end: 0rem;
+        display: inline-block;
+    }
+
+    #game_over h1 {
+        display: inline;
+    }
+
+    #game_over p {
+        display: block;
+    }
+
+    #prossimo_tetromino_tabellone {
+        display: none;
+    }
+
+    #torna_modalità,
+    #riprova {
+        background-color: rgba(23, 36, 126, 0.9);
+        width: 4rem;
+        height: 4rem;
+        border-radius: 100%;
+        padding: 1rem;
+        border: 0.1vh solid rgb(245, 245, 245);
+        margin: 1rem;
+    }
+
+    #torna_modalità > img,
+    #riprova > img {
+        padding: 0rem;
+        margin: 0rem;
+        vertical-align: middle;
+    }
+}
+
+/* visualizzazione per tablet */
+@media screen and (min-width: 651px) and (max-width: 1000px) {
+    main {
+        flex-direction: column-reverse;
+    }
+
+    td {
+        float: left;
+        width: 4vmin;
+        height: 4vmin;
+        background-color: rgba(23, 36, 126, 0.9);
+        border: 0.1vw solid rgba(245, 245, 245, 0.1);
+    }
+
+    #comandi button {
+        background-color: rgba(23, 36, 126, 0.9);
+        display: block;
+        width: 4vw;
+        height: 4vw;
+        border-radius: 0.2vw;
+        margin: 0.25vw;
+        float: left;
+        border: 0.1vh solid rgb(245, 245, 245);
+        z-index: 1;
+    }
+
+    #comandi button > img {
+        width: 4vw;
+        height: auto;
+        vertical-align: middle;
+        padding: 0vw;
+    }
+
+    button#pausa {
+        background-color: rgba(23, 36, 126, 0.9);
+        width: 4vw;
+        height: 4vw;
+        border-radius: 100%;
+        border: 0.1vh solid rgb(245, 245, 245);
+    }
+
+    #pausa > img {
+        padding: 0vw;
+        margin: 0vw;
+        width: 2vw;
+        height: 2vw;
+        vertical-align: middle;
+    }
+
+    div#nome_giocatore {
+        display: none;
+    }
+
+    #prossimo_tetromino_tabellone td {
+        height: 2vh;
+        width: 2vh;
+    }
+}
+
+@media screen and (min-width: 500px) and (max-width: 651px) {
+    td {
+        float: left;
+        width: 4vmin;
+        height: 4vmin;
+        background-color: rgba(23, 36, 126, 0.9);
+        border: 0.1vw solid rgba(245, 245, 245, 0.1);
+    }
+}

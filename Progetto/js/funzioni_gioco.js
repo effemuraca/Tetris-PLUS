@@ -64,7 +64,7 @@ function aggiornaInterval(gioco, partita1, partita2 = null) {
     return gioco;
 }
 // la funzione fa in modo che, nel gioco multiplayer, i due giocatori possano muovere i propri tetromini in modo fluido (senza che la pressione di un tasto interrompa il movimento dell'altro giocatore)
-// inoltre, un giocatore può usare solamente un tasto alla volta, per evitare che il tetromino si muova in modo non coerente al gioco del tetris (es. diagonalmente)
+// inoltre, un giocatore può usare solamente un tasto alla volta (l'ultimo che il giocatore ha premuto), per evitare che il tetromino si muova in modo non coerente al gioco del tetris (es. diagonalmente)
 function ControllaTasti(keyEvent, tabellone, tetromino, numeroGiocatore) {
     const tastiGiocatore = tasti[numeroGiocatore];
     for (const movimenti in tastiGiocatore) {
@@ -91,7 +91,6 @@ function ControllaTasti(keyEvent, tabellone, tetromino, numeroGiocatore) {
                 default:
                     break;
             }
-            break;
         }
     }
 }
