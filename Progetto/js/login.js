@@ -27,7 +27,6 @@ loginForm.addEventListener('submit', function (event) {
     .then(data => {
         if (data.stato) {
             // Login riuscito, reindirizza alla pagina di successo
-            alert(data.messaggio);
             sessionStorage.setItem('username', username);
             window.location.href = 'modalità.html';
         } else {

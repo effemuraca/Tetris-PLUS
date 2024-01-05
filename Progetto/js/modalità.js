@@ -27,7 +27,7 @@ function SelezioneModalità(numero_giocatori) {
 function TipoPartita(tipo_partita) {
     if (sessionStorage.getItem('numero_giocatori') !== '1' && sessionStorage.getItem('numero_giocatori') !== '2') {
         // da sostituire con un p che compare
-        window.alert('non hai selezionato una modalità');
+        window.alert('Non hai selezionato una modalità');
     }
     else if (tipo_partita === 'salvata') 
         window.location.href = '../html/salvate.html';
