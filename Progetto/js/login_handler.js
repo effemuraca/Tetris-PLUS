@@ -1,9 +1,5 @@
 'use strict';
 
-if (sessionStorage.getItem('username') !== null) {
-    alert('Sei già loggato');
-    window.location.href = 'modalità.html';
-}
 // funzione per la validazione del form di login
 function TestaPassword() {
     const pw = document.getElementById('pwd').value;
@@ -133,3 +129,10 @@ if (testDomanda != null)
 const testMail = document.getElementById('mail');
 if (testMail != null)
     testMail.addEventListener('change', testaMail);
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (sessionStorage.getItem('username') !== null) {
+        alert('Sei già loggato');
+        window.location.href = 'modalità.html';
+    }
+})
