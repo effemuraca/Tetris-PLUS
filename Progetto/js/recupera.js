@@ -34,7 +34,7 @@ recuperaForm.addEventListener('submit', function (event) {
             if (data.stato) {
                 // Recupero riuscito, reindirizza alla pagina di successo
                 alert(data.messaggio);
-                window.location.href = 'login.html';
+                window.location.href = '../html/login.html';
             }
             else {
                 // Recupero fallito, mostra un messaggio di errore sulla pagina di login

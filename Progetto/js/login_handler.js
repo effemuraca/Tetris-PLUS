@@ -133,6 +133,6 @@ if (testMail != null)
 document.addEventListener('DOMContentLoaded', function () {
     if (sessionStorage.getItem('username') !== null) {
         alert('Sei già loggato');
-        window.location.href = 'modalità.html';
+        window.location.href = '../html/modalità.html';
     }
 })

@@ -28,7 +28,7 @@ loginForm.addEventListener('submit', function (event) {
         if (data.stato) {
             // Login riuscito, reindirizza alla pagina di successo
             sessionStorage.setItem('username', username);
-            window.location.href = 'modalità.html';
+            window.location.href = '../html/modalità.html';
         } else {
             // Login fallito, mostra un messaggio di errore sullaq pagina di login
             const errore = document.getElementById('errore_login');

@@ -42,7 +42,7 @@ registrazioneForm.addEventListener('submit', function (event) {
             if (data.stato) {
                 // Registrazione riuscita, reindirizza alla pagina di successo
                 alert(data.messaggio);
-                window.location.href = 'login.html';
+                window.location.href = '../html/login.html';
             } else {
                 // Registrazione fallita, mostra un messaggio di errore sullaq pagina di login
                 const errore = document.getElementById('errore_registrazione');
