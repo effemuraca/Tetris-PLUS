@@ -1,5 +1,5 @@
 # Tetris PLUS
 
-Gioco basato sul Tetris, con aggiunta di nuovi blocchi, una modalità multiplayer e la possibilità di salvare e rigiocare le partite.
+Game based on Tetris, with new blocks, a local moltiplayer mode and the possibility to save and replay games.
 
-Realizzato in HTML, CSS, JS, PHP.
+Realized in HTML, CSS, Javascript and PHP.
