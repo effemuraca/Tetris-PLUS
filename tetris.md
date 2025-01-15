@@ -1,8 +1,5 @@
 # Specifiche e regolamento di Tetris PLUS
 
-## Introduzione
-Questo documento offre una guida completa per gli sviluppatori interessati a implementare una versione modificata del classico gioco Tetris utilizzando HTML, CSS, JavaScript, PHP e un database SQL. La documentazione copre tutti gli aspetti dello sviluppo, inclusa la logica di gioco, le funzionalità aggiuntive, la gestione del back-end e la comunicazione con il database. Seguendo questa guida, gli sviluppatori saranno in grado di creare un'esperienza di gioco coinvolgente e arricchita da nuove funzionalità.
-
 ## Regole del gioco
 La versione modificata del Tetris manterrà le regole di base del gioco originale, ma includerà alcune variazioni e nuove funzionalità. Di seguito sono elencate le regole principali del gioco:
             
